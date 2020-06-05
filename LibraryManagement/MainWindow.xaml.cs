@@ -97,7 +97,7 @@ namespace LibraryManagement
                     hideNavigation();
                     break;
                 case "ItemMember":
-                    urc = new MemberScreen();
+                    urc = new ReaderScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;

@@ -70,9 +70,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -165,6 +163,11 @@
     <Compile Include="Views\AddBookScreen.xaml.cs">
       <DependentUpon>AddBookScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ReaderViewModel.cs" />
+    <Compile Include="ViewModels\SampleViewModel.cs" />
+    <Compile Include="Views\AddReader.xaml.cs">
+      <DependentUpon>AddReader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookScreen.xaml.cs">
       <DependentUpon>BookScreen.xaml</DependentUpon>
     </Compile>
@@ -174,8 +177,8 @@
     <Compile Include="Views\HomeScreen.xaml.cs">
       <DependentUpon>HomeScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MemberScreen.xaml.cs">
-      <DependentUpon>MemberScreen.xaml</DependentUpon>
+    <Compile Include="Views\ReaderScreen.xaml.cs">
+      <DependentUpon>ReaderScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReportScreen.xaml.cs">
       <DependentUpon>ReportScreen.xaml</DependentUpon>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddBookScreen.xaml">
+    <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,7 +226,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MemberScreen.xaml">
+    <Page Include="Views\ReaderScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
