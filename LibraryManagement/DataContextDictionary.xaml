@@ -3,5 +3,8 @@
                     xmlns:local="clr-namespace:LibraryManagement"
                     xmlns:viewmodel="clr-namespace:LibraryManagement.ViewModels">
     <viewmodel:SampleViewModel x:Key="SampleViewModel"></viewmodel:SampleViewModel>
+    <viewmodel:BookViewModel x:Key="BookViewModel"></viewmodel:BookViewModel>
+
+    <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>
 
 </ResourceDictionary>

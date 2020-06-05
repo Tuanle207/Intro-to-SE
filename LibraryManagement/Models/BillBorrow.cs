@@ -18,6 +18,7 @@ namespace LibraryManagement.Models
         public BillBorrow()
         {
             this.DetailBillBorrows = new HashSet<DetailBillBorrow>();
+            this.DetailBillReturns = new HashSet<DetailBillReturn>();
         }
     
         public int idBillBorrow { get; set; }
@@ -27,5 +28,7 @@ namespace LibraryManagement.Models
         public virtual Reader Reader { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailBillBorrow> DetailBillBorrows { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetailBillReturn> DetailBillReturns { get; set; }
     }
 }
