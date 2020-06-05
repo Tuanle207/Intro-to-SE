@@ -2,6 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:LibraryManagement"
                     xmlns:viewmodel="clr-namespace:LibraryManagement.ViewModels">
+    <!-- Data -->
     <viewmodel:SampleViewModel x:Key="SampleViewModel"></viewmodel:SampleViewModel>
+    <viewmodel:BorrowBookViewModel x:Key="BorrowBookViewModel"></viewmodel:BorrowBookViewModel>
+    <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"></viewmodel:ReturnBookViewModel>
+    
+    
+    <!-- Value Converter -->
+    <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>
+    <viewmodel:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></viewmodel:BooleanToVisibilityConverter>
+    <viewmodel:DateBorrowedToRemainingDay x:Key="DateBorrowedToRemainingDay"></viewmodel:DateBorrowedToRemainingDay>
+    <viewmodel:DateBorrowedToDaysBorrowed x:Key="DateBorrowedToDaysBorrowed"></viewmodel:DateBorrowedToDaysBorrowed>
+    <viewmodel:DateBorrowedToExcessDays x:Key="DateBorrowedToExcessDays"></viewmodel:DateBorrowedToExcessDays>
+    <viewmodel:DateBorrowedToFine x:Key="DateBorrowedToFine"></viewmodel:DateBorrowedToFine>
+    <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"></viewmodel:BillReturnToReaderDebt>
 
 </ResourceDictionary>

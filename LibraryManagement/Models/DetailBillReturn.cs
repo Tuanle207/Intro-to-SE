@@ -17,7 +17,11 @@ namespace LibraryManagement.Models
         public int idDetailBillReturn { get; set; }
         public int idBook { get; set; }
         public int idBillReturn { get; set; }
+        public int idBillBorrow { get; set; }
+        public int dayBorrowed { get; set; }
+        public int fine { get; set; }
     
+        public virtual BillBorrow BillBorrow { get; set; }
         public virtual BillReturn BillReturn { get; set; }
         public virtual Book Book { get; set; }
     }

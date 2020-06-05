@@ -29,7 +29,6 @@ namespace LibraryManagement.Models
         public double price { get; set; }
         public string statusBook { get; set; }
         public int idCategory { get; set; }
-        public int idAuthor { get; set; }
         public int idPublisher { get; set; }
         public string image { get; set; }
     

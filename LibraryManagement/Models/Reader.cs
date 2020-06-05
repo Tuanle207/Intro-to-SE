@@ -24,7 +24,7 @@ namespace LibraryManagement.Models
     
         public int idReader { get; set; }
         public string nameReader { get; set; }
-        public Nullable<System.DateTime> dobReader { get; set; }
+        public System.DateTime dobReader { get; set; }
         public string email { get; set; }
         public string addressReader { get; set; }
         public System.DateTime createdAt { get; set; }

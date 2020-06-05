@@ -38,6 +38,7 @@ namespace LibraryManagement.Models
         public virtual DbSet<Publisher> Publishers { get; set; }
         public virtual DbSet<Reader> Readers { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TypeReader> TypeReaders { get; set; }
     }
 }

@@ -12,14 +12,12 @@ namespace LibraryManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailBillBorrow
+    public partial class sysdiagram
     {
-        public int idDetailBillBorrow { get; set; }
-        public int idBook { get; set; }
-        public int idBillBorrow { get; set; }
-        public int returned { get; set; }
-    
-        public virtual BillBorrow BillBorrow { get; set; }
-        public virtual Book Book { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

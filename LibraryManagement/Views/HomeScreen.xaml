@@ -62,7 +62,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Height="Auto" Width="Auto" Background="#FFF39C11" BorderBrush="{x:Null}" Margin="10" HorizontalContentAlignment="Left">
+            <Button Grid.Column="0" Grid.Row="0" Height="Auto" Width="Auto" Background="#FFF39C11" BorderBrush="{x:Null}" Margin="10" HorizontalContentAlignment="Left" Click="ButtonMuonSach_Click">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -72,7 +72,7 @@
                     <TextBlock Grid.Column="1" Text="Mượn sách" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Margin="10"/>
                 </Grid>
             </Button>
-            <Button Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" Background="#FF32AC26" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
+            <Button Click="ButtonTraSach_Click" Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" Background="#FF32AC26" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

@@ -24,5 +24,16 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
+
+        private void ButtonMuonSach_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new BorrowBook();
+            window.ShowDialog();
+        }
+        private void ButtonTraSach_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new ReturnBook();
+            window.ShowDialog();
+        }
     }
 }
