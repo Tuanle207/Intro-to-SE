@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagement.Views" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
              mc:Ignorable="d" 
+             DataContext="{StaticResource BookViewModel}"
              d:DesignHeight="600" d:DesignWidth="800">
+
     <Grid Background="#FFF0F0F0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -44,9 +46,9 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
-                    <Label Grid.Row="1" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
-                    <Label Grid.Row="2" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
+                    <Label Content="{Binding idBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
+                    <Label Content="{Binding nameBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
+                    <Label Content="{Binding SelectedPublisher.namePublisher, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
                 </Grid>
             </Grid>
             <Label Grid.Row="2" Content="Thông tin gì gì gì đó " HorizontalAlignment="Center" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" FontWeight="Bold"/>
@@ -73,19 +75,19 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Command="{Binding EditBookCommand}" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Cập nhật sách" Margin="10" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Command="{Binding DeleteBookCommand}" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Xóa" Margin="10" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Command="{Binding AddBookCommand}" Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="Adjust" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm mới" Margin="10" VerticalAlignment="Center" FontSize="20"/>
@@ -112,37 +114,24 @@
                     <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PackIcon Grid.Column="0" Kind="Undo" Background="Black" Width="Auto" Height="Auto" Foreground="White" Margin="10" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Background="#FFC0D4D4" TextWrapping="Wrap" Height="Auto" Margin="10"/>
+                <TextBox Name="SearchBook" Text="{Binding BookSearchKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Background="#FFC0D4D4" TextWrapping="Wrap" Margin="10" FontSize="24"/>
             </Grid>
             <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <materialDesign:PackIcon Grid.Column="0" Kind="ArrowLeftDropCircle" VerticalAlignment="Center" Width="Auto" Height="Auto" Margin="10"/>
-                <materialDesign:PackIcon Grid.Column="2" Kind="ArrowRightDropCircle" VerticalAlignment="Center" Width="Auto" Height="Auto" Margin="10"/>
-                <Grid Grid.Column="1" Margin="10 20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Image Grid.Column="0" Grid.Row="0" Source="/Assets/4.png" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="1" Grid.Row="0" Source="/Assets/2.png" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="2" Grid.Row="0" Source="/Assets/1.jpg" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="0" Grid.Row="1" Source="/Assets/1.jpg" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="1" Grid.Row="1" Source="/Assets/2.png" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="2" Grid.Row="1" Source="/Assets/3.jpg" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="0" Grid.Row="2" Source="/Assets/4.png" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="1" Grid.Row="2" Source="/Assets/4.png" Stretch="Fill" Margin="5"/>
-                    <Image Grid.Column="2" Grid.Row="2" Source="/Assets/1.jpg" Stretch="Fill" Margin="5"/>
-                </Grid>
+                <ListView ItemsSource="{Binding ListBook}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Mã số" DisplayMemberBinding="{Binding idBook}"></GridViewColumn>
+                            <GridViewColumn Header="Tên sách" DisplayMemberBinding="{Binding nameBook}"></GridViewColumn>
+                            <GridViewColumn Header="Thể loại" DisplayMemberBinding="{Binding Category.nameCategory}"></GridViewColumn>
+                            <GridViewColumn Header="NXB" DisplayMemberBinding="{Binding Publisher.namePublisher}"></GridViewColumn>
+                            <GridViewColumn Header="Tác giả" DisplayMemberBinding="{Binding Authors, Converter={StaticResource AuthorsConverter}}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày XB" DisplayMemberBinding="{Binding dateManufacture.Date}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding dateAddBook.Date}"></GridViewColumn>
+                            <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding price}"></GridViewColumn>
+                            <GridViewColumn Header="Trạng thái" DisplayMemberBinding="{Binding statusBook}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>

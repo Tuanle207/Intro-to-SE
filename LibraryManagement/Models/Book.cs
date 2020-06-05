@@ -21,9 +21,9 @@ namespace LibraryManagement.Models
             this.DetailBillReturns = new HashSet<DetailBillReturn>();
             this.Authors = new HashSet<Author>();
         }
-    
+        
         public int idBook { get; set; }
-        public string nameBook { get; set; }
+        public string nameBook { get ; set; }
         public System.DateTime dateManufacture { get; set; }
         public System.DateTime dateAddBook { get; set; }
         public double price { get; set; }
