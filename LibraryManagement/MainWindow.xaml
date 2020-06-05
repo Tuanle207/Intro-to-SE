@@ -63,11 +63,11 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnExit" Grid.Column="1" Click="btnExit_Click"
+                <Button Height="Auto" Width="Auto" x:Name="btnExit" Grid.Column="1" Click="btnExit_Click"
                         BorderThickness="0" Background="#FF5C99D6">
                     <Image Source="Assets/close.png" Margin="10"/>
                 </Button>
-                <Button x:Name="btnMinimize" Grid.Column="0" Click="btnMinimize_Click"
+                <Button Height="Auto" Width="Auto" x:Name="btnMinimize" Grid.Column="0" Click="btnMinimize_Click"
                         BorderThickness="0" Background="#FF5C99D6">
                     <Image Source="Assets/minimize.png" Margin="10"/>
                 </Button>

@@ -12,7 +12,7 @@ namespace LibraryManagement.ViewModels
     class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string property = null)
+        protected void OnPropertyChanged([CallerMemberName] string property = null, string value = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }

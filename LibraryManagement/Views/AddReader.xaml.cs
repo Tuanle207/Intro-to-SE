@@ -7,22 +7,30 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for MemberScreen.xaml
+    /// Interaction logic for AddMember.xaml
     /// </summary>
-    public partial class MemberScreen : UserControl
+    public partial class AddReader : Window
     {
-        public MemberScreen()
+        public AddReader()
         {
             InitializeComponent();
+        }
+
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
