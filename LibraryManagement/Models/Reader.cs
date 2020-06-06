@@ -28,7 +28,7 @@ namespace LibraryManagement.Models
         public string email { get; set; }
         public string addressReader { get; set; }
         public System.DateTime createdAt { get; set; }
-        public double debt { get; set; }
+        public int debt { get; set; }
         public int idTypeReader { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
