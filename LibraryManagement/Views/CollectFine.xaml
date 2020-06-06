@@ -7,6 +7,7 @@
         xmlns:vm ="clr-namespace:LibraryManagement.ViewModels"
         mc:Ignorable="d"
         DataContext="{StaticResource CollectFineViewModel}"
+        x:Name="window"
         Title="Thu Tiền Phạt" Height="500" Width="800">
     <Window.Resources>
         <Style x:Key="textBoxErrorTemplate" TargetType="{x:Type TextBox}">
@@ -142,13 +143,17 @@
                     Background="#647AA3"
                     Padding="10"
                     TextAlignment="Left"
+                    x:Name="tbCollectedAmount"
                     Grid.Row="0" Grid.Column="1">
+                    <TextBox.Resources>
+                        <local:BindingProxy x:Key="proxy1" Data="{Binding ReaderSelected}"/>
+                    </TextBox.Resources>
                     <TextBox.Text>
                         <Binding Path="CollectedAmount" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
                                 <vm:CollectedAmountValidation>
                                     <vm:CollectedAmountValidation.Wrapper>
-                                        <vm:Wrapper MaxAmount="{Binding SelectedReader.debt}"/>
+                                        <vm:CollectedAmountValidationWrapper MaxAmount="{Binding Data.debt , Source={StaticResource proxy1}}"/>
                                     </vm:CollectedAmountValidation.Wrapper>
                                 </vm:CollectedAmountValidation>
                             </Binding.ValidationRules>
@@ -174,11 +179,24 @@
                     Background="#647AA3"
                     Padding="10"
                     TextAlignment="Left"
-                    Grid.Row="0" Grid.Column="1" 
-                    Text="{Binding ReaderSelected.debt, Converter={StaticResource DebtToRemainingDebt},
-                    ConverterParameter={StaticResource CollectedAmount}}"/>
+                    Grid.Row="0" Grid.Column="1"
+                    Text="{Binding Payment.remainDebt}">
+                </TextBox>
             </Grid>
-            <Button Height="50">THU TIỀN</Button>
+            <Button Command="{Binding CollectFine}" Height="50" Content="THU TIỀN PHẠT" ToolTip="Nhập số tiền thu hợp lệ để tiếp tục">
+                <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCollectedAmount}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+                </Button.Style>
+            </Button>
             
         </StackPanel>
     </Grid>
