@@ -41,6 +41,7 @@ namespace LibraryManagement.ViewModels
             set
             {
                 readerSelected = value;
+                calcRemainingDebt();
                 OnPropertyChanged();
             }
         }
@@ -56,7 +57,7 @@ namespace LibraryManagement.ViewModels
         public int CollectedAmount
         {
             get => collectedAmount;
-            set { collectedAmount = value; OnPropertyChanged(); }
+            set { collectedAmount = value; calcRemainingDebt(); OnPropertyChanged(); }
         }
         public string ReaderKeyword { get => readerKeyword; set { readerKeyword = value; OnPropertyChanged(); SearchReader(); } }
         /// <summary>
@@ -77,16 +78,29 @@ namespace LibraryManagement.ViewModels
             CollectFine = new AppCommand<object>(
                 p =>
                 {
-                    if (ReaderSelected == null || collectedAmount <= 0) return false;
+                    if (ReaderSelected == null || collectedAmount <= 0 || (ReaderSelected != null && ReaderSelected.debt == 0))
+                        return false;
                     return true;
                 },
                 p =>
                 {
+
+                    var reader = DataAdapter.Instance.DB.Readers.Find(ReaderSelected.idReader);
+                    Payment.idReader = ReaderSelected.idReader;
+                    Payment.paymentDate = DateTime.Now;
+                    Payment.collectedAmount = CollectedAmount;
+                    Payment.currentDebt = ReaderSelected.debt;
+                    Payment.remainDebt = Payment.currentDebt - Payment.collectedAmount;
+                    reader.debt = Payment.remainDebt;
+
                     DataAdapter.Instance.DB.Payments.Add(Payment);
+
                     try
                     {
                         // Save DB state
                         DataAdapter.Instance.DB.SaveChanges();
+                        Init();
+                        MessageBox.Show("Thu tiền phạt thành công!");
                     }
                     catch (DbUpdateException)
                     {
@@ -108,19 +122,23 @@ namespace LibraryManagement.ViewModels
                     {
                         MessageBox.Show("Không thể thao tác vì lỗi cơ sở dữ liệu!");
                     }
-                    finally
-                    {
-                        Init();
-                    }
+
+
                 }
             );
         }
 
         private void Init()
         {
-            ReaderSelected = null;
-            CollectedAmount = 0;
             Payment = new Payment { paymentDate = DateTime.Now };
+            ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+            if (ListReader.Count != 0)
+            {
+                ReaderSelected = ListReader.FirstOrDefault();
+            }
+            else ReaderSelected = null;
+            CollectedAmount = 0;
+            
         }
         private void SearchReader()
         {
@@ -140,6 +158,14 @@ namespace LibraryManagement.ViewModels
             {
                 ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
                 MessageBox.Show("Nhập tên độc giả để tìm kiếm!");
+            }
+        }
+        private void calcRemainingDebt()
+        {
+            if (Payment != null && ReaderSelected != null)
+            {
+                Payment.remainDebt = ReaderSelected.debt - CollectedAmount >= 0 ? ReaderSelected.debt - CollectedAmount : 0;
+                OnPropertyChanged("Payment");
             }
         }
     }
