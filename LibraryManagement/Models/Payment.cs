@@ -16,8 +16,10 @@ namespace LibraryManagement.Models
     {
         public int idPayment { get; set; }
         public int idReader { get; set; }
-        public double moneyPay { get; set; }
-        public System.DateTime datePay { get; set; }
+        public int currentDebt { get; set; }
+        public int collectedAmount { get; set; }
+        public int remainDebt { get; set; }
+        public System.DateTime paymentDate { get; set; }
     
         public virtual Reader Reader { get; set; }
     }

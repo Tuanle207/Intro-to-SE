@@ -8,7 +8,8 @@
     <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"></viewmodel:ReturnBookViewModel>
     <viewmodel:BookViewModel x:Key="BookViewModel"></viewmodel:BookViewModel>
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
-    
+    <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
+
     <!-- Value Converter -->
     <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>
     <viewmodel:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></viewmodel:BooleanToVisibilityConverter>
@@ -17,7 +18,8 @@
     <viewmodel:DateBorrowedToExcessDays x:Key="DateBorrowedToExcessDays"></viewmodel:DateBorrowedToExcessDays>
     <viewmodel:DateBorrowedToFine x:Key="DateBorrowedToFine"></viewmodel:DateBorrowedToFine>
     <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"></viewmodel:BillReturnToReaderDebt>
-    
+    <viewmodel:DebtToRemainingDebt x:Key="DebtToRemainingDebt"></viewmodel:DebtToRemainingDebt>
+
 
 
 </ResourceDictionary>

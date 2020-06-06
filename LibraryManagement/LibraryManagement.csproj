@@ -146,17 +146,16 @@
     <Compile Include="Models\Staff.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CollectFineViewModel.cs" />
     <Compile Include="ViewModels\Converters\BindingValueConverters.cs" />
     <Compile Include="ViewModels\BorrowBookViewModel.cs" />
     <Compile Include="ViewModels\ReturnBookViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
+    <Compile Include="ViewModels\Validations\CollectFineValidation\CollectedAmountValidation.cs" />
     <Compile Include="Views\BorrowBook.xaml.cs">
       <DependentUpon>BorrowBook.xaml</DependentUpon>
     </Compile>
@@ -171,6 +170,9 @@
     </Compile>
     <Compile Include="Views\BookScreen.xaml.cs">
       <DependentUpon>BookScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CollectFine.xaml.cs">
+      <DependentUpon>CollectFine.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditBookScreen.xaml.cs">
       <DependentUpon>EditBookScreen.xaml</DependentUpon>
@@ -216,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BookScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CollectFine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
