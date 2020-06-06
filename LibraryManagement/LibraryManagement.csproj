@@ -166,7 +166,6 @@
       <DependentUpon>AddBookScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ReaderViewModel.cs" />
-    <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="Views\AddReader.xaml.cs">
       <DependentUpon>AddReader.xaml</DependentUpon>
     </Compile>
