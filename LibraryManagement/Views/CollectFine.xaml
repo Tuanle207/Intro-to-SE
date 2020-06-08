@@ -1,0 +1,203 @@
+﻿<Window x:Class="LibraryManagement.Views.CollectFine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryManagement.Views"
+        xmlns:vm ="clr-namespace:LibraryManagement.ViewModels"
+        mc:Ignorable="d"
+        DataContext="{StaticResource CollectFineViewModel}"
+        x:Name="window"
+        Title="Thu Tiền Phạt" Height="500" Width="800">
+    <Window.Resources>
+        <Style x:Key="textBoxErrorTemplate" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)/ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Grid Background="Aqua">
+                <TextBlock Margin="5,2" Text="Nhập tên độc giả..."
+                    Foreground="#000"
+                    Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
+                              Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox Name="tbReaderName" Background="Transparent" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <DataGrid ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
+                    <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
+                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding dobReader}"/>
+                    <DataGridTextColumn Header="Loại độc giả" Binding="{Binding TypeReader.nameTypeReader}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding addressReader}"/>
+                    <DataGridTextColumn Header="Ngày tạo" Binding="{Binding createdAt}"/>
+                    <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <TextBlock Background="#0a97b0" Foreground="#fff" Padding="5" TextAlignment="Center" FontSize="16">Thông tin phiếu phạt</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#fff" 
+                    Background="#334195"
+                    Padding="10"
+                    Grid.Row="0" Text="STT"/>
+                <TextBox Foreground="#fff"
+                    IsReadOnly="True"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Background="#647AA3"
+                    Padding="10"
+                    TextAlignment="Left"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#fff" 
+                    Background="#334195"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10"
+                    Grid.Row="0" Text="Họ tên độc giả"/>
+                <TextBox Foreground="#fff" 
+                    IsReadOnly="True"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Background="#647AA3"
+                    Padding="10"
+                    TextAlignment="Left"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.nameReader}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#fff" 
+                    Background="#334195"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10"
+                    Grid.Row="0" Text="Ngày thu tiền"/>
+                <TextBox Foreground="#fff" 
+                    IsReadOnly="True"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Background="#647AA3"
+                    Padding="10"
+                    TextAlignment="Left"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding Payment.paymentDate}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#fff" 
+                    Background="#334195"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10"
+                    Grid.Row="0" Text="Tổng nợ"/>
+                <TextBox Foreground="#fff"
+                    IsReadOnly="True"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Background="#647AA3"
+                    Padding="10"
+                    TextAlignment="Left"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.debt}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#fff" 
+                    Background="#334195"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10"
+                    Grid.Row="0" Text="Số tiền thu"/>
+                <TextBox Foreground="#fff" 
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Background="#647AA3"
+                    Padding="10"
+                    TextAlignment="Left"
+                    x:Name="tbCollectedAmount"
+                    Grid.Row="0" Grid.Column="1">
+                    <TextBox.Resources>
+                        <local:BindingProxy x:Key="proxy1" Data="{Binding ReaderSelected}"/>
+                    </TextBox.Resources>
+                    <TextBox.Text>
+                        <Binding Path="CollectedAmount" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <vm:CollectedAmountValidation>
+                                    <vm:CollectedAmountValidation.Wrapper>
+                                        <vm:CollectedAmountValidationWrapper MaxAmount="{Binding Data.debt , Source={StaticResource proxy1}}"/>
+                                    </vm:CollectedAmountValidation.Wrapper>
+                                </vm:CollectedAmountValidation>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#fff" 
+                    Background="#334195"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10"
+                    Grid.Row="0" Text="Còn lại"/>
+                <TextBox Foreground="#fff"
+                    IsReadOnly="True"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Background="#647AA3"
+                    Padding="10"
+                    TextAlignment="Left"
+                    Grid.Row="0" Grid.Column="1"
+                    Text="{Binding Payment.remainDebt}">
+                </TextBox>
+            </Grid>
+            <Button Command="{Binding CollectFine}" Height="50" Content="THU TIỀN PHẠT" ToolTip="Nhập số tiền thu hợp lệ để tiếp tục">
+                <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCollectedAmount}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+                </Button.Style>
+            </Button>
+            
+        </StackPanel>
+    </Grid>
+</Window>

@@ -107,8 +107,8 @@ namespace LibraryManagement.ViewModels
             set { _dateAddBook = value; OnPropertyChanged(); }
         }
 
-        private double _price;
-        public double price { get => _price; set { _price = value; OnPropertyChanged(); } }
+        private int _price;
+        public int price { get => _price; set { _price = value; OnPropertyChanged(); } }
 
         private string _statusBook;
         public string statusBook { get => _statusBook; set { _statusBook = value; OnPropertyChanged(); } }

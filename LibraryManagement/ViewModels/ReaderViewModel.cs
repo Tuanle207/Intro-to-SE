@@ -232,7 +232,7 @@ namespace LibraryManagement.ViewModels
                         email = Email,
                         addressReader = AddressReader,
                         createdAt = (DateTime)CreatedAt,
-                        debt = Convert.ToSingle(Debt),
+                        debt = Int32.Parse(Debt),
                         idTypeReader = SelectedTypeReader.idTypeReader
                     };
                     DataAdapter.Instance.DB.Readers.Add(Reader);
@@ -265,7 +265,7 @@ namespace LibraryManagement.ViewModels
                 Reader.dobReader = (DateTime)DobReader;
                 Reader.email = Email;
                 Reader.addressReader = AddressReader;
-                Reader.debt = Convert.ToSingle(Debt);
+                Reader.debt = Int32.Parse(Debt);
                 Reader.createdAt = (DateTime)CreatedAt;
                 Reader.idTypeReader = SelectedTypeReader.idTypeReader;
                 DataAdapter.Instance.DB.Readers.AddOrUpdate(Reader);
