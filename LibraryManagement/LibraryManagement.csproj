@@ -153,6 +153,9 @@
     <Compile Include="ViewModels\CollectFineViewModel.cs" />
     <Compile Include="ViewModels\Converters\BindingValueConverters.cs" />
     <Compile Include="ViewModels\BorrowBookViewModel.cs" />
+    <Compile Include="ViewModels\ReportCategory.cs" />
+    <Compile Include="ViewModels\ReportReturnLate.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\ReturnBookViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\Validations\CollectFineValidation\CollectedAmountValidation.cs" />
