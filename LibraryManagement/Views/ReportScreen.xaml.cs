@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,31 @@ namespace LibraryManagement.Views
         public ReportScreen()
         {
             InitializeComponent();
+        }
+
+
+
+        private void year_Loaded(object sender, RoutedEventArgs e)
+        {
+            year.Items.Clear();
+            for (int i = 2010; i <= DateTime.Now.Year; i++)
+            {
+                year.Items.Add(i);
+            }
+        }
+
+        private void month_Loaded(object sender, RoutedEventArgs e)
+        {
+            month.Items.Clear();
+            for (int i = 1; i <= 12; i++)
+            {
+                month.Items.Add(i);
+            }
+        }
+
+        private void day_Loaded(object sender, RoutedEventArgs e)
+        {
+            Day.SelectedDate = DateTime.Today;
         }
     }
 }

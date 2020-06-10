@@ -10,7 +10,7 @@
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
     <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
-
+    <viewmodel:ReportViewModel x:Key="ReportViewModel"></viewmodel:ReportViewModel>
 
     <!-- Value Converter -->
     <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>
