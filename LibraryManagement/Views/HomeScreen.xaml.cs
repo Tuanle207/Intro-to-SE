@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
-
+        LibraryManagementEntities DB = new LibraryManagementEntities();
         private void ButtonBorrowBook_Click(object sender, RoutedEventArgs e)
         {
             Window window = new BorrowBook();
@@ -38,6 +39,11 @@ namespace LibraryManagement.Views
         private void ButtonCollectFine_Click(object sender, RoutedEventArgs e)
         {
             Window window = new CollectFine();
+            window.ShowDialog();
+        }
+        private void ButtonChangeRegulation_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new ChangeRegulation();
             window.ShowDialog();
         }
     }

@@ -9,6 +9,8 @@
     <viewmodel:BookViewModel x:Key="BookViewModel"></viewmodel:BookViewModel>
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
+    <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
+
 
     <!-- Value Converter -->
     <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>
