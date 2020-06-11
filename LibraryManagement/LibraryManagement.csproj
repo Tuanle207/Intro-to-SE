@@ -149,10 +149,18 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Validations\ParameterValidations\MoneyPenaltyValidation.cs" />
+    <Compile Include="ViewModels\Validations\ParameterValidations\ExpiryDateValidation.cs" />
+    <Compile Include="ViewModels\Validations\ParameterValidations\DistancePublishValidation.cs" />
+    <Compile Include="ViewModels\Validations\ParameterValidations\BookBorrowMaxValidation.cs" />
+    <Compile Include="ViewModels\Validations\ParameterValidations\DateBorrowMaxValidation.cs" />
+    <Compile Include="ViewModels\Validations\ParameterValidations\AgeMaxValidation.cs" />
+    <Compile Include="ViewModels\Validations\ParameterValidations\AgeMinValidation.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CollectFineViewModel.cs" />
     <Compile Include="ViewModels\Converters\BindingValueConverters.cs" />
     <Compile Include="ViewModels\BorrowBookViewModel.cs" />
+    <Compile Include="ViewModels\ParameterViewModel.cs" />
     <Compile Include="ViewModels\ReturnBookViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\Validations\CollectFineValidation\CollectedAmountValidation.cs" />
@@ -170,6 +178,9 @@
     </Compile>
     <Compile Include="Views\BookScreen.xaml.cs">
       <DependentUpon>BookScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChangeRegulation.xaml.cs">
+      <DependentUpon>ChangeRegulation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CollectFine.xaml.cs">
       <DependentUpon>CollectFine.xaml</DependentUpon>
@@ -218,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BookScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangeRegulation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
