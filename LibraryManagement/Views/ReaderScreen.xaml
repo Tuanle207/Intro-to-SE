@@ -86,7 +86,7 @@
                     <Label Grid.Row="3" Content="Ngày sinh"  Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
                     <Label Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
                 </Grid>
-                <Grid Grid.Column="2" Margin="5">
+                <Grid Grid.Column="2" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="31*"/>
                         <RowDefinition Height="30"/>
@@ -115,7 +115,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center"/>
-                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" Margin="10 20" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Background="#FFE2DADA" FontSize="20" Height="Auto"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
 
                 <Button x:Name="CapnhatReader" Click="CapnhatReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="2" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">

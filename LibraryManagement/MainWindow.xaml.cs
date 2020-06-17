@@ -115,5 +115,10 @@ namespace LibraryManagement
                     break;
             }
         }
+
+        private void hahaha(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
