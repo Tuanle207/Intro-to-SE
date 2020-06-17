@@ -31,10 +31,11 @@ namespace LibraryManagement.Views
         private void year_Loaded(object sender, RoutedEventArgs e)
         {
             year.Items.Clear();
-            for (int i = 2010; i <= DateTime.Now.Year; i++)
+            for (int i = 2018; i <= DateTime.Now.Year; i++)
             {
                 year.Items.Add(i);
             }
+            year.Text = DateTime.Today.Year.ToString();
         }
 
         private void month_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +45,7 @@ namespace LibraryManagement.Views
             {
                 month.Items.Add(i);
             }
+            month.Text = DateTime.Today.Month.ToString();
         }
 
         private void day_Loaded(object sender, RoutedEventArgs e)

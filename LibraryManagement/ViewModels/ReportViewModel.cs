@@ -38,16 +38,16 @@ namespace LibraryManagement.ViewModels
             //Report Book borow with category
             Category_List = new ObservableCollection<ReportCategory>();
             var categoryList = DataAdapter.Instance.DB.Categories;
-            //sumTurn là số lượt mượn ứng với từng thể loại
             int sumTurn = 0;
             int i = 1;
-            // Load all Turn Borrow in DB
+
+            //Cal ALL tunrn borrow save in SumTurn  
             foreach (var item in categoryList)
             {
                 var Cate1 = from b in DataAdapter.Instance.DB.Books
                             join d in DataAdapter.Instance.DB.DetailBillBorrows on b.idBook equals d.idBook
                             join br in DataAdapter.Instance.DB.BillBorrows on d.idBillBorrow equals br.idBillBorrow
-                            where (b.idCategory == item.idCategory)
+                            where b.idCategory == item.idCategory && br.borrowDate.Month == DateTime.Today.Month && br.borrowDate.Year == DateTime.Today.Year
                             select b;
                 try
                 {
@@ -69,18 +69,16 @@ namespace LibraryManagement.ViewModels
 
                 }
             }
-
-            //Sum Borrow
+            // -- End Cal ALL tunrn borrow save in SumTurn  
             SumBorrow = sumTurn;
-
-            //Add report Category into Category_List
+            //Load Turn Borrow with Month of Today and Year of Today
             i = 1;
             foreach (var item1 in categoryList)
             {
                 var Cate2 = from b in DataAdapter.Instance.DB.Books
                             join d in DataAdapter.Instance.DB.DetailBillBorrows on b.idBook equals d.idBook
                             join br in DataAdapter.Instance.DB.BillBorrows on d.idBillBorrow equals br.idBillBorrow
-                            where (b.idCategory == item1.idCategory)
+                            where b.idCategory == item1.idCategory && br.borrowDate.Month == DateTime.Today.Month && br.borrowDate.Year == DateTime.Today.Year
                             select b;
                 try
                 {
@@ -107,7 +105,7 @@ namespace LibraryManagement.ViewModels
 
                 }
             }
-            // --End Load all Turn Borrow in DB
+            // -- End Load Turn Borrow with Month of Today and Year of Today
 
             //Load Turn Borrow with Month and Year User select.
             LoadReportCategory = new AppCommand<object>((p) =>
@@ -121,6 +119,7 @@ namespace LibraryManagement.ViewModels
                 Category_List.Clear();
                 sumTurn = 0;
                 i = 1;
+
                 //Calculator Sum turn borrow
                 foreach (var item2 in categoryList)
                 {
@@ -149,7 +148,7 @@ namespace LibraryManagement.ViewModels
 
                     }
                 }
-                //Sum Borrow
+                // -- End Calculator Sum turn borrow
                 SumBorrow = sumTurn;
                 //Add report Category into Category_List
                 i = 1;
@@ -188,67 +187,41 @@ namespace LibraryManagement.ViewModels
             });
             // --End Load Turn Borrow with Month and Year User select.
 
-            //End Report Book borow with category
+            // -- End Report Book borow with category
 
 
             // Report Book return late    
             Late_List = new ObservableCollection<ReportReturnLate>();
             var billBBorrow = DataAdapter.Instance.DB.BillBorrows;
             DateTime dateCal;
-            int j, temp1;
+            int j;
             DateExpired = DateTime.Today;
 
             //Load book borrowing return late from today
             dateCal = DateExpired.AddDays(-4);
             j = 1;
-            foreach (var item4 in billBBorrow)
+            foreach (var item5 in billBBorrow)
             {
-                var Late1 = from b in DataAdapter.Instance.DB.Books
+                var Late3 = from b in DataAdapter.Instance.DB.Books
                             join d in DataAdapter.Instance.DB.DetailBillBorrows on b.idBook equals d.idBook
                             join br in DataAdapter.Instance.DB.BillBorrows on d.idBillBorrow equals br.idBillBorrow
-                            where br.idBillBorrow == item4.idBillBorrow && br.borrowDate < dateCal && d.returned == 0
-                            select b;
+                            where br.idBillBorrow == item5.idBillBorrow && d.returned == 0
+                            select new { NameBook = b.nameBook, BorrowDate = item5.borrowDate };
                 try
                 {
-                    temp1 = j;
-                    if (Late1 != null)
+                    foreach (var item6 in Late3)
                     {
-                        foreach (var item5 in Late1)
+                        ReportReturnLate reportlate = new ReportReturnLate();
+                        reportlate.Name = item6.NameBook;
+                        reportlate.No = j;
+                        reportlate.DateBorrow = item6.BorrowDate;
+                        reportlate.DaysReturnLate = (int)((dateCal - item6.BorrowDate).TotalDays);
+                        if ((dateCal - item6.BorrowDate).TotalDays - (int)((dateCal - item6.BorrowDate).TotalDays) > 0) reportlate.DaysReturnLate++;
+                        if (reportlate.DaysReturnLate > 0)
                         {
-                            var Late2 = from b1 in DataAdapter.Instance.DB.Books
-                                        join d1 in DataAdapter.Instance.DB.DetailBillBorrows on b1.idBook equals d1.idBook
-                                        join br1 in DataAdapter.Instance.DB.BillBorrows on d1.idBillBorrow equals br1.idBillBorrow
-                                        where b1.idBook == item5.idBook && br1.borrowDate == item4.borrowDate && d1.returned == 0
-                                        select br1;
-                            try
-                            {
-                                //temp2 = temp1;
-                                if (Late2 != null)
-                                {
-
-                                    foreach (var item0 in Late2)
-                                    {
-                                        ReportReturnLate reportlate = new ReportReturnLate();
-                                        reportlate.Name = item5.nameBook;
-                                        reportlate.No = temp1;
-                                        reportlate.DateBorrow = item0.borrowDate;
-                                        reportlate.DaysReturnLate = (int)((dateCal - item0.borrowDate).TotalDays);
-                                        if ((dateCal - item0.borrowDate).TotalDays - (int)((dateCal - item0.borrowDate).TotalDays) > 0) reportlate.DaysReturnLate++;
-                                        Late_List.Add(reportlate);
-                                        temp1++;
-                                    }
-
-                                }
-                                j = temp1;
-
-                            }
-                            catch (Exception)
-                            {
-
-                            }
-
+                            Late_List.Add(reportlate);
+                            j++;
                         }
-
                     }
 
                 }
@@ -276,50 +249,22 @@ namespace LibraryManagement.ViewModels
                                 join d in DataAdapter.Instance.DB.DetailBillBorrows on b.idBook equals d.idBook
                                 join br in DataAdapter.Instance.DB.BillBorrows on d.idBillBorrow equals br.idBillBorrow
                                 where br.idBillBorrow == item5.idBillBorrow  && d.returned == 0
-                                select b;
+                                select new { NameBook = b.nameBook, BorrowDate = item5.borrowDate };
                     try
                     {
-                        temp1 = j;
-                        if (Late3 != null)
+                        foreach (var item6 in Late3)
                         {
-                            foreach (var item6 in Late3)
-                            {
-                                var Late4 = from b1 in DataAdapter.Instance.DB.Books
-                                            join d1 in DataAdapter.Instance.DB.DetailBillBorrows on b1.idBook equals d1.idBook
-                                            join br1 in DataAdapter.Instance.DB.BillBorrows on d1.idBillBorrow equals br1.idBillBorrow
-                                            where b1.idBook == item6.idBook && br1.borrowDate == item5.borrowDate && d1.returned == 0
-                                            select br1;
-                                try
-                                {
-                                    if (Late4 != null)
-                                    {
-
-                                        foreach (var item7 in Late4)
-                                        {
-                                            ReportReturnLate reportlate = new ReportReturnLate();
-                                            reportlate.Name = item6.nameBook;
-                                            reportlate.No = temp1;
-                                            reportlate.DateBorrow = item7.borrowDate;
-                                            reportlate.DaysReturnLate = (int)((dateCal - item7.borrowDate).TotalDays);
-                                            if ((dateCal - item7.borrowDate).TotalDays - (int)((dateCal - item7.borrowDate).TotalDays) > 0) reportlate.DaysReturnLate++;
+                            ReportReturnLate reportlate = new ReportReturnLate();
+                                            reportlate.Name = item6.NameBook;
+                                            reportlate.No = j;
+                                            reportlate.DateBorrow = item6.BorrowDate;
+                                            reportlate.DaysReturnLate = (int)((dateCal - item6.BorrowDate).TotalDays);
+                                            if ((dateCal - item6.BorrowDate).TotalDays - (int)((dateCal - item6.BorrowDate).TotalDays) > 0) reportlate.DaysReturnLate++;
                                             if(reportlate.DaysReturnLate > 0)
                                             { 
                                                 Late_List.Add(reportlate);
-                                                temp1++;
+                                                j++;
                                             }
-                                        }
-
-                                    }
-                                    j = temp1;
-
-                                }
-                                catch (Exception)
-                                {
-
-                                }
-
-                            }
-
                         }
 
                     }
