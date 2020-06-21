@@ -37,17 +37,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="1" Content="Ngày sinh" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="2" Content="Email" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="3" Content="Địa chỉ"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                 </Grid>
                 <Grid Grid.Column="1" Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -89,8 +86,6 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <DatePicker  x:Name="CreatAt" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16"
-                                SelectedDate="{Binding CreatedAt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </Grid>
             <Label Grid.Row="2" Content="Thông tin thẻ độc giả " HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
@@ -105,17 +100,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <TextBox Name="Debt" Grid.Row="0" Grid.Column="1" Margin="10" Background="#FFE2DADA" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0">
-                    <TextBox.Text>
-                        <Binding Path="Debt" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <vm:ReaderDebtValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
                 <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="1" Margin="10" Background="#FFE2DADA" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                     <ComboBox.SelectedItem>
                         <Binding Path="SelectedTypeReader" UpdateSourceTrigger="PropertyChanged">
@@ -140,8 +125,6 @@
                                         <Condition Binding="{Binding ElementName=Email, Path=(Validation.HasError)}" Value="false" />
                                         <Condition Binding="{Binding ElementName=Address, Path=(Validation.HasError)}" Value="false" />
                                         <Condition Binding="{Binding ElementName=DobReader, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=CreatAt, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=Debt, Path=(Validation.HasError)}" Value="false" />
                                         <Condition Binding="{Binding ElementName=cbTypeReader, Path=(Validation.HasError)}" Value="false" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True" />
