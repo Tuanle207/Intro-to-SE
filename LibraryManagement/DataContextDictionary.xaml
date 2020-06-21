@@ -10,6 +10,7 @@
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
     <viewmodel:StaffViewModel x:Key="StaffViewModel"></viewmodel:StaffViewModel>
     <viewmodel:LoginViewModel x:Key="LoginViewModel"></viewmodel:LoginViewModel>
+    <viewmodel:TypeReaderViewModel x:Key="TypeReaderViewModel"></viewmodel:TypeReaderViewModel>
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
     <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
     <viewmodel:ReportViewModel x:Key="ReportViewModel"></viewmodel:ReportViewModel>

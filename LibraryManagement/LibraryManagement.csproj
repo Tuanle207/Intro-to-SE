@@ -161,6 +161,7 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\TypeReaderViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Validations\CheckDateManufactureValidation.cs" />
     <Compile Include="ViewModels\Validations\AuthorValidation.cs" />
@@ -247,6 +248,9 @@
     </Compile>
     <Compile Include="Views\StaffScreen.xaml.cs">
       <DependentUpon>StaffScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewTypeReader.xaml.cs">
+      <DependentUpon>ViewTypeReader.xaml</DependentUpon>
     </Compile>
     <Page Include="DataContextDictionary.xaml">
       <SubType>Designer</SubType>
@@ -337,6 +341,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StaffScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewTypeReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
