@@ -232,10 +232,10 @@ namespace LibraryManagement.ViewModels
                         dobReader = (DateTime)DobReader,
                         email = Email,
                         addressReader = AddressReader,
-                        createdAt = (DateTime)CreatedAt,
-                        debt = Debt,
-                        idTypeReader = SelectedTypeReader.idTypeReader,
-                        latestExtended = (DateTime)CreatedAt
+                        createdAt = DateTime.Today,
+                        latestExtended = (DateTime)CreatedAt,
+                        debt = 0,
+                        idTypeReader = SelectedTypeReader.idTypeReader
                     };
                     DataAdapter.Instance.DB.Readers.Add(Reader);
                     DataAdapter.Instance.DB.SaveChanges();
