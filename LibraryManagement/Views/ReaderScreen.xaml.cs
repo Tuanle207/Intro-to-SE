@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LibraryManagement.Models;
+using LibraryManagement.ViewModels;
 
 namespace LibraryManagement.Views
 {
@@ -47,7 +49,11 @@ namespace LibraryManagement.Views
             DobReader.IsEnabled = true;
             CreatAt.IsEnabled = true;
             Debt.IsReadOnly = false;
+            ListDisplayReader.IsEnabled = false;
             TypeReader.IsEnabled = true;
+            btnDeleteReader.IsEnabled = false;
+            btnAddReader.IsEnabled = false;
+            btnTypeReader.IsEnabled = false;
         }
 
         private void LuuReader_Click(object sender, RoutedEventArgs e)
@@ -61,7 +67,16 @@ namespace LibraryManagement.Views
             CreatAt.IsEnabled = false;
             Debt.IsReadOnly = true;
             TypeReader.IsEnabled = false;
+            ListDisplayReader.IsEnabled = true;
+            btnDeleteReader.IsEnabled = true;
+            btnAddReader.IsEnabled = true;
+            btnTypeReader.IsEnabled = true;
+        }
 
+        private void ButtonTypeReader_Click(object sender, RoutedEventArgs e)
+        {
+            ViewTypeReader w = new ViewTypeReader();
+            w.ShowDialog();
         }
     }
 }

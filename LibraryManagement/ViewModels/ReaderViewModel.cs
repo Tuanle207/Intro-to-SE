@@ -63,8 +63,6 @@ namespace LibraryManagement.ViewModels
         }
 
         private int _idReader;
-
-
         public int IdReader { get => _idReader; set { _idReader = value; OnPropertyChanged(); } }
 
         private string _nameReader;
@@ -210,6 +208,9 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> EditCommand { get; set; }
         public AppCommand<object> DeleteCommand { get; set; }
         public AppCommand<object> PrepareAddReaderCommand { get; set; }
+        public AppCommand<object> CheckCommand { get; }
+        public AppCommand<object> AddTypeReaderCommand { get; }
+        public AppCommand<object> DeleteTypeReaderCommand { get; }
 
         public ReaderViewModel()
         {
@@ -262,12 +263,12 @@ namespace LibraryManagement.ViewModels
             {
 
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
-                Reader.nameReader = NameReader;
-                Reader.dobReader = (DateTime)DobReader;
-                Reader.email = Email;
-                Reader.addressReader = AddressReader;
-                Reader.debt = Debt;
-                Reader.createdAt = (DateTime)CreatedAt;
+                Reader.nameReader = SelectedItem.nameReader;
+                Reader.dobReader = (DateTime)SelectedItem.dobReader;
+                Reader.email = SelectedItem.email;
+                Reader.addressReader = SelectedItem.addressReader;
+                Reader.debt = SelectedItem.debt;
+                Reader.createdAt = (DateTime)SelectedItem.createdAt;
                 Reader.idTypeReader = SelectedTypeReader.idTypeReader;
                 DataAdapter.Instance.DB.SaveChanges();
                 System.ComponentModel.ICollectionView view = CollectionViewSource.GetDefaultView(List);
@@ -305,6 +306,16 @@ namespace LibraryManagement.ViewModels
                     Debt = 0;
                     SelectedTypeReader = TypeReader.FirstOrDefault();
                 });
+            CheckCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+               
+            });
         }
 
         private void RetrieveData()
