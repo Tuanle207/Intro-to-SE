@@ -13,52 +13,43 @@ namespace LibraryManagement.ViewModels
     {
         static LibraryManagementEntities DB = new LibraryManagementEntities();
 
-        private int _idParameter;
-        public int idParameter { get => _idParameter; set { _idParameter = value; OnPropertyChanged(); } }
-
-        private string _nameParameter;
-        public string nameParameter
-        {
-            get => _nameParameter; set { _nameParameter = value; OnPropertyChanged(); }
-        }
-
-        private int _ageMin = DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter;
+        private int _ageMin;
         public int ageMin
         {
-            get => _ageMin; set { _ageMin = value; OnPropertyChanged(); Console.WriteLine(value.ToString()); }
+            get => _ageMin; set { _ageMin = value; OnPropertyChanged(); }
         }
 
-        private int _ageMax = DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter;
+        private int _ageMax;
         public int ageMax
         {
-            get => _ageMax; set { _ageMax = value; OnPropertyChanged(); Console.WriteLine(value.ToString()); }
+            get => _ageMax; set { _ageMax = value; OnPropertyChanged();}
         }
 
-        private int _expiryDate = DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter;
+        private int _expiryDate;
         public int expiryDate
         {
             get => _expiryDate; set { _expiryDate = value; OnPropertyChanged(); }
         }
 
-        private int _distancePublish = DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter;
+        private int _distancePublish;
         public int distancePublish
         {
             get => _distancePublish; set { _distancePublish = value; OnPropertyChanged(); }
         }
 
-        private int _bookBorrowMax = DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
+        private int _bookBorrowMax;
         public int bookBorrowMax
         {
             get => _bookBorrowMax; set { _bookBorrowMax = value; OnPropertyChanged(); }
         }
 
-        private int _moneyPenalty = DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
+        private int _moneyPenalty;
         public int moneyPenalty
         {
             get => _moneyPenalty; set { _moneyPenalty = value; OnPropertyChanged(); }
         }
 
-        private int _dateBorrowMax = DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
+        private int _dateBorrowMax;
         public int dateBorrowMax
         {
             get => _dateBorrowMax; set { _dateBorrowMax = value; OnPropertyChanged(); }
@@ -66,10 +57,11 @@ namespace LibraryManagement.ViewModels
 
      
         public ICommand EditParametersCommand { get; set; }
+        public ICommand InitParamaters { get; set; }
 
         public ParameterViewModel()
         {
-
+            InitParams();
             EditParametersCommand = new AppCommand<object>(
                 (p) =>
                 {
@@ -94,7 +86,24 @@ namespace LibraryManagement.ViewModels
 
                     DB.SaveChanges();
                 });
+            InitParamaters = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    InitParams();
+                });
 
         }
+
+        private void InitParams()
+        {
+            ageMin = DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter;
+            ageMax = DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter;
+            expiryDate = DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter;
+            distancePublish = DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter;
+            bookBorrowMax = DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
+            moneyPenalty = DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
+            dateBorrowMax = DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
+    }
     }
 }
