@@ -39,11 +39,11 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Tháng" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
-                <ComboBox Name="month" Loaded="month_Loaded" Text="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ComboBox Name="month" Loaded="month_Loaded" SelectedItem="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
                 </ComboBox>
                 <TextBlock Grid.Column="2" Text="Năm" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
-                <ComboBox Name="year"  Loaded="year_Loaded" Text="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ComboBox Name="year"  Loaded="year_Loaded" SelectedItem="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
                 </ComboBox>
                 <Button Command="{Binding LoadReportCategory}" Grid.Column="4" Content="Tìm" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </Button>
@@ -76,7 +76,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"  Text="Tổng số lượt mượn" FontSize="20" VerticalAlignment="Center" FontWeight="Bold"/>
                 <TextBlock x:Name="sumTurn" Grid.Column="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
-                <Button Click="btnExportCategory_Click" Grid.Column="3" Width="150" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button Command="{Binding ExportCategory}" Grid.Column="3" Width="150" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
         <!--Phần 2-->
@@ -131,7 +131,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button  Click="btnExportLate_Click" Grid.Column="3" Width="150" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button Command="{Binding ExportLate}" Grid.Column="3" Width="150" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
 
