@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{796F7E3E-977D-4B20-BF12-FF4F5B480095}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>LibraryManagement</RootNamespace>
     <AssemblyName>LibraryManagement</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -176,6 +176,11 @@
     <Compile Include="ViewModels\ReturnBookViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\Validations\CollectFineValidation\CollectedAmountValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\ReaderAddressValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDebtValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
     <Compile Include="Views\BorrowBook.xaml.cs">
       <DependentUpon>BorrowBook.xaml</DependentUpon>
     </Compile>

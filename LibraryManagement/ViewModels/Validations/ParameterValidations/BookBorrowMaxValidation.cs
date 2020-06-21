@@ -10,11 +10,6 @@ namespace LibraryManagement.ViewModels
 {
     public class BookBorrowMaxValidation : ValidationRule
     {
-        public BookBorrowMaxValidation()
-        {
-
-        }
-
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             int bookBorrowMax = 0;
@@ -23,15 +18,19 @@ namespace LibraryManagement.ViewModels
             {
                 if (((string)value).Length > 0)
                     bookBorrowMax = Int32.Parse((String)value);
+                else
+                {
+                    return new ValidationResult(false, "Vui lòng nhập số sách mượn tối đa");
+                }
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Giá trị không phù hợp");
+                return new ValidationResult(false, "Số sách mượn phải là số nguyên dương nhỏ hơn 2^31");
             }
 
             if (bookBorrowMax <= 0)
             {
-                return new ValidationResult(false, "Giá trị phải lớn hơn 0");
+                return new ValidationResult(false, "Số sách mượn tối đa phải là số nguyên dương");
             }
             return ValidationResult.ValidResult;
         }

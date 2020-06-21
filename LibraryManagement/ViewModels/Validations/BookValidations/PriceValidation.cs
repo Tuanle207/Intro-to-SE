@@ -10,11 +10,6 @@ namespace LibraryManagement.ViewModels
 {
     public class PriceValidation : ValidationRule
     {
-
-        public PriceValidation()
-        {
-        }
-
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             int price = 0;
@@ -23,15 +18,19 @@ namespace LibraryManagement.ViewModels
             {
                 if (((string)value).Length > 0)
                     price = Int32.Parse((String)value);
+                else
+                {
+                    return new ValidationResult(false, "Vui lòng nhập giá");
+                }
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Giá trị không phù hợp");
+                return new ValidationResult(false, "Giá sách phải là một số nguyên dương");
             }
 
-            if(price <= 0)
+            if (price <= 0)
             {
-                return new ValidationResult(false, "Giá trị phải lớn hơn 0");
+                return new ValidationResult(false, "Giá sách phải là một số nguyên dương");
             }
             return ValidationResult.ValidResult;
         }

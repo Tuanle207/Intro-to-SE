@@ -131,6 +131,8 @@ namespace LibraryManagement.ViewModels
                     // Add Bill return to DB
                     BillReturn.returnDate = DateReturn;
                     DataAdapter.Instance.DB.BillReturns.Add(BillReturn);
+                    int finePerExcessDay = DataAdapter.Instance.DB.Paramaters.Find(6).valueParameter; // Get this from DB
+                    int daysBorrowAllowed = DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter; // Get this from DB
                     try
                     {
                         foreach (var detailBorrow in ListDetailBorrowSelected)
@@ -144,7 +146,7 @@ namespace LibraryManagement.ViewModels
                                     idBillReturn = BillReturn.idBillReturn,
                                     idBillBorrow = detailBorrow.idBillBorrow,
                                     dayBorrowed = DateTime.Now.Subtract(detailBorrow.BillBorrow.borrowDate).Days,
-                                    fine = getFine(detailBorrow.BillBorrow.borrowDate)
+                                    fine = getFine(detailBorrow.BillBorrow.borrowDate, finePerExcessDay, daysBorrowAllowed)
                                 }
                                 );
                             // Change detail borrow status
@@ -268,20 +270,20 @@ namespace LibraryManagement.ViewModels
         /// </summary>
         private void CalculateTotalFine()
         {
+            int finePerExcessDay = DataAdapter.Instance.DB.Paramaters.Find(6).valueParameter; // Get this from DB
+            int daysBorrowAllowed = DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter; // Get this from DB
             BillReturn.sumFine = 0;
 
             // Calculate total fine
             foreach (var detailBorrow in ListDetailBorrowSelected)
             {
                 //  Calculate fine of each book
-                BillReturn.sumFine += getFine(detailBorrow.BillBorrow.borrowDate);
+                BillReturn.sumFine += getFine(detailBorrow.BillBorrow.borrowDate, finePerExcessDay, daysBorrowAllowed);
             }
             OnPropertyChanged("BillReturn");
         }
-        private int getFine(DateTime date)
-        {
-            int finePerExcessDay = 1000; // Get this from DB
-            int daysBorrowAllowed = 14; // Get this from DB
+        private int getFine(DateTime date, int finePerExcessDay, int daysBorrowAllowed)
+        {   
             int fine = (DateTime.Now.Subtract(date).Days - daysBorrowAllowed) * finePerExcessDay;
             if (fine < 0) fine = 0;
             return fine;

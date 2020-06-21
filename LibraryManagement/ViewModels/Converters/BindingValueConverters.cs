@@ -42,8 +42,8 @@ namespace LibraryManagement.ViewModels
             if (value == null)
                 return value;
             int fine = 0;
-            int noDaysBorrowAllowed = 14; // Get this from DB
-            int amountFinePerDayExcess = 1000; // Get this from DB
+            int noDaysBorrowAllowed = DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter; // Get this from DB
+            int amountFinePerDayExcess = DataAdapter.Instance.DB.Paramaters.Find(6).valueParameter; // Get this from DB
             int excessDays = DateTime.Now.Subtract((DateTime)value).Days - noDaysBorrowAllowed;
             if (excessDays > 0)
             {
@@ -69,7 +69,7 @@ namespace LibraryManagement.ViewModels
         {
             if (value == null)
                 return value;
-            int noDaysBorrowAllowed = 14; // Get this from DB
+            int noDaysBorrowAllowed = DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter; // Get this from DB
             int excessDays = DateTime.Now.Subtract((DateTime)value).Days - noDaysBorrowAllowed;
             if (excessDays < 0)
             {
@@ -116,7 +116,7 @@ namespace LibraryManagement.ViewModels
         {
             if (value == null)
                 return value;
-            int noDaysBorrowAllowed = 14; // Get this from DB
+            int noDaysBorrowAllowed = DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter; // Get this from DB
             int noRemainingDay = noDaysBorrowAllowed - DateTime.Now.Subtract((DateTime)value).Days;
             return noRemainingDay;
         }
