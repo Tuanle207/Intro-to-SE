@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
     
     
-        Title="AddMember" Height="700" Width="800">
+        Title="AddReader" Height="700" Width="800">
     <Grid>
         <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -52,7 +52,7 @@
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="30*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameReader" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding NameReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
+                    <TextBox x:Name="NameReader" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding NameReader, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
                     <DatePicker x:Name="DobReader"  Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="5" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
                     <TextBox x:Name="Email" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
                     <TextBox x:Name="Address" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding AddressReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
@@ -75,7 +75,7 @@
                 <Label Grid.Row="0" Grid.Column="0" Margin="10,29" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10,29" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="Debt"  Grid.Row="0" Grid.Column="2" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" Text="{Binding Debt, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
-                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="2" Margin="10,21" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="2" Margin="10,21" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, Mode=OneTime}"></ComboBox>
             </Grid>
             <Label Grid.Row="4" Content="Thành viên" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
             <Grid Grid.Row="5" Margin="10">

@@ -8,6 +8,7 @@
     <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"></viewmodel:ReturnBookViewModel>
     <viewmodel:BookViewModel x:Key="BookViewModel"></viewmodel:BookViewModel>
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
+    <viewmodel:TypeReaderViewModel x:Key="TypeReaderViewModel"></viewmodel:TypeReaderViewModel>
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
     <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
 

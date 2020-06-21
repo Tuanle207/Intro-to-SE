@@ -149,6 +149,7 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\TypeReaderViewModel.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\MoneyPenaltyValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\ExpiryDateValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\DistancePublishValidation.cs" />
@@ -199,6 +200,9 @@
     </Compile>
     <Compile Include="Views\ReturnBook.xaml.cs">
       <DependentUpon>ReturnBook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewTypeReader.xaml.cs">
+      <DependentUpon>ViewTypeReader.xaml</DependentUpon>
     </Compile>
     <Page Include="DataContextDictionary.xaml">
       <SubType>Designer</SubType>
@@ -257,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReturnBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewTypeReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
