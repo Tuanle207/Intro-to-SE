@@ -1,27 +1,23 @@
 ﻿using LibraryManagement.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
+using System.Data.Entity;
 
 namespace LibraryManagement.ViewModels
 {
-    public class BorrowBookViewModel : BaseViewModel
+    class BorrowBookViewModel : BaseViewModel
     {
         /// <summary>
         /// Variables, properties definition
         /// </summary>
-        private ObservableCollection<Book> listBook;
+        private PagingCollectionView<Book> books;
         private ObservableCollection<Book> listBooksSelected;
-        private ObservableCollection<Reader> listReader;
+        private PagingCollectionView<Reader> readers;
         private Reader readerSelected;
         private string bookKeyword;
         private string readerKeyword;
@@ -31,19 +27,19 @@ namespace LibraryManagement.ViewModels
                 listBooksSelected = value; 
                 OnPropertyChanged(); 
             } }
-        public ObservableCollection<Book> ListBook
+        public PagingCollectionView<Book> Books
         {
-            get => listBook;
+            get => books;
             set
             {
-                listBook = value;
+                books = value;
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<Reader> ListReader { 
-            get => listReader; 
+        public PagingCollectionView<Reader> Readers { 
+            get => readers; 
             set { 
-                listReader = value;
+                readers = value;
                 OnPropertyChanged();
             } 
         }
@@ -61,6 +57,10 @@ namespace LibraryManagement.ViewModels
         public ICommand SelectBook { get; set; }
         public ICommand UnselectBook { get; set; }
         public ICommand UnselectAllBooks { get; set; }
+        public ICommand MoveToPreviousBooksPage { get; set; }
+        public ICommand MoveToNextBooksPage { get; set; }
+        public ICommand MoveToPreviousReadersPage { get; set; }
+        public ICommand MoveToNextReadersPage { get; set; }
 
         /// <summary>
         /// Constructor
@@ -85,11 +85,11 @@ namespace LibraryManagement.ViewModels
                 ListBooksSelected.Clear();
             }
 
-            ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
+            Books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList());
 
-            if (ListReader == null)
+            if (Readers == null)
             {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                Readers = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
             }
             ReaderSelected = null;
         }
@@ -159,10 +159,45 @@ namespace LibraryManagement.ViewModels
                     return true;
                 },
                 p => {
+                    // Select reader first for checking pre condition
+                    if (ReaderSelected == null)
+                    {
+                        MessageBox.Show("Vui lòng chọn độc giả trước tiên!");
+                        return;
+                    }
+
+                    if (!CheckReaderExpiry(readerSelected))
+                    {
+                        MessageBox.Show("Thẻ độc giả đã hết hạn!");
+                        return;
+                    }
+
                     Book bookSelected = p as Book;
+                    if (ListBooksSelected.Contains(bookSelected))
+                    {
+                        MessageBox.Show("Sách này được chọn rồi!");
+                        return;
+                    }
+                    else
+                    {
+                        // Check if reader has any borrowed book that's expired
+                        int maxBorrowBookAllowed = DataAdapter.Instance.DB.Paramaters.Find(5).valueParameter;
+                        if (CheckBookExpiryOfReader(ReaderSelected))
+                        {
+                            MessageBox.Show("Độc giả đang có sách quá hạn không thể mượn thêm sách!");
+                            return;
+                        }
+                        // Check if reader reach max book allowed to be borrowed
+                        if (GetBookBorrowedOfReader(ReaderSelected) + ListBooksSelected.Count
+                        >= maxBorrowBookAllowed) // Max Book
+                        {
+                            MessageBox.Show($"Độc giả đã đạt tới số sách tối đa được mượn ({maxBorrowBookAllowed} cuốn)!");
+                            return;
+                        }
+                    }
+                    
                     if (bookSelected.statusBook == "có sẵn")
                     {
-                        ListBook.Remove(bookSelected);
                         ListBooksSelected.Add(bookSelected);
                     }
                     else
@@ -179,7 +214,6 @@ namespace LibraryManagement.ViewModels
                 {
                     Book bookSelected = p as Book;
                     ListBooksSelected.Remove(bookSelected);
-                    ListBook.Add(bookSelected);
                 });
             UnselectAllBooks = new AppCommand<object>(
                 p =>
@@ -189,7 +223,42 @@ namespace LibraryManagement.ViewModels
                 p =>
                 {
                     ListBooksSelected = new ObservableCollection<Book>();
-                    ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
+                });
+            MoveToPreviousBooksPage = new AppCommand<object>(
+                p =>
+                {
+                    return Books.CurrentPage > 1;
+                },
+                p =>
+                {
+                    Books.MoveToPreviousPage();
+                });
+            MoveToNextBooksPage = new AppCommand<object>(
+                p =>
+                {
+                    return Books.CurrentPage < Books.PageCount;
+                },
+                p =>
+                {
+                    Books.MoveToNextPage();
+                });
+            MoveToPreviousReadersPage = new AppCommand<object>(
+                p =>
+                {
+                    return Readers.CurrentPage > 1;
+                },
+                p =>
+                {
+                    Books.MoveToPreviousPage();
+                });
+            MoveToNextReadersPage = new AppCommand<object>(
+                p =>
+                {
+                    return Readers.CurrentPage < Books.PageCount;
+                },
+                p =>
+                {
+                    Books.MoveToNextPage();
                 });
         }
 
@@ -197,19 +266,19 @@ namespace LibraryManagement.ViewModels
         {
             if (ReaderKeyword == null || ReaderKeyword.Trim() == "")
             {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                Readers = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
                 return;
             }
             try
             {
                 var result = DataAdapter.Instance.DB.Readers.Where(
-                                    reader => reader.nameReader.ToLower().StartsWith(ReaderKeyword.ToLower())
-                                    );
-                ListReader = new ObservableCollection<Reader>(result);
+                    reader => reader.nameReader.ToLower().StartsWith(ReaderKeyword.ToLower())
+                    );
+                Readers = new PagingCollectionView<Reader>(result.ToList());
             }
             catch (ArgumentNullException)
             {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                Readers = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
                 MessageBox.Show("Nhập tên độc giả để tìm kiếm!");
             }
         }
@@ -218,7 +287,7 @@ namespace LibraryManagement.ViewModels
         {
             if (BookKeyword == null || BookKeyword.Trim() == "")
             {
-                ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
+                Books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList());
                 return;
             }
             try
@@ -226,13 +295,43 @@ namespace LibraryManagement.ViewModels
                 var result = DataAdapter.Instance.DB.Books.Where(
                                     book => book.nameBook.ToLower().StartsWith(BookKeyword.ToLower())
                                     );
-                ListBook = new ObservableCollection<Book>(result);
+                Books = new PagingCollectionView<Book>(result.ToList());
             }
             catch (ArgumentNullException)
             {
-                ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
+                Books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList());
                 MessageBox.Show("Nhập tên sách để tìm kiếm!");
             }
+        }
+
+        private int GetBookBorrowedOfReader(Reader reader)
+        {
+            int result = (from br in DataAdapter.Instance.DB.BillBorrows
+                        join dbr in DataAdapter.Instance.DB.DetailBillBorrows
+                        on br.idBillBorrow equals dbr.idBillBorrow
+                        where br.idReader == reader.idReader && dbr.returned == 0
+                        select 1
+                        ).Count();
+            return result;
+        }
+
+        private bool CheckBookExpiryOfReader(Reader reader)
+        {
+            int maxBorrowDays = DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter;
+            int borrowExpired = (from br in DataAdapter.Instance.DB.BillBorrows
+                                 join dbr in DataAdapter.Instance.DB.DetailBillBorrows
+                                 on br.idBillBorrow equals dbr.idBillBorrow
+                                 where br.idReader == reader.idReader && DbFunctions.DiffDays(DateTime.Now, br.borrowDate) > maxBorrowDays
+                                 select 1
+                    ).Count();
+            
+            return borrowExpired > 0 ? true : false;
+        }
+        private bool CheckReaderExpiry(Reader reader)
+        {
+            int expiryMonths = DataAdapter.Instance.DB.Paramaters.Find(3).valueParameter;
+            int daysLeft = (DateTime.Now.AddDays(expiryMonths * 30) - reader.latestExtended).Days;
+            return daysLeft >= 0 ? true : false;
         }
     }
 }

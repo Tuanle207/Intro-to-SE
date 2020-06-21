@@ -6,8 +6,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:WPFToolKit="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+    mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
     
     
@@ -52,12 +53,49 @@
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="30*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameReader" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding NameReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
-                    <DatePicker x:Name="DobReader"  Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="5" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
-                    <TextBox x:Name="Email" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
-                    <TextBox x:Name="Address" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding AddressReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
+                    <TextBox x:Name="NameReader"
+                             Grid.Row="0" Background="#FFE2DADA" 
+                             Height="Auto" Margin="5">
+                        <TextBox.Text>
+                            <Binding Path="NameReader" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:ReaderNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <DatePicker x:Name="DobReader"
+                                Grid.Row="1"
+                                Background="#FFE2DADA"
+                                Height="Auto" Margin="5">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="DobReader" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderDOBValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                    </DatePicker>
+                    <TextBox x:Name="Email" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="5">
+                        <TextBox.Text>
+                            <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:ReaderEmailValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="Address" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="5">
+                        <TextBox.Text>
+                            <Binding Path="AddressReader" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:ReaderAddressValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <DatePicker x:Name="CreatAt" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="5"
-                                SelectedDate="{Binding CreatedAt, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                                SelectedDate="{Binding CreatedAt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </Grid>
             <Label Grid.Row="2" Content="Thông tin thẻ độc giả " HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
@@ -74,8 +112,21 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10,29" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10,29" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="Debt"  Grid.Row="0" Grid.Column="2" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" Text="{Binding Debt, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
-                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="2" Margin="10,21" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <TextBox x:Name="Debt"  Grid.Row="0" Grid.Column="2" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto">
+                    <TextBox.Text>
+                        <Binding Path="Debt" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <vm:ReaderDebtValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="2" Margin="10,21" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SelectedTypeReader" UpdateSourceTrigger="PropertyChanged" >
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
             </Grid>
             <Label Grid.Row="4" Content="Thành viên" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
             <Grid Grid.Row="5" Margin="10">

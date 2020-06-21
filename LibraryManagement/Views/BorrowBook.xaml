@@ -8,13 +8,13 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         Title="Cho mượn sách"
         DataContext="{StaticResource BorrowBookViewModel}">
 
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
@@ -31,7 +31,7 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBox Name="tbBookName" Background="Transparent" BorderBrush="Red" Text="{Binding BookKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid ItemsSource="{Binding ListBook, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="#d92027" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid Height="250" ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="#d92027" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -50,6 +50,13 @@
                     <DataGridTextColumn Header="Nhà xuất bản" Binding="{Binding Publisher.namePublisher}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                <Button Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                <TextBlock Text="{Binding Books.CurrentPage}"></TextBlock>
+                <TextBlock>/</TextBlock>
+                <TextBlock Text="{Binding Books.PageCount}"></TextBlock>
+                <Button Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock Background="#0a97b0" Foreground="#fff" Padding="5" TextAlignment="Center" FontSize="16">Sách đã chọn</TextBlock>
@@ -70,16 +77,20 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Grid Background="Aqua">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="305*"/>
+                    <ColumnDefinition Width="152*"/>
+                </Grid.ColumnDefinitions>
                 <TextBlock Margin="5,3" Text="Nhập tên độc giả..."
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
-                              Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbReaderName" Background="Transparent" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                              Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" />
+                <TextBox Name="tbReaderName" Background="Transparent" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
             </Grid>
-            <DataGrid ItemsSource="{Binding ListReader}" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding Readers}" Height="150" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                     <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
@@ -91,8 +102,15 @@
                     <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                <Button Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                <TextBlock Text="{Binding Readers.CurrentPage}"></TextBlock>
+                <TextBlock>/</TextBlock>
+                <TextBlock Text="{Binding Readers.PageCount}"></TextBlock>
+                <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+            </StackPanel>
         </StackPanel>
-        
+
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>

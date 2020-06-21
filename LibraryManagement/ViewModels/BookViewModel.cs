@@ -180,7 +180,7 @@ namespace LibraryManagement.ViewModels
                 ListAuthors = new ObservableCollection<Author>();
                 dateAddBook = DateTime.Now;
                 dateManufacture = new DateTime(2000, 1, 1);
-                price= 0;
+                price = 0;
                 wd.ShowDialog();
 
             });

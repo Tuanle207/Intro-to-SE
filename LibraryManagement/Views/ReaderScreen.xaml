@@ -1,11 +1,12 @@
 ﻿<UserControl           
-               DataContext="{StaticResource ReaderViewModel}"
-            x:Class="LibraryManagement.Views.ReaderScreen"
+             DataContext="{StaticResource ReaderViewModel}"
+             x:Class="LibraryManagement.Views.ReaderScreen"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagement.Views" 
+             xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                 mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800" Background="#FFF0F0F0">
@@ -94,11 +95,32 @@
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="30*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding NameReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox IsReadOnly="True" x:Name="NameReader"
+                             Grid.Row="0" Background="#FFE2DADA" 
+                             Height="Auto" Margin="5">
+                        <TextBox.Text>
+                            <Binding Path="NameReader" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:ReaderNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding AddressReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="1" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
-                    <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="1" SelectedDate="{Binding CreatedAt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    <DatePicker IsEnabled="False" x:Name="DobReader"
+                            Grid.Row="3"
+                            Background="#FFE2DADA"
+                            Height="Auto">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="DobReader" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderDOBValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                    </DatePicker>
+                     <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="1" SelectedDate="{Binding CreatedAt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
 
                 </Grid>
             </Grid>
@@ -115,7 +137,15 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center"/>
-                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox x:Name="Debt" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto">
+                    <TextBox.Text>
+                        <Binding Path="Debt" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <vm:ReaderDebtValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
 
                 <Button x:Name="CapnhatReader" Click="CapnhatReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="2" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
@@ -163,7 +193,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm độc giả" Margin="10" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>

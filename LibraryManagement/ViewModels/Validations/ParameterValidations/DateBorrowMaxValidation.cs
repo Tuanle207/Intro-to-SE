@@ -23,15 +23,19 @@ namespace LibraryManagement.ViewModels
             {
                 if (((string)value).Length > 0)
                     dateBorrowMax = Int32.Parse((String)value);
+                else
+                {
+                    return new ValidationResult(false, "Vui lòng nhập số ngày mượn tối đa");
+                }
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Giá trị không phù hợp");
+                return new ValidationResult(false, "Số ngày mượng phải là số nguyên dương nhỏ hơn 2^31");
             }
 
             if (dateBorrowMax <= 0)
             {
-                return new ValidationResult(false, "Giá trị phải lớn hơn 0");
+                return new ValidationResult(false, "Số ngày mượn tối đa phải là số nguyên dương");
             }
             return ValidationResult.ValidResult;
         }

@@ -153,7 +153,7 @@
                             <Binding.ValidationRules>
                                 <vm:CollectedAmountValidation>
                                     <vm:CollectedAmountValidation.Wrapper>
-                                        <vm:CollectedAmountValidationWrapper MaxAmount="{Binding Data.debt , Source={StaticResource proxy1}}"/>
+                                        <vm:CollectedAmountValidationWrapper MaxAmount="{Binding Data.debt, Source={StaticResource proxy1}}"/>
                                     </vm:CollectedAmountValidation.Wrapper>
                                 </vm:CollectedAmountValidation>
                             </Binding.ValidationRules>

@@ -8,34 +8,33 @@ using System.Windows.Controls;
 
 namespace LibraryManagement.ViewModels
 {
-    public class ExpiryDateValidation : ValidationRule
+    public class ReaderDebtValidation : ValidationRule
     {
-        public ExpiryDateValidation()
-        {
-
-        }
-
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            int expiryDate = 0;
+            int debt = 0;
 
             try
             {
+                if (value == null)
+                {
+                    return ValidationResult.ValidResult;
+                }
                 if (((string)value).Length > 0)
-                    expiryDate = Int32.Parse((String)value);
+                    debt = Int32.Parse((String)value);
                 else
                 {
-                    return new ValidationResult(false, "Vui lòng nhập thời hạn hết hạn thẻ");
+                    return new ValidationResult(false, "Vui lòng nhập số nợ");
                 }
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Thời hạn thẻ phải là số nguyên dương nhỏ hơn 2^31");
+                return new ValidationResult(false, "Số nợ phải là một số nguyên dương nhỏ hơn 2^31");
             }
 
-            if (expiryDate <= 0)
+            if (debt < 0)
             {
-                return new ValidationResult(false, "Thời hạn hết hạn thẻ phải là một số nguyên dương");
+                return new ValidationResult(false, "Số nợ không thể âm");
             }
             return ValidationResult.ValidResult;
         }

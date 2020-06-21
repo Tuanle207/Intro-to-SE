@@ -26,10 +26,6 @@ namespace LibraryManagement.ViewModels
     {
         public CollectedAmountValidationWrapper Wrapper { get; set; }
 
-        public CollectedAmountValidation()
-        {
-        }
-        
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             int collectedAmount = 0;
@@ -49,7 +45,7 @@ namespace LibraryManagement.ViewModels
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Giá trị nhập vào không hợp lệ");
+                return new ValidationResult(false, "Số tiền thu phải là số nguyên dương nhỏ hơn 2^31");
             }
 
             if (collectedAmount <= 0)
