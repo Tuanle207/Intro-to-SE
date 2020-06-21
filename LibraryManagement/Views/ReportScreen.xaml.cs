@@ -32,7 +32,7 @@ namespace LibraryManagement.Views
             {
                 year.Items.Add(i);
             }
-            year.Text = DateTime.Today.Year.ToString();
+            year.SelectedItem = DateTime.Today.Year.ToString();
         }
 
         private void month_Loaded(object sender, RoutedEventArgs e)
