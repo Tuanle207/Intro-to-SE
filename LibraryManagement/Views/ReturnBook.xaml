@@ -33,6 +33,13 @@
                         <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
                     </DataGrid.Columns>
                 </DataGrid>
+                <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                    <Button Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                    <TextBlock Text="{Binding ListReader.CurrentPage}"></TextBlock>
+                    <TextBlock>/</TextBlock>
+                    <TextBlock Text="{Binding ListReader.PageCount}"></TextBlock>
+                    <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                </StackPanel>
                 <Grid Height="200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="389*"/>
