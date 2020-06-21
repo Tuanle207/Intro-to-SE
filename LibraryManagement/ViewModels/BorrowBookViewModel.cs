@@ -249,16 +249,16 @@ namespace LibraryManagement.ViewModels
                 },
                 p =>
                 {
-                    Books.MoveToPreviousPage();
+                    Readers.MoveToPreviousPage();
                 });
             MoveToNextReadersPage = new AppCommand<object>(
                 p =>
                 {
-                    return Readers.CurrentPage < Books.PageCount;
+                    return Readers.CurrentPage < Readers.PageCount;
                 },
                 p =>
                 {
-                    Books.MoveToNextPage();
+                    Readers.MoveToNextPage();
                 });
         }
 

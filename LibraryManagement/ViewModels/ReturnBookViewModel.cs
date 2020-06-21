@@ -20,7 +20,7 @@ namespace LibraryManagement.ViewModels
         /// Variables, Properties definition
         /// </summary>
         private string readerSearchKeyword;
-        private ObservableCollection<Reader> listReader;
+        private PagingCollectionView<Reader> listReader;
         private Reader readerSelected;
         private ObservableCollection<DetailBillBorrow> listDetailBorrowCorresponding;
         private ObservableCollection<DetailBillBorrow> listDetailBorrowSelected;
@@ -37,7 +37,7 @@ namespace LibraryManagement.ViewModels
                 SearchReader();
             }
         }
-        public ObservableCollection<Reader> ListReader {
+        public PagingCollectionView<Reader> ListReader {
             get => listReader;
             set { listReader = value; OnPropertyChanged(); }
         }
@@ -74,7 +74,9 @@ namespace LibraryManagement.ViewModels
         public ICommand SelectBook { get; set; }
         public ICommand UnSelectBook { get; set; }
         public ICommand ReturnBook { get; set; }
-       
+        public ICommand MoveToPreviousReadersPage { get; set; }
+        public ICommand MoveToNextReadersPage { get; set; }
+
 
 
 
@@ -199,6 +201,24 @@ namespace LibraryManagement.ViewModels
                         RetrieveDataAndClearInput();
                     }
                 });
+            MoveToPreviousReadersPage = new AppCommand<object>(
+               p =>
+               {
+                   return ListReader.CurrentPage > 1;
+               },
+               p =>
+               {
+                   ListReader.MoveToPreviousPage();
+               });
+            MoveToNextReadersPage = new AppCommand<object>(
+                p =>
+                {
+                    return ListReader.CurrentPage < ListReader.PageCount;
+                },
+                p =>
+                {
+                    ListReader.MoveToNextPage();
+                });
         }
         /// <summary>
         /// Retrieve default data from DB and initialize properties
@@ -220,7 +240,7 @@ namespace LibraryManagement.ViewModels
         {
             if (ReaderSearchKeyword == null || ReaderSearchKeyword.Trim() == "")
             {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                ListReader = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
                 return;
             }
             try
@@ -228,11 +248,11 @@ namespace LibraryManagement.ViewModels
                 var result = DataAdapter.Instance.DB.Readers.Where(
                                     reader => reader.nameReader.ToLower().StartsWith(ReaderSearchKeyword.ToLower())
                                     );
-                ListReader = new ObservableCollection<Reader>(result);
+                ListReader = new PagingCollectionView<Reader>(result.ToList());
             }
             catch (ArgumentNullException)
             {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                ListReader = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
                 MessageBox.Show("Từ khóa tìm kiếm rỗng!");
             }
         }
