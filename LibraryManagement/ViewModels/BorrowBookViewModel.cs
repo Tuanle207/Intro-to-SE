@@ -321,7 +321,9 @@ namespace LibraryManagement.ViewModels
             int borrowExpired = (from br in DataAdapter.Instance.DB.BillBorrows
                                  join dbr in DataAdapter.Instance.DB.DetailBillBorrows
                                  on br.idBillBorrow equals dbr.idBillBorrow
-                                 where br.idReader == reader.idReader && DbFunctions.DiffDays(DateTime.Now, br.borrowDate) > maxBorrowDays
+                                 where br.idReader == reader.idReader 
+                                 && DbFunctions.DiffDays(br.borrowDate, DateTime.Now) > maxBorrowDays 
+                                 && dbr.returned == 0
                                  select 1
                     ).Count();
             
@@ -330,7 +332,7 @@ namespace LibraryManagement.ViewModels
         private bool CheckReaderExpiry(Reader reader)
         {
             int expiryMonths = DataAdapter.Instance.DB.Paramaters.Find(3).valueParameter;
-            int daysLeft = (DateTime.Now.AddDays(expiryMonths * 30) - reader.latestExtended).Days;
+            int daysLeft = (reader.latestExtended.AddDays(expiryMonths * 30) - DateTime.Now).Days;
             return daysLeft >= 0 ? true : false;
         }
     }
