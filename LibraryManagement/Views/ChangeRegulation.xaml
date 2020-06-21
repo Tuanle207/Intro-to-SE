@@ -42,11 +42,17 @@
                 <TextBox 
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    <TextBox.Resources>
+                        <local:BindingProxy x:Key="proxyAgeMin" Data="{Binding ageMax}"/>
+                    </TextBox.Resources>
                     <TextBox.Text>
-                        <Binding Path="ageMin"
-                        UpdateSourceTrigger="PropertyChanged" >
+                        <Binding Path="ageMin" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
-                                <vm:AgeMinValidation/>
+                                <vm:AgeMinValidation>
+                                    <vm:AgeMinValidation.Wrapper>
+                                        <vm:AgeMinValidationWrapper MaxValue="{Binding Data, Source={StaticResource proxyAgeMin}}"/>
+                                    </vm:AgeMinValidation.Wrapper>
+                                </vm:AgeMinValidation>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -65,11 +71,17 @@
                 <TextBox 
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    <TextBox.Resources>
+                        <local:BindingProxy x:Key="proxyAgeMax" Data="{Binding ageMin}"/>
+                    </TextBox.Resources>
                     <TextBox.Text>
-                        <Binding Path="ageMax"
-                        UpdateSourceTrigger="PropertyChanged" >
+                        <Binding Path="ageMax" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
-                                <vm:AgeMaxValidation/>
+                                <vm:AgeMaxValidation>
+                                    <vm:AgeMaxValidation.Wrapper>
+                                        <vm:AgeMaxValidationWrapper MinValue="{Binding Data, Source={StaticResource proxyAgeMax}}"/>
+                                    </vm:AgeMaxValidation.Wrapper>
+                                </vm:AgeMaxValidation>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

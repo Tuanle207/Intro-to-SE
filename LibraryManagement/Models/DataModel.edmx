@@ -122,6 +122,7 @@
           <Property Name="addressReader" Type="nvarchar(max)" Nullable="false" />
           <Property Name="createdAt" Type="smalldatetime" Nullable="false" />
           <Property Name="debt" Type="int" Nullable="false" />
+          <Property Name="latestExtended" Type="smalldatetime" Nullable="false" />
           <Property Name="idTypeReader" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Staff">
@@ -519,6 +520,7 @@
           <Property Name="addressReader" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="debt" Type="Int32" Nullable="false" />
+          <Property Name="latestExtended" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="idTypeReader" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BillBorrows" Relationship="Self.FK__BillBorro__idRea__33D4B598" FromRole="Reader" ToRole="BillBorrow" />
           <NavigationProperty Name="BillReturns" Relationship="Self.FK__BillRetur__idRea__37A5467C" FromRole="Reader" ToRole="BillReturn" />
@@ -888,6 +890,7 @@
                 <ScalarProperty Name="addressReader" ColumnName="addressReader" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="debt" ColumnName="debt" />
+                <ScalarProperty Name="latestExtended" ColumnName="latestExtended" />
                 <ScalarProperty Name="idTypeReader" ColumnName="idTypeReader" />
               </MappingFragment>
             </EntityTypeMapping>

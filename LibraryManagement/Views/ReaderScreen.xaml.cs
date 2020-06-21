@@ -28,9 +28,12 @@ namespace LibraryManagement.Views
 
         private void ButtonAddReader_Click(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
+            if (button.Command.CanExecute(null))
+            {
+                button.Command.Execute(null);
+            }
             AddReader wd = new AddReader();
-            CreatAt.SelectedDate = DateTime.Now;
-            Debt.Text = "0";
             wd.ShowDialog();
         }
 

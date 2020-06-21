@@ -23,15 +23,19 @@ namespace LibraryManagement.ViewModels
             {
                 if (((string)value).Length > 0)
                     moneyPenalty = Int32.Parse((String)value);
+                else
+                {
+                    return new ValidationResult(false, "Vui lòng nhập mức phạt");
+                }
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Giá trị không phù hợp");
+                return new ValidationResult(false, "Mức phạt phải là số nguyên dương nhỏ hơn 2^31");
             }
 
             if (moneyPenalty < 0)
             {
-                return new ValidationResult(false, "Giá trị phải lớn hơn hoặc bằng 0");
+                return new ValidationResult(false, "Mức phạt phải là một số nguyên dương");
             }
             return ValidationResult.ValidResult;
         }
