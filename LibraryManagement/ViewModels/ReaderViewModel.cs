@@ -231,8 +231,8 @@ namespace LibraryManagement.ViewModels
                         dobReader = (DateTime)DobReader,
                         email = Email,
                         addressReader = AddressReader,
-                        createdAt = (DateTime)CreatedAt,
-                        debt = Int32.Parse(Debt),
+                        createdAt = DateTime.Today,
+                        debt = 0,
                         idTypeReader = SelectedTypeReader.idTypeReader
                     };
                     DataAdapter.Instance.DB.Readers.Add(Reader);
