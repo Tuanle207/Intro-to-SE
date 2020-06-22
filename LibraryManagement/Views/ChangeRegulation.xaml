@@ -45,6 +45,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
+                    Name="ageMin"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Resources>
@@ -74,6 +75,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
+                    Name="ageMax"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Resources>
@@ -103,6 +105,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
+                    Name="expiryDate"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
@@ -126,6 +129,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
+                    Name="distancePublish"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
@@ -149,6 +153,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold" Height="33" Margin="0,0,-0.4,-0.2" VerticalAlignment="Top">
                 <TextBox 
+                    Name="bookBorrowMax"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
@@ -172,6 +177,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
+                    Name="dateBorrowMax"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
@@ -195,6 +201,7 @@
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
+                    Name="moneyPenalty"
                     FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
@@ -209,7 +216,26 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="7" Margin="10">
-            <Button Command="{Binding EditParametersCommand}" Content="Xác nhận" Background="Green" FontSize="20" Width="150" Click="Button_Click" ></Button>
+            <Button Command="{Binding EditParametersCommand}" Content="Xác nhận" Background="Green" FontSize="20" Width="150" Click="Button_Click" >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ageMin}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ageMax}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=expiryDate}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=distancePublish}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=bookBorrowMax}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=dateBorrowMax}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=moneyPenalty}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Window>
