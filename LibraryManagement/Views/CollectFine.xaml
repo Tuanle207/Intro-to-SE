@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         DataContext="{StaticResource CollectFineViewModel}"
         x:Name="window"
-        Title="Thu Tiền Phạt" Height="500" Width="800">
+        Title="Thu Tiền Phạt" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="textBoxErrorTemplate" TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -20,20 +21,20 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <Grid Background="Aqua">
-                <TextBlock Margin="5,2" Text="Nhập tên độc giả..."
+                <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbReaderName" Background="Transparent" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Height="500" BorderThickness="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                     <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
@@ -47,7 +48,7 @@
             </DataGrid>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <TextBlock Background="#0a97b0" Foreground="#fff" Padding="5" TextAlignment="Center" FontSize="16">Thông tin phiếu phạt</TextBlock>
+            <TextBlock Background="#0a97b0" Foreground="#fff" Padding="15" TextAlignment="Center" FontSize="16">Thông tin phiếu phạt</TextBlock>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
@@ -62,8 +63,8 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
-                    TextAlignment="Left"
+                    Padding="5 0"
+                    TextAlignment="Left" VerticalContentAlignment="Center"
                     Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}"/>
             </Grid>
             <Grid>
@@ -82,8 +83,8 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
-                    TextAlignment="Left"
+                    Padding="5 0"
+                    TextAlignment="Left" VerticalContentAlignment="Center"
                     Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.nameReader}"/>
             </Grid>
             <Grid>
@@ -102,8 +103,8 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
-                    TextAlignment="Left"
+                    Padding="5 0"
+                    TextAlignment="Left" VerticalContentAlignment="Center"
                     Grid.Row="0" Grid.Column="1" Text="{Binding Payment.paymentDate}"/>
             </Grid>
             <Grid>
@@ -122,8 +123,8 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
-                    TextAlignment="Left"
+                    Padding="5 0"
+                    TextAlignment="Left" VerticalContentAlignment="Center"
                     Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.debt}"/>
             </Grid>
             <Grid>
@@ -141,8 +142,8 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
-                    TextAlignment="Left"
+                    Padding="5 0"
+                    TextAlignment="Left" VerticalContentAlignment="Center"
                     x:Name="tbCollectedAmount"
                     Grid.Row="0" Grid.Column="1">
                     <TextBox.Resources>
@@ -177,16 +178,16 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
+                    Padding="5 0"
                     TextAlignment="Left"
-                    Grid.Row="0" Grid.Column="1"
+                    Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center"
                     Text="{Binding Payment.remainDebt}">
                 </TextBox>
             </Grid>
             <Button Command="{Binding CollectFine}" Height="50" Content="THU TIỀN PHẠT" ToolTip="Nhập số tiền thu hợp lệ để tiếp tục">
                 <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCollectedAmount}" Value="True"/>

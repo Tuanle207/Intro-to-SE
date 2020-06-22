@@ -10,27 +10,27 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
     
-    
-        Title="AddMember" Height="700" Width="800">
-    <Grid>
+        ResizeMode="NoResize"
+        Title="Thêm độc giả" Height="700" Width="800">
+    <Grid Margin="5">
         <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="6*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Label Content="Thông tin cơ bản" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
+            <materialDesign:Card Grid.Row="1" Margin="10">
+                
+            </materialDesign:Card>
             <Grid x:Name="gridForNomalInfo" Grid.Row="1" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="/Assets/3.jpg" Margin="10" Stretch="Fill"/>
-                <Grid Grid.Column="1" Margin="10">
+                <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -38,52 +38,52 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
-                    <Label Grid.Row="1" Content="Ngày sinh" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
-                    <Label Grid.Row="2" Content="Email" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
-                    <Label Grid.Row="3" Content="Địa chỉ"  Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
-                    <Label Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                    <Label Grid.Row="1" Content="Ngày sinh" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                    <Label Grid.Row="2" Content="Email" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                    <Label Grid.Row="3" Content="Địa chỉ"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                    <Label Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                 </Grid>
-                <Grid Grid.Column="2" Margin="5">
+                <Grid Grid.Column="1" Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="31*"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameReader" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding NameReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
-                    <DatePicker x:Name="DobReader"  Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="5" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
-                    <TextBox x:Name="Email" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
-                    <TextBox x:Name="Address" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="5" Text="{Binding AddressReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
-                    <DatePicker x:Name="CreatAt" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="5"
+                    <TextBox x:Name="NameReader" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16" Text="{Binding NameReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
+                    <DatePicker x:Name="DobReader"  Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
+                    <TextBox x:Name="Email" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
+                    <TextBox x:Name="Address" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16" Text="{Binding AddressReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"/>
+                    <DatePicker x:Name="CreatAt" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16"
                                 SelectedDate="{Binding CreatedAt, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
                 </Grid>
             </Grid>
             <Label Grid.Row="2" Content="Thông tin thẻ độc giả " HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
+            <materialDesign:Card Grid.Row="3" Margin="10"></materialDesign:Card>
             <Grid x:Name="gridForReaderProfile" Grid.Row="3" Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="22*"/>
-                    <ColumnDefinition Width="132*"/>
-                    <ColumnDefinition Width="309*"/>
-                    <ColumnDefinition Width="309*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Margin="10,29" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                <Label Grid.Row="1" Grid.Column="0" Margin="10,29" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="Debt"  Grid.Row="0" Grid.Column="2" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto" Text="{Binding Debt, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
-                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="2" Margin="10,21" Background="#FFE2DADA" FontSize="20" Height="Auto" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
+                <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
+                <TextBox x:Name="Debt"  Grid.Row="0" Grid.Column="1" Margin="10" Background="#FFE2DADA" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0" Text="{Binding Debt, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="1" Margin="10" Background="#FFE2DADA" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
             </Grid>
-            <Label Grid.Row="4" Content="Thành viên" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
-            <Grid Grid.Row="5" Margin="10">
+            <Grid Grid.Row="4" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Height="Auto" Width="Auto" Click="Button_Click" Command="{Binding AddCommand}" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Height="Auto" Width="Auto" Click="Button_Click" Command="{Binding AddCommand}" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="IsEnabled" Value="false" />
@@ -105,7 +105,7 @@
                     </Button.Style>
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Thêm độc giả" Margin="10" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="Thêm độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
             </Grid>

@@ -8,6 +8,8 @@
     <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"></viewmodel:ReturnBookViewModel>
     <viewmodel:BookViewModel x:Key="BookViewModel"></viewmodel:BookViewModel>
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
+    <viewmodel:StaffViewModel x:Key="StaffViewModel"></viewmodel:StaffViewModel>
+    <viewmodel:LoginViewModel x:Key="LoginViewModel"></viewmodel:LoginViewModel>
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
 
     <!-- Value Converter -->

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for BookBorrow.xaml
+    /// Interaction logic for ChangeRegulation.xaml
     /// </summary>
-    public partial class BorrowBook : Window
+    public partial class ChangeRegulation : Window
     {
-        public BorrowBook()
+        public ChangeRegulation()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.Close();
         }
     }
 }
