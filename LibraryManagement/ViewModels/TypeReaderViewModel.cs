@@ -62,7 +62,7 @@ namespace LibraryManagement.ViewModels
                 _nameAddTypeReader = value; OnPropertyChanged();
             }
         }
-        public AppCommand<object> AddTypeReaderCommand { get; }
+        public AppCommand<object> AddTypeReaderCommand { get; set; }
         public AppCommand<object> DeleteTypeReaderCommand { get; }
         public TypeReaderViewModel()
         {
@@ -70,29 +70,25 @@ namespace LibraryManagement.ViewModels
             RetrieveData();
             AddTypeReaderCommand = new AppCommand<object>((p) =>
             {
-                return true;
+                if (NameAddTypeReader == null || NameAddTypeReader =="")
+                    return false;
+                else
+                {
+                    return true;
+                }    
 
             }, (p) =>
             {
-                try
+                var tp = new TypeReader()
                 {
-                    if(NameAddTypeReader != "" && NameAddTypeReader != null)
-                    {
-                        var TypeReader = new TypeReader()
-                        {
-                            nameTypeReader = NameAddTypeReader
-                        };
-                        DataAdapter.Instance.DB.TypeReaders.Add(TypeReader);
-                        DataAdapter.Instance.DB.SaveChanges();
-                        ListTypeReader.Add(TypeReader);
-                        MessageBox.Show("Bạn đã thêm loại độc giả thành công");
-                        NameAddTypeReader = "";
-                    }
-                }
-                    catch (Exception)
-                {
-                    MessageBox.Show("Đã có lỗi khi thêm loại độc giả!");
-                }
+                    nameTypeReader = NameAddTypeReader
+                };
+                DataAdapter.Instance.DB.TypeReaders.Add(tp);
+                DataAdapter.Instance.DB.SaveChanges();
+                ListTypeReader.Add(tp);
+                MessageBox.Show("Bạn đã thêm loại độc giả thành công");
+                NameAddTypeReader = "";
+
         });
             DeleteTypeReaderCommand = new AppCommand<object>((p) =>
             {
