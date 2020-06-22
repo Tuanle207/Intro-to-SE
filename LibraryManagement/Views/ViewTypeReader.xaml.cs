@@ -24,14 +24,5 @@ namespace LibraryManagement.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddTypeReader_Click(object sender, RoutedEventArgs e)
-        {
-            txtAddTypeReader.Text = "";
-        }
     }
 }
