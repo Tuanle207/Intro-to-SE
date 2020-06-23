@@ -249,6 +249,7 @@ namespace LibraryManagement.ViewModels
                 DB.SaveChanges();
 
                 ListBook.Add(book);
+                MessageBox.Show("Thêm sách mới thành công");
             });
 
             //Edit Book Information
@@ -285,6 +286,8 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
 
                 ListBook = new ObservableCollection<Book>(DB.Books);
+                MessageBox.Show("Sửa sách thành công");
+
             });
 
             //Delete Book
@@ -299,6 +302,7 @@ namespace LibraryManagement.ViewModels
                 DB.Books.Remove(book);
                 DB.SaveChanges();
                 ListBook.Remove(book);
+                MessageBox.Show("Xóa sách thành công");
             });
 
             //Delete Author in List Author
