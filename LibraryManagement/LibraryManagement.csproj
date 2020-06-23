@@ -149,6 +149,10 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Validations\AuthorValidation.cs" />
+    <Compile Include="ViewModels\AuthorViewModel.cs" />
+    <Compile Include="ViewModels\Validations\CategoryValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\MoneyPenaltyValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\ExpiryDateValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\DistancePublishValidation.cs" />
@@ -164,6 +168,15 @@
     <Compile Include="ViewModels\ReturnBookViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\Validations\CollectFineValidation\CollectedAmountValidation.cs" />
+    <Compile Include="Views\AddAuthorScreen.xaml.cs">
+      <DependentUpon>AddAuthorScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddCategoryScreen.xaml.cs">
+      <DependentUpon>AddCategoryScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuthorScreen.xaml.cs">
+      <DependentUpon>AuthorScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BorrowBook.xaml.cs">
       <DependentUpon>BorrowBook.xaml</DependentUpon>
     </Compile>
@@ -178,6 +191,9 @@
     </Compile>
     <Compile Include="Views\BookScreen.xaml.cs">
       <DependentUpon>BookScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryScreen.xaml.cs">
+      <DependentUpon>CategoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChangeRegulation.xaml.cs">
       <DependentUpon>ChangeRegulation.xaml</DependentUpon>
@@ -216,6 +232,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddAuthorScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddCategoryScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthorScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BorrowBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BookScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

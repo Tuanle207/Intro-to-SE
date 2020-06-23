@@ -10,15 +10,15 @@
         mc:Ignorable="d"
         DataContext="{StaticResource BookViewModel}"
         Title="Thêm Sách" Height="550" Width="600">
-        <Window.Resources>
-            <ControlTemplate x:Key="textBoxErrorTemplate">
-                <StackPanel>
-                    <AdornedElementPlaceholder Name="a" />
-                    <TextBlock DockPanel.Dock="Bottom" Foreground="Red"
+    <Window.Resources>
+        <ControlTemplate x:Key="textBoxErrorTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder Name="a" />
+                <TextBlock DockPanel.Dock="Bottom" Foreground="Red"
                                Text="{Binding ElementName=a, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
-                </StackPanel>
-            </ControlTemplate>
-        </Window.Resources>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -155,7 +155,11 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="7" Margin="10">
-            <Button Command="{Binding AddBookToDBCommand}" Content="Thêm sách" Background="Green" FontSize="20" Width="150" Click="Button_Click">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="41*"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding AddBookToDBCommand}" Content="Thêm sách" Background="Green" FontSize="20" Width="150" Click="Button_Click" Margin="212,0,88.15,-0.2">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>

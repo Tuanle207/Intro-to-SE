@@ -10,6 +10,8 @@
     <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
     <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
+    <viewmodel:AuthorViewModel x:Key="AuthorViewModel"></viewmodel:AuthorViewModel>
+    <viewmodel:CategoryViewModel x:Key="CategoryViewModel"></viewmodel:CategoryViewModel>
 
 
     <!-- Value Converter -->
