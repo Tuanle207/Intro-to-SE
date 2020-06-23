@@ -11,27 +11,28 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         Title="Cho mượn sách"
-        DataContext="{StaticResource BorrowBookViewModel}">
+        DataContext="{StaticResource BorrowBookViewModel}"
+        Width="1140" Height="720" Loaded="Window_Loaded">
 
     <Grid>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Grid Background="Aqua">
-                <TextBlock Margin="5, 3" Text="Nhập tên sách..."
+        <StackPanel x:Name="spSach" Grid.Row="0" Grid.Column="0" Margin="5" Orientation="Vertical">
+            <Grid x:Name="gridSach" Background="Aqua">
+                <TextBlock Margin="10" Text="Nhập tên sách..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbBookName, Path=Text.IsEmpty,
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbBookName" Background="Transparent" BorderBrush="Red" Text="{Binding BookKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Name="tbBookName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding BookKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid Height="250" ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="#d92027" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid x:Name="dtgSach" ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="350">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -58,9 +59,9 @@
                 <Button Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Column="1">
-            <TextBlock Background="#0a97b0" Foreground="#fff" Padding="5" TextAlignment="Center" FontSize="16">Sách đã chọn</TextBlock>
-            <DataGrid ItemsSource="{Binding ListBooksSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True">
+        <StackPanel Grid.Column="1" Margin="5">
+            <TextBlock Background="#0a97b0" Foreground="#fff" Padding="15" TextAlignment="Center" FontSize="16">Sách đã chọn</TextBlock>
+            <DataGrid ItemsSource="{Binding ListBooksSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="350">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -77,20 +78,16 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Grid Background="Aqua">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="305*"/>
-                    <ColumnDefinition Width="152*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Margin="5,3" Text="Nhập tên độc giả..."
+        
+        <StackPanel x:Name="spReader" Grid.Row="1" Grid.Column="0" Margin="5">
+            <Grid x:Name="gridReader" Background="Aqua">
+                <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
-                              Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" />
-                <TextBox Name="tbReaderName" Background="Transparent" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+                              Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBox Name="tbReaderName" Background="Transparent" FontSize="16" Margin="10" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid ItemsSource="{Binding Readers}" Height="150" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid x:Name="dtgReader" ItemsSource="{Binding Readers}" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="180">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                     <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
@@ -112,24 +109,24 @@
         </StackPanel>
 
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <TextBlock Background="#0a97b0" Foreground="#fff" Padding="5" TextAlignment="Center" FontSize="16">Thông tin độc giả</TextBlock>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <TextBlock Background="#0a97b0" Foreground="#fff" Padding="15" TextAlignment="Center" FontSize="16">Thông tin độc giả</TextBlock>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
@@ -169,40 +166,44 @@
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
+                    Padding="5 0"
                     TextAlignment="Left"
+                    VerticalContentAlignment="Center"
                     Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}"/>
                     <TextBox x:Name="tbAge" Foreground="#fff" 
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
+                    Padding="5 0"
                     TextAlignment="Left"
+                    VerticalContentAlignment="Center"
                     Grid.Row="1" Grid.Column="1" Text="{Binding ReaderSelected.nameReader}">
                     </TextBox>
                     <TextBox Foreground="#fff" 
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
+                    Padding="5 0"
                     TextAlignment="Left"
+                    VerticalContentAlignment="Center"
                     Grid.Row="2" Grid.Column="1" Text="{Binding ReaderSelected.dobReader}"/>
                     <TextBox Foreground="#fff" 
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
+                    Padding="5 0"
                     TextAlignment="Left"
+                    VerticalContentAlignment="Center"
                     Grid.Row="3" Grid.Column="1" Text="{Binding ReaderSelected.TypeReader.nameTypeReader}"/>
                     <TextBox Foreground="#fff" 
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Background="#647AA3"
-                    Padding="10"
+                    Padding="5 0"
                     TextAlignment="Left"
+                    VerticalContentAlignment="Center"
                     Grid.Row="4" Grid.Column="1" Text="{Binding ReaderSelected.debt}"/>
                 </Grid>
-                <Button Content="Cho mượn" Margin="20 120 20 20"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="0 50 0 0">
                 <Button Content="Chọn lại sách" Margin="10" Command="{Binding Path=UnselectAllBooks}"/>
