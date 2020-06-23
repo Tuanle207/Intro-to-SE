@@ -6,8 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement.Views"
         mc:Ignorable="d" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="TypeReader" Height="600" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:command="http://www.galasoft.ch/mvvmlight"
+        Title="TypeReader" Height="600" Width="800"
+        >
+        
     <Grid>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
