@@ -141,7 +141,7 @@
                 </TextBox>
                 <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="20" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"></ComboBox>
 
-                <Button x:Name="CapnhatReader" Click="CapnhatReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="CapnhatReader" Click="CapnhatReader_Click" Command="{Binding ReloadTypeReaderCommand}"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
                         <TextBlock Text="Cập nhật" VerticalAlignment="Center" Margin="10" FontSize="15" FontWeight="Bold"/>
