@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using LibraryManagement.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,5 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
-
     }
 }

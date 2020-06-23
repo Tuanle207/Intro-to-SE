@@ -211,11 +211,22 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> CheckCommand { get; }
         public AppCommand<object> AddTypeReaderCommand { get; }
         public AppCommand<object> DeleteTypeReaderCommand { get; }
+        public AppCommand<object> ReloadTypeReaderCommand { get; }
 
         public ReaderViewModel()
         {
             // Retrieve data from DB
             RetrieveData();
+            ReloadTypeReaderCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
+            });
             AddCommand = new AppCommand<object>((p) =>
             {
                 if (NameReader == null || DobReader == null || Email == null || AddressReader == null || CreatedAt == null )
@@ -261,7 +272,7 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-
+                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
                 Reader.nameReader = SelectedItem.nameReader;
                 Reader.dobReader = (DateTime)SelectedItem.dobReader;

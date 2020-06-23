@@ -18,6 +18,8 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Data.Entity.Migrations;
+using GalaSoft.MvvmLight.Command;
+using System.ComponentModel;
 
 namespace LibraryManagement.ViewModels
 {
@@ -68,6 +70,7 @@ namespace LibraryManagement.ViewModels
         {
             // Retrieve data from DB
             RetrieveData();
+            
             AddTypeReaderCommand = new AppCommand<object>((p) =>
             {
                 if (NameAddTypeReader == null || NameAddTypeReader =="")
