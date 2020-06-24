@@ -14,8 +14,6 @@ namespace LibraryManagement.ViewModels
 {
     class AuthorViewModel : BaseViewModel
     {
-        LibraryManagementEntities DB = new LibraryManagementEntities();
-
         private ObservableCollection<Models.Author> _ListAuthor;
         public ObservableCollection<Models.Author> ListAuthor { get => _ListAuthor; set { _ListAuthor = value; OnPropertyChanged(); } }
 
@@ -53,7 +51,7 @@ namespace LibraryManagement.ViewModels
         public AuthorViewModel()
         {
             //DB to Window
-            ListAuthor = new ObservableCollection<Author>(DB.Authors);
+            ListAuthor = new ObservableCollection<Author>(DataAdapter.Instance.DB.Authors);
 
             AddAuthorCommand = new AppCommand<object>((p) =>
             {
@@ -69,7 +67,7 @@ namespace LibraryManagement.ViewModels
             AddAuthorToDBCommand = new AppCommand<object>((p) =>
             {
                 if (NameAuthor == null) return false;
-                var displayList = DB.Authors.Where(x => x.nameAuthor == NameAuthor);
+                var displayList = DataAdapter.Instance.DB.Authors.Where(x => x.nameAuthor == NameAuthor);
                 if (displayList == null)
                     return false;
                 return true;
@@ -81,8 +79,8 @@ namespace LibraryManagement.ViewModels
                     nameAuthor = NameAuthor
                 };
 
-                DB.Authors.Add(author);
-                DB.SaveChanges();
+                DataAdapter.Instance.DB.Authors.Add(author);
+                DataAdapter.Instance.DB.SaveChanges();
 
                 ListAuthor.Add(author);
                 MessageBox.Show("Thêm tác giả thành công");
@@ -98,9 +96,9 @@ namespace LibraryManagement.ViewModels
             {
                 try
                 {
-                    var author = DB.Authors.Where(x => x.idAuthor == SelectedItem.idAuthor).SingleOrDefault();
-                    DB.Authors.Remove(author);
-                    DB.SaveChanges();
+                    var author = DataAdapter.Instance.DB.Authors.Where(x => x.idAuthor == SelectedItem.idAuthor).SingleOrDefault();
+                    DataAdapter.Instance.DB.Authors.Remove(author);
+                    DataAdapter.Instance.DB.SaveChanges();
                     ListAuthor.Remove(author);
                     MessageBox.Show("Xóa tác giả thành công");
                 }

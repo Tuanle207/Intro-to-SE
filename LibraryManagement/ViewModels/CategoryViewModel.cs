@@ -13,8 +13,6 @@ namespace LibraryManagement.ViewModels
 {
     class CategoryViewModel : BaseViewModel
     {
-        LibraryManagementEntities DB = new LibraryManagementEntities();
-
         private ObservableCollection<Models.Category> _ListCategory;
         public ObservableCollection<Models.Category> ListCategory { get => _ListCategory; set { _ListCategory = value; OnPropertyChanged(); } }
 
@@ -52,7 +50,7 @@ namespace LibraryManagement.ViewModels
         public CategoryViewModel()
         {
             //DB to Window
-            ListCategory = new ObservableCollection<Category>(DB.Categories);
+            ListCategory = new ObservableCollection<Category>(DataAdapter.Instance.DB.Categories);
 
             AddCategoryCommand = new AppCommand<object>((p) =>
             {
@@ -68,7 +66,7 @@ namespace LibraryManagement.ViewModels
             AddCategoryToDBCommand = new AppCommand<object>((p) =>
             {
                 if (NameCategory == null) return false;
-                var displayList = DB.Categories.Where(x => x.nameCategory == NameCategory);
+                var displayList = DataAdapter.Instance.DB.Categories.Where(x => x.nameCategory == NameCategory);
                 if (displayList == null)
                     return false;
                 return true;
@@ -80,8 +78,8 @@ namespace LibraryManagement.ViewModels
                     nameCategory = NameCategory
                 };
 
-                DB.Categories.Add(category);
-                DB.SaveChanges();
+                DataAdapter.Instance.DB.Categories.Add(category);
+                DataAdapter.Instance.DB.SaveChanges();
 
                 ListCategory.Add(category);
                 MessageBox.Show("Thêm thể loại thành công");
@@ -97,9 +95,9 @@ namespace LibraryManagement.ViewModels
             {
                 try
                 {
-                    var category = DB.Categories.Where(x => x.idCategory == SelectedItem.idCategory).SingleOrDefault();
-                    DB.Categories.Remove(category);
-                    DB.SaveChanges();
+                    var category = DataAdapter.Instance.DB.Categories.Where(x => x.idCategory == SelectedItem.idCategory).SingleOrDefault();
+                    DataAdapter.Instance.DB.Categories.Remove(category);
+                    DataAdapter.Instance.DB.SaveChanges();
                     ListCategory.Remove(category);
                     MessageBox.Show("Xóa thể loại thành công");
                 }

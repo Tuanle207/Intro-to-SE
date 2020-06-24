@@ -4,11 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagement.Views" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
              mc:Ignorable="d" 
              DataContext="{StaticResource BookViewModel}"
              d:DesignHeight="600" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <ControlTemplate x:Key="textBoxErrorTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder Name="a" />
+                <TextBlock DockPanel.Dock="Bottom" Foreground="Red"
+                               Text="{Binding ElementName=a, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid Background="#FFF0F0F0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -17,54 +28,108 @@
         <Grid x:Name="gidForInfo" Grid.Column="0" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="9*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Thông tin cơ bản" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
             <Grid Grid.Row="1" x:Name="gidForNomalInfo">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Stretch="Fill" Source="/Assets/3.jpg" Margin="10"/>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Mã sách" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
                     <Label Grid.Row="1" Content="Tên sách" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
-                    <Label Grid.Row="2" Content="NXB" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="2" Content="Thể loại" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="3" Content="Tác giả" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="4" Content="Nhà xuất bản" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="5" Content="Ngày xuất bản" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="6" Content="Ngày nhập" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
+                    <Label Grid.Row="7" Content="Đơn giá" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
                 </Grid>
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="{Binding idBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
-                    <Label Content="{Binding nameBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
-                    <Label Content="{Binding SelectedPublisher.namePublisher, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
+                    <Label Content="{Binding idBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" IsEnabled="False" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
+                    <TextBox Text="{Binding nameBook,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="NameBook" Grid.Row="1" IsEnabled="False" Background="#FFE2DADA"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></TextBox>
+                    <ComboBox ItemsSource="{Binding category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="Category" Grid.Row="2" IsEnabled="False" DisplayMemberPath="nameCategory" SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" />
+                    <Grid Grid.Column="1" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <DataGrid Name="ListAuthor" IsEnabled="False" ItemsSource="{Binding ListAuthors, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                          AutoGenerateColumns="False" IsReadOnly="True" >
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Button Content="-" Command="{Binding Path=DataContext.UnSelectedAuthor, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Tác Giả" Binding="{Binding nameAuthor}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <ComboBox Name="Author" Visibility="Hidden" ItemsSource="{Binding author}" DisplayMemberPath="nameAuthor" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding AddAuthors}" CommandParameter="{Binding ElementName=listComboBox, Path=SelectedValue}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+                    <ComboBox ItemsSource="{Binding publisher}" IsEnabled="False" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedPublisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="Publisher" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
+                    <DatePicker Name="DateManufacture" IsEnabled="False" Grid.Row="5" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="dateManufacture"
+                        UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:CheckDateManufactureValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                    </DatePicker>
+                    <DatePicker SelectedDate="{Binding dateAddBook}" IsEnabled="False" Grid.Row="6" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2"></DatePicker>
+                    <Grid Grid.Column="1" Grid.Row="7" Height="45" Margin="0,0,-0.4,-0.2" VerticalAlignment="Top">
+                        <TextBox 
+                        Name="Price" IsEnabled="False" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                        Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                            <TextBox.Text>
+                                <Binding Path="price"
+                        UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <vm:PriceValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Label Grid.Row="2" Content="Thông tin gì gì gì đó " HorizontalAlignment="Center" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" FontWeight="Bold"/>
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Số lượng mượn" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20" Margin="10"/>
-                <Label Grid.Row="1" Grid.Column="0" Content="Số lượng còn" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="20" Margin="10"/>
-                <Label Grid.Row="0" Grid.Column="1" Height="Auto" Background="#FFE2DADA" FontSize="20" Margin="10 20"/>
-                <Label Grid.Row="1" Grid.Column="1" Height="Auto" Background="#FFE2DADA" FontSize="20" Margin="10 20"/>
             </Grid>
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
@@ -75,12 +140,21 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Command="{Binding EditBookCommand}" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="UpdateBook" Click="UpdateBook_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Cập nhật sách" Margin="10" VerticalAlignment="Center" FontSize="20"/>
+                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
+                        <TextBlock Text="Cập nhật" VerticalAlignment="Center" Margin="10" FontSize="20" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
+
+                <Button x:Name="SaveBook" Visibility="Hidden" Command="{Binding EditBookToDBCommand}" Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10" Click="SaveBook_Click">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
+                        <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="10" FontSize="20" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+
+
                 <Button Command="{Binding DeleteBookCommand}" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto" VerticalAlignment="Center"/>

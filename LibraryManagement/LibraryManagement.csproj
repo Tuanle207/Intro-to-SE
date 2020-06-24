@@ -162,6 +162,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Validations\CheckDateManufactureValidation.cs" />
     <Compile Include="ViewModels\Validations\AuthorValidation.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
     <Compile Include="ViewModels\Validations\CategoryValidation.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="Views\AddAuthorScreen.xaml.cs">
       <DependentUpon>AddAuthorScreen.xaml</DependentUpon>
     </Compile>
-     <Compile Include="Views\AddCategoryScreen.xaml.cs">
+    <Compile Include="Views\AddCategoryScreen.xaml.cs">
       <DependentUpon>AddCategoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AuthorScreen.xaml.cs">
@@ -228,9 +229,6 @@
     </Compile>
     <Compile Include="Views\CollectFine.xaml.cs">
       <DependentUpon>CollectFine.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditBookScreen.xaml.cs">
-      <DependentUpon>EditBookScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeScreen.xaml.cs">
       <DependentUpon>HomeScreen.xaml</DependentUpon>
@@ -315,10 +313,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CollectFine.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditBookScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

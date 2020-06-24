@@ -28,7 +28,6 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row ="0" Margin="10">
             <Grid.ColumnDefinitions>
@@ -120,18 +119,6 @@
             </Grid>
         </Grid>
         <Grid Grid.Row ="5" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Label Content="Ngày nhập" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            </Grid>
-            <Grid Grid.Column="1" Background="Gold">
-                <DatePicker SelectedDate="{Binding dateAddBook}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" DisplayDate="2020-05-28"></DatePicker>
-            </Grid>
-        </Grid>
-        <Grid Grid.Row ="6" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition ></ColumnDefinition>

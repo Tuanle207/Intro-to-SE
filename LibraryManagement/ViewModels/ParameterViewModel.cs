@@ -65,7 +65,9 @@ namespace LibraryManagement.ViewModels
             EditParametersCommand = new AppCommand<object>(
                 (p) =>
                 {
-                    return true;
+                    if (ageMin > 0 && ageMax > 0 && expiryDate > 0 && distancePublish > 0 && bookBorrowMax > 0 && moneyPenalty >= 0 && dateBorrowMax > 0) 
+                        return true;
+                    return false;
                 }, (p) =>
                 {
                     // Sửa lại các giá trị 
