@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,32 @@ namespace LibraryManagement.Views
         public BookScreen()
         {
             InitializeComponent();
+        }
+
+        private void UpdateBook_Click(object sender, RoutedEventArgs e)
+        {
+            SaveBook.Visibility = Visibility.Visible;
+            UpdateBook.Visibility = Visibility.Hidden;
+            NameBook.IsEnabled = true;
+            Category.IsEnabled = true;
+            ListAuthor.IsReadOnly = false;
+            Author.Visibility = Visibility.Visible;
+            Publisher.IsEnabled = true;
+            DateManufacture.IsEnabled = true;
+            Price.IsEnabled = true;
+        }
+
+        private void SaveBook_Click(object sender, RoutedEventArgs e)
+        {
+            SaveBook.Visibility = Visibility.Hidden;
+            UpdateBook.Visibility = Visibility.Visible;
+            NameBook.IsReadOnly = true;
+            Category.IsEnabled = false;
+            ListAuthor.IsReadOnly = true;
+            Author.IsEnabled = false;
+            Publisher.IsEnabled = false;
+            DateManufacture.IsEnabled = false;
+            Price.IsEnabled = false;
         }
     }
 }

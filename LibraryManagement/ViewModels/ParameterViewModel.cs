@@ -11,8 +11,6 @@ namespace LibraryManagement.ViewModels
 {
     class ParameterViewModel : BaseViewModel
     {
-        static LibraryManagementEntities DB = new LibraryManagementEntities();
-
         private int _idParameter;
         public int idParameter { get => _idParameter; set { _idParameter = value; OnPropertyChanged(); } }
 
@@ -22,43 +20,43 @@ namespace LibraryManagement.ViewModels
             get => _nameParameter; set { _nameParameter = value; OnPropertyChanged(); }
         }
 
-        private int _ageMin = DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter;
+        private int _ageMin = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter;
         public int ageMin
         {
             get => _ageMin; set { _ageMin = value; OnPropertyChanged(); }
         }
 
-        private int _ageMax = DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter;
+        private int _ageMax = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter;
         public int ageMax
         {
             get => _ageMax; set { _ageMax = value; OnPropertyChanged(); }
         }
 
-        private int _expiryDate = DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter;
+        private int _expiryDate = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter;
         public int expiryDate
         {
             get => _expiryDate; set { _expiryDate = value; OnPropertyChanged(); }
         }
 
-        private int _distancePublish = DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter;
+        private int _distancePublish = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter;
         public int distancePublish
         {
             get => _distancePublish; set { _distancePublish = value; OnPropertyChanged(); }
         }
 
-        private int _bookBorrowMax = DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
+        private int _bookBorrowMax = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
         public int bookBorrowMax
         {
             get => _bookBorrowMax; set { _bookBorrowMax = value; OnPropertyChanged(); }
         }
 
-        private int _moneyPenalty = DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
+        private int _moneyPenalty = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
         public int moneyPenalty
         {
             get => _moneyPenalty; set { _moneyPenalty = value; OnPropertyChanged(); }
         }
 
-        private int _dateBorrowMax = DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
+        private int _dateBorrowMax = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
         public int dateBorrowMax
         {
             get => _dateBorrowMax; set { _dateBorrowMax = value; OnPropertyChanged(); }
@@ -90,21 +88,21 @@ namespace LibraryManagement.ViewModels
             {
                 // Sửa lại các giá trị 
                 // Tuổi tối thiểu
-                DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter = ageMin;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter = ageMin;
                 // Tuổi tối đa
-                DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter = ageMax;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter = ageMax;
                 // Thời hạn thẻ
-                DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter = expiryDate;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter = expiryDate;
                 // Khoảng cách xuất bản
-                DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter = distancePublish;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter = distancePublish;
                 // Số sách mượn tối đa
-                DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter = bookBorrowMax;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter = bookBorrowMax;
                 // Số tiền phạt trễ theo từng ngày
-                DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter = moneyPenalty;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter = moneyPenalty;
                 // Số ngày mượn tối đa
-                DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter = dateBorrowMax;
+                DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter = dateBorrowMax;
 
-                DB.SaveChanges();
+                DataAdapter.Instance.DB.SaveChanges();
                 OnPropertyChanged();
             });
 
