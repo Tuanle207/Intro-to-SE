@@ -382,6 +382,7 @@
   <ItemGroup>
     <Resource Include="Assets\uit.jpg" />
     <Resource Include="Assets\backgroundLogin.jpg" />
+    <Resource Include="BookImageCover\default-image.png" />
     <Content Include="Models\DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataModel.edmx</DependentUpon>

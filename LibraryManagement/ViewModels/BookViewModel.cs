@@ -1,9 +1,12 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Views;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +116,23 @@ namespace LibraryManagement.ViewModels
         private string _statusBook;
         public string statusBook { get => _statusBook; set { _statusBook = value; OnPropertyChanged(); } }
 
+        //Search Book
+        private string bookSearchKeyword;
+        public string BookSearchKeyword
+        {
+            get => bookSearchKeyword;
+            set
+            {
+                bookSearchKeyword = value;
+                OnPropertyChanged();
+                SearchBook();
+            }
+        }
+
+
+        private string bookImageCover;
+        public string BookImageCover { get => bookImageCover; set { bookImageCover = value; OnPropertyChanged(); } }
+
         //open Window
         public ICommand AddBookCommand { get; set; }
         public ICommand EditBookCommand { get; set; }
@@ -129,19 +149,11 @@ namespace LibraryManagement.ViewModels
 
         //Delete Authors
         public ICommand UnSelectedAuthor { get; set; }
+        
+        //Add book image cover
+        public ICommand AddImage { get; set; }
 
-        //Search Book
-        private string bookSearchKeyword;
-        public string BookSearchKeyword
-        {
-            get => bookSearchKeyword;
-            set
-            {
-                bookSearchKeyword = value;
-                OnPropertyChanged();
-                SearchBook();
-            }
-        }
+      
 
         //Search Book function
         private void SearchBook()
@@ -167,6 +179,7 @@ namespace LibraryManagement.ViewModels
 
         public BookViewModel()
         {
+            BookImageCover = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), $"/BookImageCover/default-image.png");
             AddBookCommand = new AppCommand<object>((p) => 
             { 
                 return true; 
@@ -238,6 +251,7 @@ namespace LibraryManagement.ViewModels
                     idCategory = SelectedCategory.idCategory,
                     idPublisher = SelectedPublisher.idPublisher,
                     statusBook = "có sẵn",
+                    image = BookImageCover
                 };
 
                 for (int i = 0; i < ListAuthors.Count; i++)
@@ -311,6 +325,42 @@ namespace LibraryManagement.ViewModels
                 ListAuthors.Remove(removeAuthor);
             });
 
+            AddImage = new AppCommand<object>(
+                //MessageBox.Show(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+                p => true,
+                p =>
+                {
+                    OpenFileDialog fileDialog = new OpenFileDialog();
+                    fileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+                    if (fileDialog.ShowDialog() == true)
+                    {
+                        string sourceFile = fileDialog.FileName;
+                        string fileName = GetImageName();
+                        string destPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+                        string destinationFile= Path.Combine($"{destPath}\\BookImageCover", fileName);
+                        MessageBox.Show(destinationFile);
+                        
+                        System.IO.File.Copy(sourceFile, destinationFile, true);
+                        BookImageCover = fileName;
+
+                    }
+                });
+        }
+
+        private string GetImageName()
+        {
+            List<String> images = DataAdapter.Instance.DB.Books.Select(b => b.image).ToList();
+            int max = 0;
+            foreach(var el in images)
+            {
+                int id;
+                if (Int32.TryParse(el.Split('-')[1], out id))
+                {
+                    if (id > max) max = id;
+                }
+            }
+            max += 1;
+            return $"photo-{max}.png";
         }
     }
 }
