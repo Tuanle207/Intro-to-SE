@@ -208,15 +208,38 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> EditCommand { get; set; }
         public AppCommand<object> DeleteCommand { get; set; }
         public AppCommand<object> PrepareAddReaderCommand { get; set; }
-        public AppCommand<object> CheckCommand { get; }
-        public AppCommand<object> AddTypeReaderCommand { get; }
-        public AppCommand<object> DeleteTypeReaderCommand { get; }
-        public AppCommand<object> ReloadTypeReaderCommand { get; }
+        public AppCommand<object> CheckCommand { get; set;}
+        public AppCommand<object> AddTypeReaderCommand { get; set;}
+        public AppCommand<object> DeleteTypeReaderCommand { get; set;}
+        public AppCommand<object> CancelCommand { get; set;}
+        public AppCommand<object> ReloadTypeReaderCommand { get; set;}
 
         public ReaderViewModel()
         {
             // Retrieve data from DB
             RetrieveData();
+            CancelCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+
+                var displayList = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader);
+                if (displayList != null && displayList.Count() != 0)
+                    return true;
+                return false;
+
+            }, (p) =>
+            {
+                SelectedItem.nameReader = NameReader;
+                SelectedItem.dobReader = (DateTime)DobReader;
+                SelectedItem.email = Email;
+                SelectedItem.addressReader = AddressReader;
+                SelectedItem.debt = Debt;
+                SelectedItem.createdAt = (DateTime)CreatedAt;
+                SelectedItem.idTypeReader = IdTypeReader;
+                RetrieveData();
+                OnPropertyChanged("SelectedItem");
+            });
             ReloadTypeReaderCommand = new AppCommand<object>((p) =>
             {
                 if (SelectedItem == null || SelectedTypeReader == null)

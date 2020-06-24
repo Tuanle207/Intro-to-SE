@@ -249,6 +249,9 @@
     <Compile Include="Views\StaffScreen.xaml.cs">
       <DependentUpon>StaffScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewAddTypeReader.xaml.cs">
+      <DependentUpon>ViewAddTypeReader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewTypeReader.xaml.cs">
       <DependentUpon>ViewTypeReader.xaml</DependentUpon>
     </Compile>
@@ -341,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StaffScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewAddTypeReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

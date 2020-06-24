@@ -73,7 +73,7 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="1" Grid.Column="0" Margin="10,20" Content="Nhập tên loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="12" VerticalAlignment="Center"/>
+                    
                     <Button Command="{Binding DeleteTypeReaderCommand}"  Grid.Column="3" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" Height="Auto" Margin="10" Grid.ColumnSpan="2" >
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
@@ -81,9 +81,9 @@
                         </StackPanel>
                     </Button>
 
-                    <TextBox x:Name="txtAddTypeReader"  Text="{Binding NameAddTypeReader, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="10 20" Background="#FFE2DADA" FontSize="20" Height="Auto"   Grid.ColumnSpan="2"></TextBox>
+                    
 
-                    <Button Command="{Binding AddTypeReaderCommand}"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="1" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                    <Button Click="btnAddTypeReader_Click"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="1" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <materialDesign:PackIcon Kind="AccountMultiplePlusOutline" Width="Auto" Height="Auto"/>
                             <TextBlock Text="Thêm loại độc giả" VerticalAlignment="Center"  FontSize="12" FontWeight="Bold"/>
