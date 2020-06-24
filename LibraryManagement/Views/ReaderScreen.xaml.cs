@@ -54,6 +54,7 @@ namespace LibraryManagement.Views
             btnDeleteReader.IsEnabled = false;
             btnAddReader.IsEnabled = false;
             btnTypeReader.IsEnabled = false;
+            btnCancel.IsEnabled = true;
         }
 
         private void LuuReader_Click(object sender, RoutedEventArgs e)
@@ -71,12 +72,31 @@ namespace LibraryManagement.Views
             btnDeleteReader.IsEnabled = true;
             btnAddReader.IsEnabled = true;
             btnTypeReader.IsEnabled = true;
+            btnCancel.IsEnabled = false;
         }
 
         private void ButtonTypeReader_Click(object sender, RoutedEventArgs e)
         {
             ViewTypeReader w = new ViewTypeReader();
             w.ShowDialog();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            LuuReader.Visibility = Visibility.Hidden;
+            CapnhatReader.Visibility = Visibility.Visible;
+            NameReader.IsReadOnly = true;
+            Address.IsReadOnly = true;
+            Email.IsReadOnly = true;
+            DobReader.IsEnabled = false;
+            CreatAt.IsEnabled = false;
+            Debt.IsReadOnly = true;
+            TypeReader.IsEnabled = false;
+            ListDisplayReader.IsEnabled = true;
+            btnDeleteReader.IsEnabled = true;
+            btnAddReader.IsEnabled = true;
+            btnTypeReader.IsEnabled = true;
+            btnCancel.IsEnabled = false;
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using LibraryManagement.Models;
-using LibraryManagement.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,19 +15,18 @@ using System.Windows.Shapes;
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for ViewTypeReader.xaml
+    /// Interaction logic for ViewAddTypeReader.xaml
     /// </summary>
-    public partial class ViewTypeReader : Window
+    public partial class ViewAddTypeReader : Window
     {
-        public ViewTypeReader()
+        public ViewAddTypeReader()
         {
             InitializeComponent();
         }
 
-        private void btnAddTypeReader_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ViewAddTypeReader w = new ViewAddTypeReader();
-            w.ShowDialog();
+            this.Close();
         }
     }
 }
