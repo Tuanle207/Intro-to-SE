@@ -422,6 +422,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\uit.jpg" />
+    <Resource Include="BookImageCover\default-image.png" />
     <Resource Include="Assets\backgroundLogin.jpg" />
     <Content Include="Models\DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
