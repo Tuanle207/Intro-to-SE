@@ -6,10 +6,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagement.Views" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" Background="#FFF0F0F0">
-
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" Background="#FFF0F0F0"
+   >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -95,7 +100,7 @@
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="30*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding SelectedItem.nameReader , Mode=TwoWay, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding SelectedItem.nameReader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding SelectedItem.addressReader , Mode=TwoWay, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="1" Text="{Binding SelectedItem.email, Mode=TwoWay, ValidatesOnExceptions=True}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="1" SelectedDate="{Binding SelectedItem.dobReader, Mode=TwoWay, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
@@ -157,7 +162,15 @@
                     </StackPanel>
                 </Button>
             </Grid>
-            <Label Grid.Row="4" Content="Thành viên" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"  Content="Thành viên" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
+                <Button x:Name="btnCancel" Click="btnCancel_Click" IsEnabled="False" Command="{Binding CancelCommand}" Grid.Column="1" Width="150" Content="Hủy bỏ"></Button>
+            </Grid>
+            
             <Grid Grid.Row="5" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>

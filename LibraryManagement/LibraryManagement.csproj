@@ -201,6 +201,9 @@
     <Compile Include="Views\ReturnBook.xaml.cs">
       <DependentUpon>ReturnBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewAddTypeReader.xaml.cs">
+      <DependentUpon>ViewAddTypeReader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewTypeReader.xaml.cs">
       <DependentUpon>ViewTypeReader.xaml</DependentUpon>
     </Compile>
@@ -261,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReturnBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewAddTypeReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

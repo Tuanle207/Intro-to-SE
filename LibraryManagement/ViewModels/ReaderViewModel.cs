@@ -210,6 +210,7 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> DeleteCommand { get; }
         public AppCommand<object> AddTypeReaderCommand { get; }
         public AppCommand<object> DeleteTypeReaderCommand { get; }
+        public AppCommand<object> CancelCommand { get; }
 
         //Reload TypeReader
         public AppCommand<object> ReloadTypeReaderCommand { get; }
@@ -217,6 +218,28 @@ namespace LibraryManagement.ViewModels
         {
             // Retrieve data from DB
             RetrieveData();
+            CancelCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+
+                var displayList = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader);
+                if (displayList != null && displayList.Count() != 0)
+                    return true;
+                return false;
+
+            }, (p) =>
+            {
+                SelectedItem.nameReader = NameReader;
+                SelectedItem.dobReader = (DateTime)DobReader;
+                SelectedItem.email = Email;
+                SelectedItem.addressReader = AddressReader;
+                SelectedItem.debt = Int32.Parse(Debt);
+                SelectedItem.createdAt = (DateTime)CreatedAt;
+                SelectedItem.idTypeReader = IdTypeReader;
+                RetrieveData();
+                OnPropertyChanged("SelectedItem");
+            });
             ReloadTypeReaderCommand = new AppCommand<object>((p) =>
             {
                 if (SelectedItem == null || SelectedTypeReader == null)
