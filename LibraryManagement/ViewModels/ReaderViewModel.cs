@@ -63,8 +63,6 @@ namespace LibraryManagement.ViewModels
         }
 
         private int _idReader;
-
-
         public int IdReader { get => _idReader; set { _idReader = value; OnPropertyChanged(); } }
 
         private string _nameReader;
@@ -210,11 +208,48 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> EditCommand { get; set; }
         public AppCommand<object> DeleteCommand { get; set; }
         public AppCommand<object> PrepareAddReaderCommand { get; set; }
+        public AppCommand<object> CheckCommand { get; set;}
+        public AppCommand<object> AddTypeReaderCommand { get; set;}
+        public AppCommand<object> DeleteTypeReaderCommand { get; set;}
+        public AppCommand<object> CancelCommand { get; set;}
+        public AppCommand<object> ReloadTypeReaderCommand { get; set;}
 
         public ReaderViewModel()
         {
             // Retrieve data from DB
             RetrieveData();
+            CancelCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+
+                var displayList = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader);
+                if (displayList != null && displayList.Count() != 0)
+                    return true;
+                return false;
+
+            }, (p) =>
+            {
+                SelectedItem.nameReader = NameReader;
+                SelectedItem.dobReader = (DateTime)DobReader;
+                SelectedItem.email = Email;
+                SelectedItem.addressReader = AddressReader;
+                SelectedItem.debt = Debt;
+                SelectedItem.createdAt = (DateTime)CreatedAt;
+                SelectedItem.idTypeReader = IdTypeReader;
+                RetrieveData();
+                OnPropertyChanged("SelectedItem");
+            });
+            ReloadTypeReaderCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
+            });
             AddCommand = new AppCommand<object>((p) =>
             {
                 if (NameReader == null || DobReader == null || Email == null || AddressReader == null || CreatedAt == null )
@@ -231,10 +266,10 @@ namespace LibraryManagement.ViewModels
                         dobReader = (DateTime)DobReader,
                         email = Email,
                         addressReader = AddressReader,
-                        createdAt = (DateTime)CreatedAt,
-                        debt = Debt,
-                        idTypeReader = SelectedTypeReader.idTypeReader,
-                        latestExtended = (DateTime)CreatedAt
+                        createdAt = DateTime.Today,
+                        latestExtended = (DateTime)CreatedAt,
+                        debt = 0,
+                        idTypeReader = SelectedTypeReader.idTypeReader
                     };
                     DataAdapter.Instance.DB.Readers.Add(Reader);
                     DataAdapter.Instance.DB.SaveChanges();
@@ -260,14 +295,14 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-
+                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
-                Reader.nameReader = NameReader;
-                Reader.dobReader = (DateTime)DobReader;
-                Reader.email = Email;
-                Reader.addressReader = AddressReader;
-                Reader.debt = Debt;
-                Reader.createdAt = (DateTime)CreatedAt;
+                Reader.nameReader = SelectedItem.nameReader;
+                Reader.dobReader = (DateTime)SelectedItem.dobReader;
+                Reader.email = SelectedItem.email;
+                Reader.addressReader = SelectedItem.addressReader;
+                Reader.debt = SelectedItem.debt;
+                Reader.createdAt = (DateTime)SelectedItem.createdAt;
                 Reader.idTypeReader = SelectedTypeReader.idTypeReader;
                 DataAdapter.Instance.DB.SaveChanges();
                 System.ComponentModel.ICollectionView view = CollectionViewSource.GetDefaultView(List);
@@ -305,6 +340,16 @@ namespace LibraryManagement.ViewModels
                     Debt = 0;
                     SelectedTypeReader = TypeReader.FirstOrDefault();
                 });
+            CheckCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+               
+            });
         }
 
         private void RetrieveData()
