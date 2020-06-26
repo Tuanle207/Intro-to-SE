@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace LibraryManagement.ViewModels
 {
@@ -21,7 +22,6 @@ namespace LibraryManagement.ViewModels
         public ObservableCollection<Permission> Permission { get => _Permission; set { _Permission = value; OnPropertyChanged(); } }
 
         private Staff _SelectedItem;
-        public static System.Windows.Application Current { get; }
 
         public Staff SelectedItem
         {
@@ -54,14 +54,6 @@ namespace LibraryManagement.ViewModels
             set
             {
                 string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Tên nhân viên là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _nameStaff = value; OnPropertyChanged();
             }
         }
@@ -72,14 +64,6 @@ namespace LibraryManagement.ViewModels
             get => _addressStaff;
             set
             {
-                if (!(value.Length > 0 && value != null))
-                {
-                    throw new Exception("Địa chỉ nhân viên là bắt buộc");
-                }
-                if (value.Length < 6)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 6");
-                }
                 _addressStaff = value; OnPropertyChanged();
             }
         }
@@ -90,11 +74,6 @@ namespace LibraryManagement.ViewModels
             get => _dobStaff;
             set
             {
-                string str = value.ToString() as string;
-                if (str.Length < 8 || str == null)
-                {
-                    throw new Exception("Ngày sinh nhân viên là bắt buộc");
-                }
                 _dobStaff = value; OnPropertyChanged();
             }
         }
@@ -105,15 +84,6 @@ namespace LibraryManagement.ViewModels
             get => _phoneNumberStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Số điện thoại nhân viên là bắt buộc");
-                }
-                if (value.Length < 10)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 10");
-                }
                 _phoneNumberStaff = value; OnPropertyChanged();
             }
         }
@@ -124,15 +94,6 @@ namespace LibraryManagement.ViewModels
             get => _accountStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Tên tài khoản là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _accountStaff = value; OnPropertyChanged();
             }
         }
@@ -143,15 +104,6 @@ namespace LibraryManagement.ViewModels
             get => _passwordStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Mật khẩu là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _passwordStaff = value; OnPropertyChanged();
             }
         }
@@ -218,10 +170,12 @@ namespace LibraryManagement.ViewModels
             }
         }
 
-        public AppCommand<object> ResetPasswordCommand { get; }
-        public AppCommand<object> AddCommand { get; }
-        public AppCommand<object> EditCommand { get; }
-        public AppCommand<object> DeleteCommand { get; }
+        public ICommand ResetPasswordCommand { get; set; }
+        public ICommand AddCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand PrepareAddCommand { get; set; }
+        public ICommand InitProperties { get; set; }
 
         public StaffViewModel()
         {
@@ -229,7 +183,7 @@ namespace LibraryManagement.ViewModels
             RetrieveData();
             AddCommand = new AppCommand<object>((p) =>
             {
-                if (Permission == null)
+                if (NameStaff == null || PhoneNumberStaff == null || AddressStaff == null || AccountStaff == null || PasswordStaff == null)
                     return false;
                 return true;
 
@@ -286,14 +240,10 @@ namespace LibraryManagement.ViewModels
             });
             DeleteCommand = new AppCommand<object>((p) =>
             {
-                if (SelectedItem == null || SelectedPermission == null)
+                if (SelectedItem == null || SelectedItem?.accountStaff == "admin")
                     return false;
 
-                var displayList = DataAdapter.Instance.DB.Staffs.Where(x => x.idStaff == SelectedItem.idStaff);
-                if (displayList != null && displayList.Count() != 0)
-                    return true;
-
-                return false;
+                return true;
 
             }, (p) =>
             {
@@ -301,6 +251,7 @@ namespace LibraryManagement.ViewModels
                 DataAdapter.Instance.DB.Staffs.Remove(Staff);
                 DataAdapter.Instance.DB.SaveChanges();
                 List.Remove(Staff);
+                SelectedItem = List.FirstOrDefault();
                 MessageBox.Show("Bạn đã xóa nhân viên thành công");
             });
 
@@ -327,6 +278,25 @@ namespace LibraryManagement.ViewModels
                 view.Refresh();
                 MessageBox.Show("Bạn đã reset mật khẩu cho tài khoản " + Staff.accountStaff + " thành công, mật khẩu mới là: " + PasswordStaff + ", hãy đăng nhập và đổi mật khẩu mới!");
             });
+
+            PrepareAddCommand = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    NameStaff = null;
+                    DobStaff = new DateTime(2000, 1, 1);
+                    PhoneNumberStaff = null;
+                    AddressStaff = null;
+                    AccountStaff = null;
+                    PasswordStaff = null;
+                    SelectedPermission = Permission.FirstOrDefault();
+                });
+            InitProperties = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    SelectedItem = List.FirstOrDefault();
+                });
         }
 
         public string EncryptSHA512Managed(string password)

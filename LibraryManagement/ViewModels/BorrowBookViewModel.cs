@@ -151,6 +151,7 @@ namespace LibraryManagement.ViewModels
                     {
                         // Clear UI
                         RetrieveDataAndClearInput();
+                        MessageBox.Show("Mượn sách thành công!");
                     }
                 });
             SelectBook = new AppCommand<object>(

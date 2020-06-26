@@ -26,6 +26,7 @@
     <viewmodel:DateBorrowedToExcessDays x:Key="DateBorrowedToExcessDays"></viewmodel:DateBorrowedToExcessDays>
     <viewmodel:DateBorrowedToFine x:Key="DateBorrowedToFine"></viewmodel:DateBorrowedToFine>
     <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"></viewmodel:BillReturnToReaderDebt>
+    <viewmodel:ImageToSource x:Key="ImageToSource"></viewmodel:ImageToSource>
 
 
 

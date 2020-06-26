@@ -4,7 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LibraryManagement.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:LibraryManagement.Views"
+        xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -49,35 +51,76 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameStaff" Grid.Row="0" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Text="{Binding NameStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <TextBox x:Name="NameStaff" Grid.Row="0" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="NameStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
-                    <DatePicker x:Name="DobStaff"  Grid.Row="1" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
-                    <TextBox x:Name="PhoneNumberStaff" Grid.Row="2" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" PreviewTextInput="PhoneNumberStaff_PreviewTextInput" Text="{Binding PhoneNumberStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <DatePicker x:Name="DobStaff"  Grid.Row="1" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged}"  />
+                    <TextBox x:Name="PhoneNumberStaff" Grid.Row="2" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" PreviewTextInput="PhoneNumberStaff_PreviewTextInput">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="PhoneNumberStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:PhoneNumberValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
-                    <TextBox x:Name="Address" Grid.Row="3" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Text="{Binding AddressStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <TextBox x:Name="Address" Grid.Row="3" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="AddressStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderAddressValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
-                    <TextBox x:Name="AccountStaff" Grid.Row="4" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14"
-                                Text="{Binding AccountStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <TextBox x:Name="AccountStaff" Grid.Row="4" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="AccountStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:UserNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox IsTabStop="False" x:Name="PasswordStaff" Grid.Row="5" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="1" Visibility="Visible">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="PasswordStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:PasswordValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                     <PasswordBox x:Name="mPasswordStaff" Grid.Row="5" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14"
                                 InputScope="Password" PasswordChanged="mPasswordStaff_PasswordChanged">
@@ -87,14 +130,6 @@
                             </Style>
                         </PasswordBox.Resources>
                     </PasswordBox>
-                    <TextBox x:Name="PasswordStaff" Grid.Row="5" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Visibility="Hidden"
-                                Text="{Binding PasswordStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
                 </Grid>
             </Grid>
         </materialDesign:Card>
@@ -106,7 +141,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Content="Chọn loại quyền" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <ComboBox Name="cbPermission" Grid.Row="1" Grid.Column="1" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}">
+                <ComboBox Name="cbPermission" Grid.Row="1" Grid.Column="1" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged}">
                     
                 </ComboBox>
             </Grid>

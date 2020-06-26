@@ -37,7 +37,8 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+                <Image Source="{Binding BookImageCover, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ImageToSource}}" Grid.Column="0" Stretch="Fill" Margin="10"/>
+                <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -206,7 +207,15 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
+                <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                    <Button Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                    <TextBlock Text="{Binding ListBook.CurrentPage}"></TextBlock>
+                    <TextBlock>/</TextBlock>
+                    <TextBlock Text="{Binding ListBook.PageCount}"></TextBlock>
+                    <Button Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                </StackPanel>
             </Grid>
+            
         </Grid>
     </Grid>
 </UserControl>

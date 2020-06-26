@@ -161,6 +161,9 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Validations\BookValidations\BookNameValidation.cs" />
+    <Compile Include="ViewModels\Validations\LoginValidations\PasswordLoginValidation.cs" />
+    <Compile Include="ViewModels\Validations\LoginValidations\UserNameLoginValidation.cs" />
     <Compile Include="ViewModels\TypeReaderViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Validations\CheckDateManufactureValidation.cs" />
@@ -192,6 +195,9 @@
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
+     <Compile Include="ViewModels\Validations\StaffValidation\PhoneNumerValidation.cs" />
+    <Compile Include="ViewModels\Validations\StaffValidation\PasswordValidation.cs" />
+    <Compile Include="ViewModels\Validations\StaffValidation\UserNameValidation.cs" />
     <Compile Include="Views\AddStaff.xaml.cs">
       <DependentUpon>AddStaff.xaml</DependentUpon>
     </Compile>

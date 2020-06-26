@@ -40,7 +40,15 @@
                 <Label Content="Tên sách" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
-                <TextBox Text="{Binding nameBook}" Name="NameBook" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2"></TextBox>
+                <TextBox Name="NameBook" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                    <TextBox.Text>
+                        <Binding Path="nameBook" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <vm:BookNameValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </Grid>
         </Grid>
         <Grid Grid.Row ="1" Margin="10">
@@ -131,7 +139,7 @@
             <Grid Grid.Column="1" Background="Gold">
                 <TextBox 
                     Name="tbPrice" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    Padding="2" >
                     <TextBox.Text>
                         <Binding Path="price"
                         UpdateSourceTrigger="PropertyChanged" >
@@ -159,13 +167,15 @@
         <Grid Grid.Row="8" Grid.RowSpan="2" Margin="10">
             <Button Command="{Binding AddBookToDBCommand}" Content="Thêm sách" Background="Green" FontSize="20" Width="150" Click="Button_Click">
                 <Button.Style>
-                    <Style TargetType="Button">
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="False" />
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbPrice}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbPrice}" Value="False"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameBook}" Value="False"/>
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>

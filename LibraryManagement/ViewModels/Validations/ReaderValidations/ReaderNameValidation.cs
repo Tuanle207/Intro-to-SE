@@ -27,12 +27,12 @@ namespace LibraryManagement.ViewModels
                 // Check empty string?
                 if (name.Trim().Length == 0)
                 {
-                    return new ValidationResult(false, "Vui lòng nhập họ tên độc giả");
+                    return new ValidationResult(false, "Vui lòng nhập họ tên");
                 }
                 // No. character must be greater than 4.
                 if (name.Length < 4) // Le Y
                 {
-                    return new ValidationResult(false, "Họ tên độc giả phải có ít nhất 4 kí tự");
+                    return new ValidationResult(false, "Họ tên phải có ít nhất 4 kí tự");
                 }
                 // Regular expression check name pattern
                 if (!Regex.IsMatch(name, NAME_PARTTERN)) {
