@@ -18,13 +18,12 @@ namespace LibraryManagement.ViewModels
 {
     class BookViewModel : BaseViewModel
     {
-        LibraryManagementEntities DB = new LibraryManagementEntities();
 
-        private ObservableCollection<Models.Book> _ListBook;
-        public ObservableCollection<Models.Book> ListBook { get => _ListBook; set { _ListBook = value; OnPropertyChanged(); } }
+        private PagingCollectionView<Book> _ListBook;
+        public PagingCollectionView<Book> ListBook { get => _ListBook; set { _ListBook = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Models.Author> _ListAuthors;
-        public ObservableCollection<Models.Author> ListAuthors { get => _ListAuthors; set { _ListAuthors = value; OnPropertyChanged(); } }
+        private ObservableCollection<Author> _ListAuthors;
+        public ObservableCollection<Author> ListAuthors { get => _ListAuthors; set { _ListAuthors = value; OnPropertyChanged(); } }
 
         //Selected data of DB
         private Book _SelectedItem;
@@ -44,13 +43,14 @@ namespace LibraryManagement.ViewModels
                     dateAddBook = SelectedItem.dateAddBook;
                     dateManufacture = SelectedItem.dateManufacture;
                     price = SelectedItem.price;
+                    BookImageCover = SelectedItem.image;
                     ListAuthors = new ObservableCollection<Author>(SelectedItem.Authors);
                 }
             }
         }
 
-        private Models.Category _SelectedCategory;
-        public Models.Category SelectedCategory
+        private Category _SelectedCategory;
+        public Category SelectedCategory
         {
             get => _SelectedCategory;
             set
@@ -60,8 +60,8 @@ namespace LibraryManagement.ViewModels
             }
         }
 
-        private Models.Publisher _SelectedPublisher;
-        public Models.Publisher SelectedPublisher
+        private Publisher _SelectedPublisher;
+        public Publisher SelectedPublisher
         {
             get => _SelectedPublisher;
             set
@@ -71,8 +71,8 @@ namespace LibraryManagement.ViewModels
             }
         }
 
-        private Models.Author _SelectedAuthor;
-        public Models.Author SelectedAuthor
+        private Author _SelectedAuthor;
+        public Author SelectedAuthor
         {
             get => _SelectedAuthor;
             set
@@ -88,14 +88,14 @@ namespace LibraryManagement.ViewModels
         private string _nameBook;
         public string nameBook { get => _nameBook; set { _nameBook = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Models.Category> _category;
-        public ObservableCollection<Models.Category> category { get => _category; set { _category = value; OnPropertyChanged(); } }
+        private ObservableCollection<Category> _category;
+        public ObservableCollection<Category> category { get => _category; set { _category = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Models.Publisher> _publisher;
-        public ObservableCollection<Models.Publisher> publisher { get => _publisher; set { _publisher = value; OnPropertyChanged(); } }
+        private ObservableCollection<Publisher> _publisher;
+        public ObservableCollection<Publisher> publisher { get => _publisher; set { _publisher = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Models.Author> _author;
-        public ObservableCollection<Models.Author> author { get => _author; set { _author = value; OnPropertyChanged(); } }
+        private ObservableCollection<Author> _author;
+        public ObservableCollection<Author> author { get => _author; set { _author = value; OnPropertyChanged(); } }
 
         private DateTime _dateManufacture;
         public DateTime dateManufacture { get => _dateManufacture; set { _dateManufacture = value; OnPropertyChanged(); } }
@@ -115,6 +115,8 @@ namespace LibraryManagement.ViewModels
 
         private string _statusBook;
         public string statusBook { get => _statusBook; set { _statusBook = value; OnPropertyChanged(); } }
+
+        public string SourceImageFile { get; set; }
 
         //Search Book
         private string bookSearchKeyword;
@@ -143,6 +145,9 @@ namespace LibraryManagement.ViewModels
         public ICommand AddBookToDBCommand { get; set; }
         public ICommand EditBookToDBCommand { get; set; }
 
+        //Pagination
+        public ICommand MoveToPreviousBooksPage { get; set; }
+        public ICommand MoveToNextBooksPage { get; set; }
 
         //Add Authors
         public ICommand AddAuthors { get; set; }
@@ -155,31 +160,11 @@ namespace LibraryManagement.ViewModels
 
       
 
-        //Search Book function
-        private void SearchBook()
-        {
-            if (BookSearchKeyword == null || BookSearchKeyword.Trim() == "")
-            {
-                ListBook = new ObservableCollection<Book>(DB.Books);
-                return;
-            }
-            try
-            {
-                var result = DB.Books.Where(
-                                    book => book.nameBook.ToLower().StartsWith(bookSearchKeyword.ToLower())
-                                    );
-                ListBook = new ObservableCollection<Book>(result);
-            }
-            catch (ArgumentNullException)
-            {
-                ListBook = new ObservableCollection<Book>(DB.Books);
-                MessageBox.Show("Từ khóa tìm kiếm rỗng!");
-            }
-        }
-
         public BookViewModel()
         {
-            BookImageCover = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), $"/BookImageCover/default-image.png");
+            //BookImageCover = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), $"/BookImageCover/default-image.png");
+            SourceImageFile = null;
+            InitProperties(-1);
             AddBookCommand = new AppCommand<object>((p) => 
             { 
                 return true; 
@@ -208,10 +193,10 @@ namespace LibraryManagement.ViewModels
                 wd.ShowDialog(); 
             });
 
-            ListBook = new ObservableCollection<Book>(DB.Books);
-            category = new ObservableCollection<Models.Category>(DB.Categories);
-            publisher = new ObservableCollection<Models.Publisher>(DB.Publishers);
-            author = new ObservableCollection<Models.Author>(DB.Authors);
+            
+            category = new ObservableCollection<Category>(DataAdapter.Instance.DB.Categories);
+            publisher = new ObservableCollection<Publisher>(DataAdapter.Instance.DB.Publishers);
+            author = new ObservableCollection<Author>(DataAdapter.Instance.DB.Authors);
 
 
             //Command Add Authors
@@ -235,13 +220,29 @@ namespace LibraryManagement.ViewModels
                 if (price <= 0 || SelectedCategory == null ||SelectedPublisher == null || ListAuthors.Count == 0)
                     return false;
 
-                var displayList = DB.Books.Where(x => x.nameBook == nameBook);
+                var displayList = DataAdapter.Instance.DB.Books.Where(x => x.nameBook == nameBook);
                 if (displayList == null)
                     return false;
 
                 return true;
             }, (p) =>
-            { 
+            {
+                string newFileName = GetImageName();
+                /// Copy image to DB
+                if (SourceImageFile != null)
+                {
+                    string destinationFile = GetFullPath(newFileName);
+                    try
+                    {
+                        System.IO.File.Copy(SourceImageFile, destinationFile, true);
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
+                    }
+                }
+               
+
                 var book = new Book()
                 {
                     nameBook = nameBook,
@@ -251,7 +252,7 @@ namespace LibraryManagement.ViewModels
                     idCategory = SelectedCategory.idCategory,
                     idPublisher = SelectedPublisher.idPublisher,
                     statusBook = "có sẵn",
-                    image = BookImageCover
+                    image = SourceImageFile != null ? newFileName : "default-image.png"
                 };
 
                 for (int i = 0; i < ListAuthors.Count; i++)
@@ -259,10 +260,11 @@ namespace LibraryManagement.ViewModels
                     book.Authors.Add(ListAuthors[i]);
                 }
 
-                DB.Books.Add(book);
-                DB.SaveChanges();
-
-                ListBook.Add(book);
+                DataAdapter.Instance.DB.Books.Add(book);
+                DataAdapter.Instance.DB.SaveChanges();
+                SourceImageFile = null;
+                InitProperties(book.idBook);
+                MessageBox.Show("Thêm sách thành công!");
             });
 
             //Edit Book Information
@@ -274,14 +276,10 @@ namespace LibraryManagement.ViewModels
                 if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
                     return false;
 
-                var displayList = DB.Books.Where(x => x.nameBook == nameBook);
-                if (displayList == null)
-                    return false;
-
                 return true;
             }, (p) =>
             {
-                var book = DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
                 book.nameBook = nameBook;
                 book.dateManufacture = dateManufacture;
                 book.dateAddBook = dateAddBook;
@@ -295,10 +293,8 @@ namespace LibraryManagement.ViewModels
                 {
                     book.Authors.Add(ListAuthors[i]);
                 }
-                DB.SaveChanges();
-                OnPropertyChanged();
-
-                ListBook = new ObservableCollection<Book>(DB.Books);
+                DataAdapter.Instance.DB.SaveChanges();
+                InitProperties(book.idBook);
             });
 
             //Delete Book
@@ -309,10 +305,10 @@ namespace LibraryManagement.ViewModels
                 return true;
             }, (p) =>
             {
-                var book = DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
-                DB.Books.Remove(book);
-                DB.SaveChanges();
-                ListBook.Remove(book);
+                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+                DataAdapter.Instance.DB.Books.Remove(book);
+                DataAdapter.Instance.DB.SaveChanges();
+                InitProperties(-1);
             });
 
             //Delete Author in List Author
@@ -326,7 +322,7 @@ namespace LibraryManagement.ViewModels
             });
 
             AddImage = new AppCommand<object>(
-                //MessageBox.Show(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+                
                 p => true,
                 p =>
                 {
@@ -334,17 +330,35 @@ namespace LibraryManagement.ViewModels
                     fileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
                     if (fileDialog.ShowDialog() == true)
                     {
-                        string sourceFile = fileDialog.FileName;
-                        string fileName = GetImageName();
-                        string destPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-                        string destinationFile= Path.Combine($"{destPath}\\BookImageCover", fileName);
-                        MessageBox.Show(destinationFile);
-                        
-                        System.IO.File.Copy(sourceFile, destinationFile, true);
-                        BookImageCover = fileName;
-
+                        SourceImageFile = fileDialog.FileName;
+                        BookImageCover = SourceImageFile;
+                    }
+                    else
+                    {
+                        SourceImageFile = null;
                     }
                 });
+            MoveToPreviousBooksPage = new AppCommand<object>(
+                p =>
+                {
+                    return ListBook.CurrentPage > 1;
+                },
+                p =>
+                {
+                    ListBook.MoveToPreviousPage();
+                });
+            MoveToNextBooksPage = new AppCommand<object>(
+                p =>
+                {
+                    return ListBook.CurrentPage < ListBook.PageCount;
+                },
+                p =>
+                {
+                    ListBook.MoveToNextPage();
+                });
+
+           
+            
         }
 
         private string GetImageName()
@@ -353,14 +367,54 @@ namespace LibraryManagement.ViewModels
             int max = 0;
             foreach(var el in images)
             {
+                string idPart = el.Split('-')[1].Split('.')[0]; // default-photo.png, photo-1.png
                 int id;
-                if (Int32.TryParse(el.Split('-')[1], out id))
+                if (Int32.TryParse(idPart, out id))
                 {
                     if (id > max) max = id;
                 }
             }
             max += 1;
             return $"photo-{max}.png";
+        }
+
+        private string GetFullPath(string fileName)
+        {
+            string destPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string destinationFile = Path.Combine($"{destPath}\\BookImageCover", fileName);
+            return destinationFile;
+        }
+
+        //Search Book function
+        private void SearchBook()
+        {
+            if (BookSearchKeyword == null || BookSearchKeyword.Trim() == "")
+            {
+                ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
+                return;
+            }
+            try
+            {
+                var result = DataAdapter.Instance.DB.Books.Where(
+                                    book => book.nameBook.ToLower().StartsWith(bookSearchKeyword.ToLower())
+                                    );
+                ListBook = new PagingCollectionView<Book>(result.ToList(), 15);
+            }
+            catch (ArgumentNullException)
+            {
+                ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
+                MessageBox.Show("Từ khóa tìm kiếm rỗng!");
+            }
+        }
+
+        private void InitProperties(int id)
+        {
+            ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
+            SelectedItem = id == -1 ?  (Book)ListBook.GetItemAt(0) : (Book)ListBook.GetItemById("Book", id);
+            if (id != -1)
+            {
+                ListBook.MoveToSelectedItem("Book", id);
+            }
         }
     }
 }

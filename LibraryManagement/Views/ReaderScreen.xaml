@@ -5,7 +5,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LibraryManagement.Views" 
+             xmlns:local="clr-namespace:LibraryManagement.Views"
              xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                 mc:Ignorable="d" 
@@ -32,7 +32,7 @@
 
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" >
+                <ListView ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
                     <ListView.View >
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idReader }"></GridViewColumn>
@@ -48,6 +48,14 @@
                 </ListView>
             </ScrollViewer>
         </materialDesign:Card>
+
+        <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+            <Button Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+            <TextBlock Text="{Binding List.CurrentPage}"></TextBlock>
+            <TextBlock>/</TextBlock>
+            <TextBlock Text="{Binding List.PageCount}"></TextBlock>
+            <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+        </StackPanel>
 
         <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -87,11 +95,43 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
-                        <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding CreatedAt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
+                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                            <TextBox.Text>
+                                <Binding Path="NameReader" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <vm:ReaderNameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                            <TextBox.Text>
+                                <Binding Path="AddressReader" UpdateSourceTrigger="PropertyChanged" >
+                                    <Binding.ValidationRules>
+                                        <vm:ReaderAddressValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                            <TextBox.Text>
+                                <Binding Path="Email" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <vm:ReaderEmailValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                            <DatePicker.SelectedDate>
+                                <Binding Path="DobReader" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <vm:ReaderDOBValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </DatePicker.SelectedDate>
+                        </DatePicker>
+                        <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding CreatedAt,  UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}"/>
 
                     </Grid>
                 </Grid>
@@ -111,7 +151,15 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20">
+                    <TextBox.Text>
+                        <Binding Path="Debt" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <vm:ReaderDebtValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="20" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"></ComboBox>
 
                 <Button x:Name="CapnhatReader" Click="CapnhatReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">

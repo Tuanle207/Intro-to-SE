@@ -69,6 +69,11 @@ namespace LibraryManagement.Views
 
         private void btnAddStaff_Click(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
+            if (button.Command.CanExecute(null))
+            {
+                button.Command.Execute(null);
+            }
             AddStaff wd = new AddStaff();
             wd.ShowDialog();
         }
