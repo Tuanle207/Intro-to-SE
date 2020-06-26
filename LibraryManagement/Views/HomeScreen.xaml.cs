@@ -41,10 +41,5 @@ namespace LibraryManagement.Views
             Window window = new CollectFine();
             window.ShowDialog();
         }
-        private void ButtonChangeRegulation_Click(object sender, RoutedEventArgs e)
-        {
-            Window window = new ChangeRegulation();
-            window.ShowDialog();
-        }
     }
 }

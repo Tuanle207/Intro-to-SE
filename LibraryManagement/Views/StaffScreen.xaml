@@ -71,21 +71,21 @@
                     <TextBox x:Name="NameStaff" IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
+                                <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
                     <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
+                                <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
                     <TextBox x:Name="PhoneNumber" IsReadOnly="True" Grid.Row="2" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding PhoneNumberStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
+                                <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
@@ -93,7 +93,7 @@
                     <TextBox x:Name="UserName" IsReadOnly="True" Grid.Row="4" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AccountStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
+                                <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
