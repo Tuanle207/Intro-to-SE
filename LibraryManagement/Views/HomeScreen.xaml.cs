@@ -25,7 +25,6 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
-        LibraryManagementEntities DB = new LibraryManagementEntities();
         private void ButtonBorrowBook_Click(object sender, RoutedEventArgs e)
         {
             Window window = new BorrowBook();
@@ -39,6 +38,23 @@ namespace LibraryManagement.Views
         private void ButtonCollectFine_Click(object sender, RoutedEventArgs e)
         {
             Window window = new CollectFine();
+            window.ShowDialog();
+        }
+        private void ButtonChangeRegulation_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new ChangeRegulation();
+            window.ShowDialog();
+        }
+
+        private void ButtonAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new AuthorScreen();
+            window.ShowDialog();
+        }
+
+        private void ButtonCategory_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new CategoryScreen();
             window.ShowDialog();
         }
     }

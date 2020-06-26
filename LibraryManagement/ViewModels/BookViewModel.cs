@@ -14,9 +14,7 @@ using System.Windows.Input;
 namespace LibraryManagement.ViewModels
 {
     class BookViewModel : BaseViewModel
-    {
-        LibraryManagementEntities DB = new LibraryManagementEntities();
-
+    {        
         private ObservableCollection<Models.Book> _ListBook;
         public ObservableCollection<Models.Book> ListBook { get => _ListBook; set { _ListBook = value; OnPropertyChanged(); } }
 
@@ -115,7 +113,6 @@ namespace LibraryManagement.ViewModels
 
         //open Window
         public ICommand AddBookCommand { get; set; }
-        public ICommand EditBookCommand { get; set; }
         public ICommand DeleteBookCommand { get; set; }
 
 
@@ -148,19 +145,19 @@ namespace LibraryManagement.ViewModels
         {
             if (BookSearchKeyword == null || BookSearchKeyword.Trim() == "")
             {
-                ListBook = new ObservableCollection<Book>(DB.Books);
+                ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
                 return;
             }
             try
             {
-                var result = DB.Books.Where(
+                var result = DataAdapter.Instance.DB.Books.Where(
                                     book => book.nameBook.ToLower().StartsWith(bookSearchKeyword.ToLower())
                                     );
                 ListBook = new ObservableCollection<Book>(result);
             }
             catch (ArgumentNullException)
             {
-                ListBook = new ObservableCollection<Book>(DB.Books);
+                ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
                 MessageBox.Show("Từ khóa tìm kiếm rỗng!");
             }
         }
@@ -184,21 +181,11 @@ namespace LibraryManagement.ViewModels
                 wd.ShowDialog();
 
             });
-            EditBookCommand = new AppCommand<object>((p) => 
-            {
-                if (SelectedItem == null)
-                    return false;
-                return true;
-            }, (p) => 
-            { 
-                EditBookScreen wd = new EditBookScreen(); 
-                wd.ShowDialog(); 
-            });
 
-            ListBook = new ObservableCollection<Book>(DB.Books);
-            category = new ObservableCollection<Models.Category>(DB.Categories);
-            publisher = new ObservableCollection<Models.Publisher>(DB.Publishers);
-            author = new ObservableCollection<Models.Author>(DB.Authors);
+            ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
+            category = new ObservableCollection<Models.Category>(DataAdapter.Instance.DB.Categories);
+            publisher = new ObservableCollection<Models.Publisher>(DataAdapter.Instance.DB.Publishers);
+            author = new ObservableCollection<Models.Author>(DataAdapter.Instance.DB.Authors);
 
 
             //Command Add Authors
@@ -222,7 +209,7 @@ namespace LibraryManagement.ViewModels
                 if (price <= 0 || SelectedCategory == null ||SelectedPublisher == null || ListAuthors.Count == 0)
                     return false;
 
-                var displayList = DB.Books.Where(x => x.nameBook == nameBook);
+                var displayList = DataAdapter.Instance.DB.Books.Where(x => x.nameBook == nameBook);
                 if (displayList == null)
                     return false;
 
@@ -245,10 +232,11 @@ namespace LibraryManagement.ViewModels
                     book.Authors.Add(ListAuthors[i]);
                 }
 
-                DB.Books.Add(book);
-                DB.SaveChanges();
+                DataAdapter.Instance.DB.Books.Add(book);
+                DataAdapter.Instance.DB.SaveChanges();
 
                 ListBook.Add(book);
+                MessageBox.Show("Thêm sách mới thành công");
             });
 
             //Edit Book Information
@@ -260,14 +248,14 @@ namespace LibraryManagement.ViewModels
                 if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
                     return false;
 
-                var displayList = DB.Books.Where(x => x.nameBook == nameBook);
+                var displayList = DataAdapter.Instance.DB.Books.Where(x => x.nameBook == nameBook);
                 if (displayList == null)
                     return false;
 
                 return true;
             }, (p) =>
             {
-                var book = DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
                 book.nameBook = nameBook;
                 book.dateManufacture = dateManufacture;
                 book.dateAddBook = dateAddBook;
@@ -281,10 +269,12 @@ namespace LibraryManagement.ViewModels
                 {
                     book.Authors.Add(ListAuthors[i]);
                 }
-                DB.SaveChanges();
+                DataAdapter.Instance.DB.SaveChanges();
                 OnPropertyChanged();
 
-                ListBook = new ObservableCollection<Book>(DB.Books);
+                ListBook = new ObservableCollection<Book>(DataAdapter.Instance.DB.Books);
+                MessageBox.Show("Sửa sách thành công");
+
             });
 
             //Delete Book
@@ -295,10 +285,11 @@ namespace LibraryManagement.ViewModels
                 return true;
             }, (p) =>
             {
-                var book = DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
-                DB.Books.Remove(book);
-                DB.SaveChanges();
+                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+                DataAdapter.Instance.DB.Books.Remove(book);
+                DataAdapter.Instance.DB.SaveChanges();
                 ListBook.Remove(book);
+                MessageBox.Show("Xóa sách thành công");
             });
 
             //Delete Author in List Author

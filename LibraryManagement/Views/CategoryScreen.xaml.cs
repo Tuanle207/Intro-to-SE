@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for EditBookScreen.xaml
+    /// Interaction logic for CategoryScreen.xaml
     /// </summary>
-    public partial class EditBookScreen : Window
+    public partial class CategoryScreen : Window
     {
-        public EditBookScreen()
+        public CategoryScreen()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }
