@@ -87,10 +87,30 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
+                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="12"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="12"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="12"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}">
+                            
+                        </DatePicker>
                         <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding CreatedAt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
 
                     </Grid>
@@ -111,7 +131,13 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
                 <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="20" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"></ComboBox>
 
                 <Button x:Name="CapnhatReader" Click="CapnhatReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
@@ -159,13 +185,13 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button Height="Auto" Width="Auto" Command="{Binding AddMemberCommand}" Grid.Column="1" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5, 10, 10, 10">
+                <Button Height="Auto" Width="Auto" Command="{Binding AddMemberCommand}" Grid.Column="1" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5, 20, 10, 10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm loại độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>

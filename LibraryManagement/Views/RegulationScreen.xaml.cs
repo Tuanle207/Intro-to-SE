@@ -24,5 +24,10 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Cập nhật quy định thành công!", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }
