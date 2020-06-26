@@ -204,9 +204,6 @@
     <Compile Include="Views\BookScreen.xaml.cs">
       <DependentUpon>BookScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChangeRegulation.xaml.cs">
-      <DependentUpon>ChangeRegulation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
@@ -271,10 +268,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BookScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ChangeRegulation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
