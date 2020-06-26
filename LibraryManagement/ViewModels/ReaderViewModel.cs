@@ -320,18 +320,20 @@ namespace LibraryManagement.ViewModels
         private void RetrieveData()
         {
             TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
-            //InitProperty(-1);
-            List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
+            InitProperty(-1);
 
 
         }
         private void InitProperty(int id)
         {
             List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
-            SelectedItem = id == -1 ? (Reader)List.GetItemAt(0) : (Reader)List.GetItemById("Reader", id);
-            if (id != -1)
+            if (List.Count > 0)
             {
-                List.MoveToSelectedItem("Reader", id);
+                SelectedItem = id == -1 ? (Reader)List.GetItemAt(0) : (Reader)List.GetItemById("Reader", id);
+                if (id != -1)
+                {
+                    List.MoveToSelectedItem("Reader", id);
+                }
             }
         }
     }
