@@ -401,11 +401,15 @@ namespace LibraryManagement.ViewModels
         private void InitProperties(int id)
         {
             ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
-            SelectedItem = id == -1 ?  (Book)ListBook.GetItemAt(0) : (Book)ListBook.GetItemById("Book", id);
-            if (id != -1)
+            if (ListBook.Count > 0)
             {
-                ListBook.MoveToSelectedItem("Book", id);
+                SelectedItem = id == -1 ? (Book)ListBook.GetItemAt(0) : (Book)ListBook.GetItemById("Book", id);
+                if (id != -1)
+                {
+                    ListBook.MoveToSelectedItem("Book", id);
+                }
             }
+            
         }
     }
 }
