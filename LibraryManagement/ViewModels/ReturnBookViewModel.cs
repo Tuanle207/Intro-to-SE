@@ -199,6 +199,7 @@ namespace LibraryManagement.ViewModels
                     {
                         // Change Application state to intialize state
                         RetrieveDataAndClearInput();
+                        MessageBox.Show("Trả sách thành công!");
                     }
                 });
             MoveToPreviousReadersPage = new AppCommand<object>(

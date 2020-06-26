@@ -6,6 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement"
+        xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
         mc:Ignorable="d"
         KeyDown="Window_KeyDown"
         Title="Đăng nhập" Height="360" Width="540" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
@@ -27,12 +28,19 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Tài khoản" VerticalAlignment="Center" Margin="20 0" FontSize="18" FontWeight="Bold"/>
-            <TextBox x:Name="tenTaiKhoan" Grid.Column="1" BorderThickness="2" Padding="5 0" BorderBrush="Black" FontSize="18" VerticalAlignment="Center" Text="{Binding AccountStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+            <TextBox x:Name="tenTaiKhoan" Grid.Column="1" BorderThickness="2" Padding="5 0" BorderBrush="Black" FontSize="18" VerticalAlignment="Center">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </TextBox.Resources>
+                <TextBox.Text>
+                    <Binding Path="AccountStaff" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vm:UserNameLoginValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
         </Grid>
         <Grid Grid.Row="2">
@@ -42,6 +50,15 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Mật khẩu" VerticalAlignment="Center" Margin="20 0" FontSize="18" FontWeight="Bold"/>
+            <TextBox IsTabStop="False" x:Name="passWord" Grid.Column="1" BorderThickness="0" Padding="5 0" BorderBrush="Black" FontSize="18" Foreground="Transparent" VerticalAlignment="Center">
+                <TextBox.Text>
+                    <Binding Path="PasswordStaff" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vm:PasswordLoginValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <PasswordBox x:Name="matKhau" Grid.Column="1" BorderThickness="2" Padding="5 0" BorderBrush="Black" FontSize="18" VerticalAlignment="Center" PasswordChanged="matKhau_PasswordChanged">
                 <PasswordBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -49,11 +66,9 @@
                     </Style>
                 </PasswordBox.Resources>
             </PasswordBox>
-            <TextBox x:Name="passWord" Grid.Column="1" BorderThickness="2" Padding="5 0" BorderBrush="Black" FontSize="18" VerticalAlignment="Center" Text="{Binding PasswordStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Visibility="Hidden">
-            </TextBox>
         </Grid>
         <Button x:Name="btnLogin" Grid.Row="3" Content="Đăng nhập" Width="150" Command="{Binding LoginCommand}">
-
+            
         </Button>
     </Grid>
 </Window>

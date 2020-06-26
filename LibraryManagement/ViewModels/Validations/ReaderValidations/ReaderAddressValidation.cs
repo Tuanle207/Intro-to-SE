@@ -21,9 +21,9 @@ namespace LibraryManagement.ViewModels
                     return new ValidationResult(false, "Vui lòng nhập địa chỉ");
                 }
                 // No. character must be equal or greater than 10.
-                if (email.Length < 10)
+                if (email.Length < 6)
                 {
-                    return new ValidationResult(false, "Địa chỉ phải có ít nhất 10 kí tự");
+                    return new ValidationResult(false, "Địa chỉ phải có ít nhất 6 kí tự");
                 }
 
             }

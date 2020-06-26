@@ -5,10 +5,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LibraryManagement.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:LibraryManagement.Views" 
+             xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    mc:Ignorable="d" 
              Background="#FFF0F0F0"
              d:DesignHeight="600" d:DesignWidth="900">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitProperties}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -27,7 +34,7 @@
         </Grid>
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
+                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
                     <ListView.View >
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idStaff }"></GridViewColumn>
@@ -68,34 +75,62 @@
                     <Label Grid.Row="2" Content="Điện thoại" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="3" Content="Ngày sinh"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="4" Content="Tên tài khoản" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <TextBox x:Name="NameStaff" IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox x:Name="NameStaff" IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="NameStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
-                    <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="AddressStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderAddressValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
-                    <TextBox x:Name="PhoneNumber" IsReadOnly="True" Grid.Row="2" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding PhoneNumberStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox x:Name="PhoneNumber" IsReadOnly="True" Grid.Row="2" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="PhoneNumberStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:PhoneNumberValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                     <DatePicker x:Name="DobStaff" IsEnabled="False" Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
-                    <TextBox x:Name="UserName" IsReadOnly="True" Grid.Row="4" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AccountStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox x:Name="UserName" IsReadOnly="True" Grid.Row="4" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="AccountStaff" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:UserNameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                 </Grid>
             </materialDesign:Card>
@@ -153,7 +188,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddStaff" Height="Auto" Width="Auto" Grid.Column="0" Click="btnAddStaff_Click" Background="#FF32AC26" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
+                <Button x:Name="btnAddStaff" Height="Auto" Width="Auto" Grid.Column="0" Command="{Binding PrepareAddCommand}" Click="btnAddStaff_Click" Background="#FF32AC26" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
