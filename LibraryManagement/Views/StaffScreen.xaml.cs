@@ -88,6 +88,10 @@ namespace LibraryManagement.Views
             DobStaff.IsEnabled = true;
             UserName.IsReadOnly = false;
             cbPermission.IsEnabled = true;
+            btnCancel.IsEnabled = true;
+            btnAddStaff.IsEnabled = false;
+            btnDeleStaff.IsEnabled = false;
+            btnResetPassword.IsEnabled = false;
         }
 
         private void btnLuu_Click(object sender, RoutedEventArgs e)
@@ -100,6 +104,10 @@ namespace LibraryManagement.Views
             DobStaff.IsEnabled = false;
             UserName.IsReadOnly = true;
             cbPermission.IsEnabled = false;
+            btnCancel.IsEnabled = false;
+            btnAddStaff.IsEnabled = true;
+            btnDeleStaff.IsEnabled = true;
+            btnResetPassword.IsEnabled = true;
         }
 
         private void cbPermission_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -109,6 +117,22 @@ namespace LibraryManagement.Views
                 setPermissionView(1);
             }
             else setPermissionView(2);
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            btnLuu.Visibility = Visibility.Hidden;
+            btnSua.Visibility = Visibility.Visible;
+            NameStaff.IsReadOnly = true;
+            Address.IsReadOnly = true;
+            PhoneNumber.IsReadOnly = true;
+            DobStaff.IsEnabled = false;
+            UserName.IsReadOnly = true;
+            cbPermission.IsEnabled = false;
+            btnCancel.IsEnabled = false;
+            btnAddStaff.IsEnabled = true;
+            btnDeleStaff.IsEnabled = true;
+            btnResetPassword.IsEnabled = true;
         }
     }
 }

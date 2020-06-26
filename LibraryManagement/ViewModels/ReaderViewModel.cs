@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Data.Entity.Migrations;
+using System.ComponentModel;
 
 namespace LibraryManagement.ViewModels
 {
@@ -321,20 +322,18 @@ namespace LibraryManagement.ViewModels
         {
             TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
             InitProperty(-1);
-
-
         }
         private void InitProperty(int id)
         {
             List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
-            if (List.Count > 0)
-            {
-                SelectedItem = id == -1 ? (Reader)List.GetItemAt(0) : (Reader)List.GetItemById("Reader", id);
-                if (id != -1)
-                {
-                    List.MoveToSelectedItem("Reader", id);
-                }
-            }
+            //if (List.Count > 0)
+            //{
+            //    SelectedItem = id == -1 ? (Reader)List.GetItemAt(0) : (Reader)List.GetItemById("Reader", id);
+            //    if (id != -1)
+            //    {
+            //        List.MoveToSelectedItem("Reader", id);
+            //    }
+            //}
         }
     }
 
