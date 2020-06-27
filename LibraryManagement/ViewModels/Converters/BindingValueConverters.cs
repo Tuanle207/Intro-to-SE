@@ -14,7 +14,39 @@ namespace LibraryManagement.ViewModels
 {
    
 
-        /// <summary>
+
+    class PerrmissionIDToBoolean : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object paramater, CultureInfo culture)
+        {
+            if (value == null || Int32.Parse(value.ToString()) == 0)
+                return false;
+            try
+            {
+                if (Int32.Parse(value.ToString()) == 1)
+                {
+                    return true;
+                }
+                else if (Int32.Parse(value.ToString()) == 2 && Int32.Parse(paramater.ToString()) == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException("MethodToValueConverter can only be used for one way conversion.");
+        }
+    }
+
+    /// <summary>
     /// Convert the bill return to total amount of fine of the reader
     /// </summary>
     class ImageToSource : IValueConverter

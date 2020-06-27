@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:LibraryManagement"
                     xmlns:viewmodel="clr-namespace:LibraryManagement.ViewModels">
-    <!-- Data -->
+    <!-- ViewModel -->
     <viewmodel:SampleViewModel x:Key="SampleViewModel"></viewmodel:SampleViewModel>
     <viewmodel:BorrowBookViewModel x:Key="BorrowBookViewModel"></viewmodel:BorrowBookViewModel>
     <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"></viewmodel:ReturnBookViewModel>
@@ -27,6 +27,7 @@
     <viewmodel:DateBorrowedToFine x:Key="DateBorrowedToFine"></viewmodel:DateBorrowedToFine>
     <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"></viewmodel:BillReturnToReaderDebt>
     <viewmodel:ImageToSource x:Key="ImageToSource"></viewmodel:ImageToSource>
+    <viewmodel:PerrmissionIDToBoolean x:Key="PerrmissionIDToBoolean"></viewmodel:PerrmissionIDToBoolean>
 
 
 
