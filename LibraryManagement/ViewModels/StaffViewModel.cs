@@ -42,6 +42,7 @@ namespace LibraryManagement.ViewModels
                     IdPermission = SelectedItem.idPermission;
                     SelectedPermission = SelectedItem.Permission;
                 }
+               
             }
         }
         private int _idStaff;
@@ -176,6 +177,7 @@ namespace LibraryManagement.ViewModels
         public ICommand DeleteCommand { get; set; }
         public ICommand PrepareAddCommand { get; set; }
         public ICommand InitProperties { get; set; }
+        public ICommand NotifyOnSelectedItemChange { get; set; }
 
         public StaffViewModel()
         {
@@ -204,6 +206,7 @@ namespace LibraryManagement.ViewModels
                     DataAdapter.Instance.DB.Staffs.Add(Staff);
                     DataAdapter.Instance.DB.SaveChanges();
                     List.Add(Staff);
+                    SelectedItem = Staff;
                     MessageBox.Show("Bạn đã thêm nhân viên thành công");
                 }
                 catch (Exception)
@@ -296,6 +299,12 @@ namespace LibraryManagement.ViewModels
                 p =>
                 {
                     SelectedItem = List.FirstOrDefault();
+                });
+            NotifyOnSelectedItemChange = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    OnPropertyChanged("SelectedItem");
                 });
         }
 

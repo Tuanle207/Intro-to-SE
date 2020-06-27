@@ -7,8 +7,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagement.Views" 
              xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
              Background="#FFF0F0F0"
              d:DesignHeight="600" d:DesignWidth="900">
     <i:Interaction.Triggers>
@@ -34,7 +36,7 @@
         </Grid>
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
+                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem}" FontSize="14">
                     <ListView.View >
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idStaff }"></GridViewColumn>
@@ -141,9 +143,14 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="Quyền hạn sử dụng" Grid.Column="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Margin="10 0"/>
                 <ComboBox Name="cbPermission" Grid.Column="1" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" Margin="20 0" 
-                          SelectionChanged="cbPermission_SelectionChanged" IsEnabled="False"
-                          DisplayMemberPath="namePermission" IsReadOnly="True" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" 
-                          SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}">
+                          IsEnabled="False"
+                          DisplayMemberPath="namePermission" IsReadOnly="True" ItemsSource="{Binding Permission}" 
+                          SelectedItem="{Binding SelectedItem.Permission, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding NotifyOnSelectedItemChange}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ComboBox>
             </Grid>
             <Grid Grid.Row="2" Margin="10">
@@ -158,15 +165,87 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <CheckBox x:Name="cbLapTheDocGia" Content="Lập thẻ độc giả" Grid.Row="0" Grid.Column="0" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbTiepNhanSachMoi" Content="Tiếp nhận sách mới" Grid.Row="1" Grid.Column="0" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbTraCuuSach" Content="Tra cứu sách" Grid.Row="2" Grid.Column="0" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbChoMuonSach" Content="Cho mượn sách" Grid.Row="3" Grid.Column="0" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbNhanTraSach" Content="Nhận trả sách" Grid.Row="4" Grid.Column="0" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbLapPhieuThuTien" Content="Lập phiếu thu tiền phạt" Grid.Row="0" Grid.Column="1" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbLapBaoCao" Content="Lập báo cáo" Grid.Row="1" Grid.Column="1" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbThayDoiQuyDinh" Content="Thay đổi quy định" Grid.Row="2" Grid.Column="1" FontSize="18" IsEnabled="False"/>
-                <CheckBox x:Name="cbPhanQuyen" Content="Phân quyền" Grid.Row="3" Grid.Column="1" FontSize="18" IsEnabled="False"/>
+                <CheckBox x:Name="cbLapTheDocGia" Content="Lập thẻ độc giả" Grid.Row="0" Grid.Column="0" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbTiepNhanSachMoi" Content="Tiếp nhận sách mới" Grid.Row="1" Grid.Column="0" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbTraCuuSach" Content="Tra cứu sách" Grid.Row="2" Grid.Column="0" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbChoMuonSach" Content="Cho mượn sách" Grid.Row="3" Grid.Column="0" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbNhanTraSach" Content="Nhận trả sách" Grid.Row="4" Grid.Column="0" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbLapPhieuThuTien" Content="Lập phiếu thu tiền phạt" Grid.Row="0" Grid.Column="1" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbLapBaoCao" Content="Lập báo cáo" Grid.Row="1" Grid.Column="1" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>1</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbThayDoiQuyDinh" Content="Thay đổi quy định" Grid.Row="2" Grid.Column="1" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>2</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
+                <CheckBox x:Name="cbPhanQuyen" Content="Phân quyền" Grid.Row="3" Grid.Column="1" FontSize="18" IsEnabled="False">
+                    <CheckBox.IsChecked>
+                        <Binding Path="SelectedItem.Permission.idPermission" Converter="{StaticResource PerrmissionIDToBoolean}" Mode="OneWay">
+                            <Binding.ConverterParameter>
+                                <sys:Int32>2</sys:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </CheckBox.IsChecked>
+                </CheckBox>
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
