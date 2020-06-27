@@ -21,50 +21,9 @@ namespace LibraryManagement.Views
     /// </summary>
     public partial class StaffScreen : UserControl
     {
-        private List<CheckBox> cb = new List<CheckBox>();
         public StaffScreen()
         {
             InitializeComponent();
-            cb.Add(cbLapTheDocGia);
-            cb.Add(cbTiepNhanSachMoi);
-            cb.Add(cbTraCuuSach);
-            cb.Add(cbChoMuonSach);
-            cb.Add(cbNhanTraSach);
-            cb.Add(cbLapPhieuThuTien);
-            cb.Add(cbLapBaoCao);
-            cb.Add(cbThayDoiQuyDinh);
-            cb.Add(cbPhanQuyen);
-        }
-
-        private void lvNhanVien_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lvNhanVien.SelectedItems.Count > 0)
-            {
-                Staff staff = (Staff)lvNhanVien.SelectedItem;
-                setPermissionView(staff.idPermission);
-            }
-        }
-
-        private void setPermissionView(int idPermission)
-        {
-            if (idPermission == 1)
-            {
-                cbPermission.SelectedIndex = 0;
-                foreach (var item in cb)
-                {
-                    item.IsChecked = true;
-                }
-            }
-            else
-            {
-                cbPermission.SelectedIndex = 1;
-                foreach (var item in cb)
-                {
-                    if (item != cbThayDoiQuyDinh && item != cbPhanQuyen)
-                        item.IsChecked = true;
-                    else item.IsChecked = false;
-                }
-            }
         }
 
         private void btnAddStaff_Click(object sender, RoutedEventArgs e)
