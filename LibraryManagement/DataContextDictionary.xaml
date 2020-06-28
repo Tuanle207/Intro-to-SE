@@ -29,6 +29,7 @@
     <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"></viewmodel:BillReturnToReaderDebt>
     <viewmodel:ImageToSource x:Key="ImageToSource"></viewmodel:ImageToSource>
     <viewmodel:PerrmissionIDToBoolean x:Key="PerrmissionIDToBoolean"></viewmodel:PerrmissionIDToBoolean>
+    <viewmodel:ListToVisibility x:Key="ListToVisibility"></viewmodel:ListToVisibility>
 
 
 

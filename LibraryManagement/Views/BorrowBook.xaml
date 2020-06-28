@@ -210,28 +210,5 @@
                 <Button Content="Cho mượn" Margin="10" Command="{Binding Path=BorrowCommand}"/>
             </StackPanel>
         </Grid>
-        <!--<ListView SelectionMode="Multiple" HorizontalAlignment="Left" Width="555" Margin="0,68,0,105" BorderThickness="0,0,1,1" >
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="3" Margin="10" Background="#7d5a5a"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Image Source="/Assets/1.jpg" Stretch="UniformToFill"/>
-                        <Rectangle VerticalAlignment="Bottom" Height="75">
-                            <Rectangle.Fill>
-                                <SolidColorBrush Color="#1f4068" Opacity="0.8"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <StackPanel Height="75" VerticalAlignment="Bottom">
-                            <TextBlock Text="Kĩ thuật lập trình C" Foreground="#fff" FontWeight="Bold" TextWrapping="Wrap" Margin="5"/>
-                            <TextBlock Text="Lê Anh Tuấn" Foreground="#dddddd"  TextWrapping="Wrap" Margin="5 0 5 0"/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
     </Grid>
 </Window>

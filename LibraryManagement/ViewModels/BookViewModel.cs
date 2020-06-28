@@ -22,6 +22,9 @@ namespace LibraryManagement.ViewModels
         private PagingCollectionView<Book> _ListBook;
         public PagingCollectionView<Book> ListBook { get => _ListBook; set { _ListBook = value; OnPropertyChanged(); } }
 
+        private PagingCollectionView<Book> _ListLatestBooks;
+        public PagingCollectionView<Book> ListLatestBooks { get => _ListLatestBooks; set { _ListLatestBooks = value; OnPropertyChanged(); } }
+
         private ObservableCollection<Author> _ListAuthors;
         public ObservableCollection<Author> ListAuthors { get => _ListAuthors; set { _ListAuthors = value; OnPropertyChanged(); } }
 
@@ -147,6 +150,8 @@ namespace LibraryManagement.ViewModels
         //Pagination
         public ICommand MoveToPreviousBooksPage { get; set; }
         public ICommand MoveToNextBooksPage { get; set; }
+        public ICommand PrevBooks { get; set; }
+        public ICommand NextBooks { get; set; }
 
         //Add Authors
         public ICommand AddAuthors { get; set; }
@@ -164,6 +169,7 @@ namespace LibraryManagement.ViewModels
             //BookImageCover = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), $"/BookImageCover/default-image.png");
             SourceImageFile = null;
             InitProperties(-1);
+            GetLastestBooks();
             AddBookCommand = new AppCommand<object>((p) => 
             { 
                 return true; 
@@ -253,6 +259,7 @@ namespace LibraryManagement.ViewModels
                 DataAdapter.Instance.DB.SaveChanges();
                 SourceImageFile = null;
                 InitProperties(book.idBook);
+                GetLastestBooks();
                 MessageBox.Show("Thêm sách thành công!");
             });
 
@@ -299,6 +306,7 @@ namespace LibraryManagement.ViewModels
                 DataAdapter.Instance.DB.Books.Remove(book);
                 DataAdapter.Instance.DB.SaveChanges();
                 InitProperties(-1);
+                GetLastestBooks();
                 MessageBox.Show("Xóa sách thành công");
             });
 
@@ -348,8 +356,29 @@ namespace LibraryManagement.ViewModels
                     ListBook.MoveToNextPage();
                 });
 
-           
-            
+            PrevBooks = new AppCommand<object>(
+                p =>
+                {
+                    return ListLatestBooks.CurrentPage > 1;
+                },
+                p =>
+                {
+                    ListLatestBooks.MoveToPreviousPage();
+                    OnPropertyChanged("ListLatestBooks");
+                });
+            NextBooks = new AppCommand<object>(
+                p =>
+                {
+                    return ListLatestBooks.CurrentPage < ListBook.PageCount;
+                },
+                p =>
+                {
+                    ListLatestBooks.MoveToNextPage();
+                    OnPropertyChanged("ListLatestBooks");
+                });
+
+
+
         }
 
         private string GetImageName()
@@ -408,8 +437,12 @@ namespace LibraryManagement.ViewModels
                 {
                     ListBook.MoveToSelectedItem("Book", id);
                 }
-            }
-            
+            }   
+        }
+        private void GetLastestBooks()
+        {
+            var Books = DataAdapter.Instance.DB.Books.OrderByDescending(el => el.dateAddBook).Take(18);
+            ListLatestBooks = new PagingCollectionView<Book>(Books.ToList(), 9);
         }
     }
 }

@@ -21,9 +21,14 @@ namespace LibraryManagement.Views
     /// </summary>
     public partial class HomeScreen : UserControl
     {
+        private double newBooksSectionWidth;
+        private double newBooksSectionHeight;
+
         public HomeScreen()
         {
             InitializeComponent();
+            newBooksSectionWidth = newBooksSection.ActualWidth;
+            newBooksSectionHeight = newBooksSection.ActualHeight;
         }
         private void ButtonBorrowBook_Click(object sender, RoutedEventArgs e)
         {
@@ -38,11 +43,6 @@ namespace LibraryManagement.Views
         private void ButtonCollectFine_Click(object sender, RoutedEventArgs e)
         {
             Window window = new CollectFine();
-            window.ShowDialog();
-        }
-        private void ButtonChangeRegulation_Click(object sender, RoutedEventArgs e)
-        {
-            Window window = new ChangeRegulation();
             window.ShowDialog();
         }
 
