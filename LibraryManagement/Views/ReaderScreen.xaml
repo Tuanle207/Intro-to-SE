@@ -38,8 +38,27 @@
 
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
-                    <ListView.View >
+                <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayReader_MouseDown" >
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Gia hạn độc giả" Command="{Binding ExtendReaderCard}">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="AccountClock" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Sửa thông tin" Click="CapnhatReader_Click">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Xóa độc giả" Command="{Binding DeleteCommand}">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idReader }"></GridViewColumn>
                             <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameReader}"></GridViewColumn>

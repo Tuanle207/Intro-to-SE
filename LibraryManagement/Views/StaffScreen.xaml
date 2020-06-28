@@ -36,7 +36,26 @@
         </Grid>
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem}" FontSize="14">
+                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem}" SelectionMode="Single" FontSize="14" MouseDown="lvNhanVien_MouseDown">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Reset mật khẩu" Command="{Binding ResetPasswordCommand}" >
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="PasswordReset" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Sửa thông tin" Click="btnSua_Click">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Xóa nhân viên" Command="{Binding DeleteBookCommand}">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View >
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idStaff }"></GridViewColumn>

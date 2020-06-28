@@ -60,6 +60,11 @@ namespace LibraryManagement.Views
             UserName.IsReadOnly = true;
             cbPermission.IsEnabled = false;
         }
-
+        private void lvNhanVien_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+            if (r.VisualHit.GetType() != typeof(ListBoxItem))
+                lvNhanVien.UnselectAll();
+        }
     }
 }

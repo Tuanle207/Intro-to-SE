@@ -55,15 +55,6 @@ namespace LibraryManagement.ViewModels
             get => _newPasswordStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Mật khẩu là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _newPasswordStaff = value; OnPropertyChanged();
             }
         }
@@ -74,15 +65,6 @@ namespace LibraryManagement.ViewModels
             get => _confirmPasswordStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Mật khẩu là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _confirmPasswordStaff = value; OnPropertyChanged();
             }
         }

@@ -98,5 +98,12 @@ namespace LibraryManagement.Views
             btnTypeReader.IsEnabled = true;
             btnCancel.IsEnabled = false;
         }
+
+        private void ListDisplayReader_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+            if (r.VisualHit.GetType() != typeof(ListBoxItem))
+                ListDisplayReader.UnselectAll();
+        }
     }
 }

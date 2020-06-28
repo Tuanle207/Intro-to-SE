@@ -174,6 +174,7 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> ReloadTypeReaderCommand { get; set;}
         public ICommand MoveToPreviousReadersPage { get; set; }
         public ICommand MoveToNextReadersPage { get; set; }
+        public ICommand ExtendReaderCard { get; set; }
 
         public ReaderViewModel()
         {
@@ -313,6 +314,22 @@ namespace LibraryManagement.ViewModels
                 p =>
                 {
                     List.MoveToNextPage();
+                });
+            ExtendReaderCard = new AppCommand<object>(
+                p => SelectedItem != null,
+                p =>
+                {
+                    DateTime latestExtendedDate = SelectedItem.latestExtended;
+                    int expiryDays = DataAdapter.Instance.DB.Paramaters.Find(4).valueParameter * 30;
+                    if (DateTime.Now >= latestExtendedDate.AddDays(expiryDays))
+                    {
+                        SelectedItem.latestExtended = DateTime.Now;
+                    }
+                    else
+                    {
+                        SelectedItem.latestExtended = DateTime.Now.AddDays(SelectedItem.latestExtended.AddDays(expiryDays).Subtract(DateTime.Now).Days);
+                    }
+                    DataAdapter.Instance.DB.SaveChanges();
                 });
 
         }
