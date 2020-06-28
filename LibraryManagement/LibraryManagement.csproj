@@ -232,9 +232,6 @@
     <Compile Include="Views\CategoryScreen.xaml.cs">
       <DependentUpon>CategoryScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChangeRegulation.xaml.cs">
-      <DependentUpon>ChangeRegulation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CollectFine.xaml.cs">
       <DependentUpon>CollectFine.xaml</DependentUpon>
     </Compile>
@@ -319,10 +316,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CategoryScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ChangeRegulation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
