@@ -192,7 +192,21 @@
                 <TextBox Name="SearchBook" Text="{Binding BookSearchKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Background="#FFC0D4D4" TextWrapping="Wrap" Margin="10" FontSize="24"/>
             </Grid>
             <Grid Grid.Row="2">
-                <ListView ItemsSource="{Binding ListBook}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListView x:Name="ListDisplayBook" ItemsSource="{Binding ListBook}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayBook_MouseDown">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Sửa thông tin" Click="UpdateBook_Click">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Xóa sách" Command="{Binding DeleteBookCommand}">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Mã số" DisplayMemberBinding="{Binding idBook}"></GridViewColumn>

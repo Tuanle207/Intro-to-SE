@@ -69,13 +69,11 @@ namespace LibraryManagement.Views
             btnResetPassword.IsEnabled = true;
         }
 
-        private void cbPermission_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lvNhanVien_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (cbPermission.SelectedIndex == 0)
-            {
-                setPermissionView(1);
-            }
-            else setPermissionView(2);
+            HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+            if (r.VisualHit.GetType() != typeof(ListBoxItem))
+                lvNhanVien.UnselectAll();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

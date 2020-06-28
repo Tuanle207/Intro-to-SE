@@ -166,10 +166,10 @@
     <Compile Include="ViewModels\Validations\LoginValidations\UserNameLoginValidation.cs" />
     <Compile Include="ViewModels\TypeReaderViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
-    <Compile Include="ViewModels\Validations\CheckDateManufactureValidation.cs" />
-    <Compile Include="ViewModels\Validations\AuthorValidation.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\CheckDateManufactureValidation.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\AuthorValidation.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
-    <Compile Include="ViewModels\Validations\CategoryValidation.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\CategoryValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\MoneyPenaltyValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\ExpiryDateValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\DistancePublishValidation.cs" />
@@ -195,7 +195,8 @@
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
-     <Compile Include="ViewModels\Validations\StaffValidation\PhoneNumerValidation.cs" />
+    <Compile Include="ViewModels\Validations\StaffValidation\ComfirmPasswordValidation.cs" />
+    <Compile Include="ViewModels\Validations\StaffValidation\PhoneNumerValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\PasswordValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\UserNameValidation.cs" />
     <Compile Include="Views\AddStaff.xaml.cs">
