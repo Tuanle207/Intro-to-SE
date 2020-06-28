@@ -16,6 +16,7 @@
     <viewmodel:ReportViewModel x:Key="ReportViewModel"></viewmodel:ReportViewModel>
     <viewmodel:AuthorViewModel x:Key="AuthorViewModel"></viewmodel:AuthorViewModel>
     <viewmodel:CategoryViewModel x:Key="CategoryViewModel"></viewmodel:CategoryViewModel>
+    <viewmodel:SelectedItemToBoolean x:Key="SelectedItemToBoolean"></viewmodel:SelectedItemToBoolean>
 
 
     <!-- Value Converter -->

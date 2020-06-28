@@ -51,5 +51,11 @@ namespace LibraryManagement.Views
             DateManufacture.IsEnabled = false;
             Price.IsEnabled = false;
         }
+        private void ListDisplayBook_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+            if (r.VisualHit.GetType() != typeof(ListBoxItem))
+                ListDisplayBook.UnselectAll();
+        }
     }
 }
