@@ -50,6 +50,8 @@ namespace LibraryManagement.Views
             btnCancel.IsEnabled = true;
             btnAddStaff.IsEnabled = false;
             btnDeleStaff.IsEnabled = false;
+            SearchBox.IsEnabled = false;
+            lvNhanVien.IsEnabled = false;
             btnResetPassword.IsEnabled = false;
         }
 
@@ -66,6 +68,8 @@ namespace LibraryManagement.Views
             btnCancel.IsEnabled = false;
             btnAddStaff.IsEnabled = true;
             btnDeleStaff.IsEnabled = true;
+            SearchBox.IsEnabled = true;
+            lvNhanVien.IsEnabled = true;
             btnResetPassword.IsEnabled = true;
         }
 
@@ -89,6 +93,8 @@ namespace LibraryManagement.Views
             btnCancel.IsEnabled = false;
             btnAddStaff.IsEnabled = true;
             btnDeleStaff.IsEnabled = true;
+            SearchBox.IsEnabled = true;
+            lvNhanVien.IsEnabled = true;
             btnResetPassword.IsEnabled = true;
         }
     }
