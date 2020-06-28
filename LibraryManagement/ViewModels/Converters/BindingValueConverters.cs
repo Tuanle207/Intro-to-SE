@@ -13,6 +13,41 @@ using System.Windows.Data;
 namespace LibraryManagement.ViewModels
 {
     /// <summary>
+    /// Convert List to boolean (for paginating buttons' visibility)
+    /// </summary>
+    class ListToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object paramater, CultureInfo culture)
+        {
+            try
+            {
+                if (value == null)
+                    return false;
+                PagingCollectionView<Book> list = (PagingCollectionView<Book>)value;
+                int button = Int32.Parse(paramater.ToString());
+                if (button == 1)
+                {
+                    return list.CurrentPage > 1 ? "Visible" : "Hidden";
+                }
+                else
+                {
+                    return list.CurrentPage < list.PageCount ? "Visible" : "Hidden";
+                }
+            }
+            catch (Exception)
+            {
+                return "Hidden";
+            }
+        }
+
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException("MethodToValueConverter can only be used for one way conversion.");
+        }
+    }
+
+    /// <summary>
     /// Convert selected item to boolean (for enable/disable context menu item)
     /// </summary>
     class SelectedItemToBoolean : IValueConverter
