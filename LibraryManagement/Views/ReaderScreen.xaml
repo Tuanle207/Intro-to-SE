@@ -26,8 +26,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Grid  Grid.Column="1" Background="Aqua" Margin="10" Height="Auto">
+        <Grid x:Name="SearchBox" Grid.Row="0" Grid.Column="0">
+            <Grid Grid.Column="1" Background="Aqua" Margin="10" Height="Auto">
                 <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
@@ -75,10 +75,10 @@
         </materialDesign:Card>
 
         <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
-            <Button Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+            <Button x:Name="btnPrev" Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
             <TextBlock Text="{Binding List.CurrentPage}"></TextBlock>
             <TextBlock>/</TextBlock>
-            <TextBlock Text="{Binding List.PageCount}"></TextBlock>
+            <TextBlock x:Name="btnNext" Text="{Binding List.PageCount}"></TextBlock>
             <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
         </StackPanel>
 

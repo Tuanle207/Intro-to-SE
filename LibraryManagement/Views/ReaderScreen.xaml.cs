@@ -54,7 +54,10 @@ namespace LibraryManagement.Views
             btnDeleteReader.IsEnabled = false;
             btnAddReader.IsEnabled = false;
             btnTypeReader.IsEnabled = false;
+            SearchBox.IsEnabled = false;
             btnCancel.IsEnabled = true;
+            btnPrev.IsEnabled = false;
+            btnNext.IsEnabled = false;
         }
 
         private void LuuReader_Click(object sender, RoutedEventArgs e)
@@ -72,7 +75,10 @@ namespace LibraryManagement.Views
             btnDeleteReader.IsEnabled = true;
             btnAddReader.IsEnabled = true;
             btnTypeReader.IsEnabled = true;
+            SearchBox.IsEnabled = true;
             btnCancel.IsEnabled = false;
+            btnPrev.IsEnabled = true;
+            btnNext.IsEnabled = true;
         }
 
         private void ButtonTypeReader_Click(object sender, RoutedEventArgs e)
@@ -97,6 +103,9 @@ namespace LibraryManagement.Views
             btnAddReader.IsEnabled = true;
             btnTypeReader.IsEnabled = true;
             btnCancel.IsEnabled = false;
+            SearchBox.IsEnabled = true;
+            btnPrev.IsEnabled = true;
+            btnNext.IsEnabled = true;
         }
 
         private void ListDisplayReader_MouseDown(object sender, MouseButtonEventArgs e)

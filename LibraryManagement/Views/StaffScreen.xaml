@@ -27,7 +27,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <Grid  Grid.Column="0" Grid.Row="0" Background="Aqua" Margin="10" Height="Auto">
+        <Grid x:Name="SearchBox" Grid.Column="0" Grid.Row="0" Background="Aqua" Margin="10" Height="Auto">
             <TextBlock Margin="10" Text="Nhập tên nhân viên..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbStaffName, Path=Text.IsEmpty,
