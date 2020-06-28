@@ -176,11 +176,27 @@ namespace LibraryManagement.ViewModels
         public ICommand DeleteCommand { get; set; }
         public ICommand PrepareAddCommand { get; set; }
         public ICommand InitProperties { get; set; }
+        public AppCommand<object> CancelCommand { get; set; }
 
         public StaffViewModel()
         {
             // Retrieve data from DB
             RetrieveData();
+            CancelCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+
+            }, (p) =>
+            {
+                SelectedItem.nameStaff = NameStaff;
+                SelectedItem.dobStaff = (DateTime)DobStaff;
+                SelectedItem.addressStaff = AddressStaff;
+                SelectedItem.phoneNumberStaff = PhoneNumberStaff;
+                SelectedItem.accountStaff = AccountStaff;
+                SelectedItem.passwordStaff = EncryptSHA512Managed(PasswordStaff);
+                SelectedItem.idPermission = SelectedPermission.idPermission;
+                OnPropertyChanged("SelectedItem");
+            });
             AddCommand = new AppCommand<object>((p) =>
             {
                 if (NameStaff == null || PhoneNumberStaff == null || AddressStaff == null || AccountStaff == null || PasswordStaff == null)
