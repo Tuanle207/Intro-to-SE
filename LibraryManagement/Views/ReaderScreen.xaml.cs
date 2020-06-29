@@ -37,10 +37,10 @@ namespace LibraryManagement.Views
             wd.ShowDialog();
         }
 
-        private void CapnhatReader_Click(object sender, RoutedEventArgs e)
+        private void UpdateReader_Click(object sender, RoutedEventArgs e)
         {
-            LuuReader.Visibility = Visibility.Visible;
-            CapnhatReader.Visibility = Visibility.Hidden;
+            SaveReader.Visibility = Visibility.Visible;
+            UpdateReader.Visibility = Visibility.Hidden;
             NameReader.IsReadOnly = false;
             Address.IsReadOnly = false;
             Email.IsReadOnly = false;
@@ -50,10 +50,10 @@ namespace LibraryManagement.Views
             TypeReader.IsEnabled = true;
         }
 
-        private void LuuReader_Click(object sender, RoutedEventArgs e)
+        private void SaveReader_Click(object sender, RoutedEventArgs e)
         {
-            LuuReader.Visibility = Visibility.Hidden;
-            CapnhatReader.Visibility = Visibility.Visible;
+            SaveReader.Visibility = Visibility.Hidden;
+            UpdateReader.Visibility = Visibility.Visible;
             NameReader.IsReadOnly = true;
             Address.IsReadOnly = true;
             Email.IsReadOnly = true;

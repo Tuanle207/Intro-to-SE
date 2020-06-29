@@ -53,7 +53,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameReader" Grid.Row="0" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16">
+                    <TextBox x:Name="NameReader" BorderThickness="1" Grid.Row="0" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16">
                         <TextBox.Text>
                             <Binding Path="NameReader" UpdateSourceTrigger="PropertyChanged" >
                                 <Binding.ValidationRules>
@@ -61,8 +61,13 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
                     </TextBox>
-                    <DatePicker x:Name="DobReader"  Grid.Row="1" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16">
+                    <DatePicker x:Name="DobReader"  Grid.Row="1" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16">
                         <DatePicker.SelectedDate>
                             <Binding Path="DobReader" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -71,7 +76,7 @@
                             </Binding>
                         </DatePicker.SelectedDate>
                     </DatePicker>
-                    <TextBox x:Name="Email" Grid.Row="2" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16">
+                    <TextBox x:Name="Email" Grid.Row="2" BorderThickness="1" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16">
                         <TextBox.Text>
                             <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" >
                                 <Binding.ValidationRules>
@@ -79,8 +84,13 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
                     </TextBox>
-                    <TextBox x:Name="Address" Grid.Row="3" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16" >
+                    <TextBox x:Name="Address" Grid.Row="3" BorderThickness="1"  Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16" >
                         <TextBox.Text>
                             <Binding Path="AddressReader" UpdateSourceTrigger="PropertyChanged" >
                                 <Binding.ValidationRules>
@@ -88,8 +98,13 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
                     </TextBox>
-                    <DatePicker  x:Name="CreatAt" Grid.Row="4" Background="#FFE2DADA" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16"
+                    <DatePicker  x:Name="CreatAt" Grid.Row="4" Height="Auto" Margin="5" VerticalContentAlignment="Center" Padding="5 0" FontSize="16"
                                 SelectedDate="{Binding CreatedAt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </Grid>
@@ -107,7 +122,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <TextBox Name="Debt" Grid.Row="0" Grid.Column="1" Margin="10" Background="#FFE2DADA" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0">
+                <TextBox Name="Debt" Grid.Row="0" Grid.Column="1" Margin="10" BorderThickness="1"  FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0">
                     <TextBox.Text>
                         <Binding Path="Debt" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
@@ -115,8 +130,13 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
                 </TextBox>
-                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="1" Margin="10" Background="#FFE2DADA" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Name="cbTypeReader" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="16" Height="Auto" VerticalContentAlignment="Center" Padding="5 0" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                     <ComboBox.SelectedItem>
                         <Binding Path="SelectedTypeReader" UpdateSourceTrigger="PropertyChanged">
                         </Binding>

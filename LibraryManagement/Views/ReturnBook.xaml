@@ -13,7 +13,7 @@
 
     <Grid>
         <StackPanel Margin="5">
-            <Grid Background="Aqua">
+            <Grid Background="#FFC0D4D4">
                 <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,

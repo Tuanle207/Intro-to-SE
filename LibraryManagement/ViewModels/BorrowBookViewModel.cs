@@ -21,12 +21,15 @@ namespace LibraryManagement.ViewModels
         private Reader readerSelected;
         private string bookKeyword;
         private string readerKeyword;
-        public ObservableCollection<Book> ListBooksSelected { 
-            get => listBooksSelected; 
-            set { 
-                listBooksSelected = value; 
-                OnPropertyChanged(); 
-            } }
+        public ObservableCollection<Book> ListBooksSelected
+        {
+            get => listBooksSelected;
+            set
+            {
+                listBooksSelected = value;
+                OnPropertyChanged();
+            }
+        }
         public PagingCollectionView<Book> Books
         {
             get => books;
@@ -36,17 +39,21 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        public PagingCollectionView<Reader> Readers { 
-            get => readers; 
-            set { 
+        public PagingCollectionView<Reader> Readers
+        {
+            get => readers;
+            set
+            {
                 readers = value;
                 OnPropertyChanged();
-            } 
+            }
         }
-        public Reader ReaderSelected {
-            get => readerSelected; 
-            set {
-                readerSelected = value; 
+        public Reader ReaderSelected
+        {
+            get => readerSelected;
+            set
+            {
+                readerSelected = value;
                 OnPropertyChanged();
             }
         }
@@ -151,6 +158,7 @@ namespace LibraryManagement.ViewModels
                     {
                         // Clear UI
                         RetrieveDataAndClearInput();
+                        MessageBox.Show("Mượn sách thành công!");
                     }
                 });
             SelectBook = new AppCommand<object>(
@@ -195,7 +203,7 @@ namespace LibraryManagement.ViewModels
                             return;
                         }
                     }
-                    
+
                     if (bookSelected.statusBook == "có sẵn")
                     {
                         ListBooksSelected.Add(bookSelected);
@@ -307,10 +315,10 @@ namespace LibraryManagement.ViewModels
         private int GetBookBorrowedOfReader(Reader reader)
         {
             int result = (from br in DataAdapter.Instance.DB.BillBorrows
-                        join dbr in DataAdapter.Instance.DB.DetailBillBorrows
-                        on br.idBillBorrow equals dbr.idBillBorrow
-                        where br.idReader == reader.idReader && dbr.returned == 0
-                        select 1
+                          join dbr in DataAdapter.Instance.DB.DetailBillBorrows
+                          on br.idBillBorrow equals dbr.idBillBorrow
+                          where br.idReader == reader.idReader && dbr.returned == 0
+                          select 1
                         ).Count();
             return result;
         }
@@ -321,12 +329,12 @@ namespace LibraryManagement.ViewModels
             int borrowExpired = (from br in DataAdapter.Instance.DB.BillBorrows
                                  join dbr in DataAdapter.Instance.DB.DetailBillBorrows
                                  on br.idBillBorrow equals dbr.idBillBorrow
-                                 where br.idReader == reader.idReader 
-                                 && DbFunctions.DiffDays(br.borrowDate, DateTime.Now) > maxBorrowDays 
+                                 where br.idReader == reader.idReader
+                                 && DbFunctions.DiffDays(br.borrowDate, DateTime.Now) > maxBorrowDays
                                  && dbr.returned == 0
                                  select 1
                     ).Count();
-            
+
             return borrowExpired > 0 ? true : false;
         }
         private bool CheckReaderExpiry(Reader reader)

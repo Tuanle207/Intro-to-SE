@@ -25,7 +25,7 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="spSach" Grid.Row="0" Grid.Column="0" Margin="5" Orientation="Vertical">
-            <Grid x:Name="gridSach" Background="Aqua">
+            <Grid x:Name="gridSach" Background="#FFC0D4D4">
                 <TextBlock Margin="10" Text="Nhập tên sách..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbBookName, Path=Text.IsEmpty,
@@ -80,7 +80,7 @@
         </StackPanel>
         
         <StackPanel x:Name="spReader" Grid.Row="1" Grid.Column="0" Margin="5">
-            <Grid x:Name="gridReader" Background="Aqua">
+            <Grid x:Name="gridReader" Background="#FFC0D4D4">
                 <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,

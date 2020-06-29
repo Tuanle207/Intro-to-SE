@@ -21,7 +21,7 @@
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
-            <Grid  Grid.Column="1" Background="Aqua" Margin="10" Height="Auto">
+            <Grid  Grid.Column="1" Background="#FFC0D4D4" Margin="10" Height="Auto">
                 <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
@@ -30,7 +30,7 @@
             </Grid>
         </Grid>
 
-        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListView ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" >
                     <ListView.View >
@@ -79,7 +79,7 @@
                         <Label Grid.Row="3" Content="Ngày sinh"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                         <Label Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     </Grid>
-                    <Grid Grid.Column="1" Margin="5">
+                    <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
@@ -87,16 +87,34 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" FontSize="14" Text="{Binding NameReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center"  FontSize="14" Text="{Binding AddressReader ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" FontSize="14" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
                         <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobReader,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
                         <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding CreatedAt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
 
                     </Grid>
                 </Grid>
             </materialDesign:Card>
-            
+
             <Label Grid.Row="2" Content="Thông tin thẻ độc giả " HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
             <Grid x:Name="gridForReaderProfile" Grid.Row="3" Margin="10">
                 <Grid.ColumnDefinitions>
@@ -111,17 +129,23 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
-                <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="20" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"></ComboBox>
+                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20" Text="{Binding Debt,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="16" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedTypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"></ComboBox>
 
-                <Button x:Name="CapnhatReader" Click="CapnhatReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="UpdateReader" Click="UpdateReader_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
                         <TextBlock Text="Cập nhật" VerticalAlignment="Center" Margin="10" FontSize="15" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="LuuReader" Click="LuuReader_Click" Visibility="Hidden" Command="{Binding EditCommand}" Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="SaveReader" Click="SaveReader_Click" Visibility="Hidden" Command="{Binding EditCommand}" Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="IsEnabled" Value="false" />
@@ -171,7 +195,7 @@
                         <TextBlock Text="Thêm loại độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                
+
             </Grid>
         </Grid>
     </Grid>

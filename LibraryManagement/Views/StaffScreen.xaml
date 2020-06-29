@@ -18,14 +18,14 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <Grid  Grid.Column="0" Grid.Row="0" Background="Aqua" Margin="10" Height="Auto">
+        <Grid  Grid.Column="0" Grid.Row="0" Background="#FFC0D4D4" Margin="10" Height="Auto">
             <TextBlock Margin="10" Text="Nhập tên nhân viên..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbStaffName, Path=Text.IsEmpty,
                               Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <TextBox Name="tbStaffName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding StaffSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFDAE0E9" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
                     <ListView.View >

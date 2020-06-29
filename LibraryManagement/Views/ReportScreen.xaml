@@ -24,7 +24,7 @@
                 <RowDefinition Height="7*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Button  Grid.Row="0"   Height="70" Width="350" Background="#FFF39C11" BorderBrush="{x:Null}" >
+            <Button  Grid.Row="0"  Height="70" Width="Auto" Margin="10" Background="#FFF39C11" BorderBrush="{x:Null}" >
                 <StackPanel  Margin="10">
                     <TextBlock Text="Báo cáo thống kê mượn sách theo thể loại" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                 </StackPanel>
@@ -37,15 +37,15 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Tháng" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <TextBlock Grid.Column="0" Text="Tháng" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
                 <ComboBox Name="month" Loaded="month_Loaded" SelectedItem="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
                 </ComboBox>
-                <TextBlock Grid.Column="2" Text="Năm" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <TextBlock Grid.Column="2" Text="Năm" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
                 <ComboBox Name="year"  Loaded="year_Loaded" SelectedItem="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
                 </ComboBox>
-                <Button Command="{Binding LoadReportCategory}" Grid.Column="4" Content="Tìm" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <Button Command="{Binding LoadReportCategory}" Grid.Column="4" Content="Tìm" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </Button>
             </Grid>
         </Grid>
@@ -54,7 +54,7 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0"  Background="#FFB0B0B0" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
+            <materialDesign:Card Grid.Row="0"  Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView Name="ListReportCategory" ItemsSource="{Binding Category_List, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  >
                         <ListView.View >
@@ -70,13 +70,13 @@
             </materialDesign:Card>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="56*"/>
+                    <ColumnDefinition Width="77*"/>
+                    <ColumnDefinition Width="67*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"  Text="Tổng số lượt mượn" FontSize="20" VerticalAlignment="Center" FontWeight="Bold"/>
-                <TextBlock x:Name="sumTurn" Grid.Column="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
-                <Button Command="{Binding ExportCategory}" Grid.Column="3" Width="150" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Label Grid.Column="0"  Content="Tổng số lượt mượn" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Height="30" Margin="0,33,7,33"/>
+                <TextBox x:Name="sumTurn" Grid.Column="1" BorderThickness="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" Padding="5 0" VerticalAlignment="Center" FontSize="20" Height="36" Margin="22,30,24.6,30"/>
+                <Button Command="{Binding ExportCategory}" Margin="9.4,23,10,23" Grid.Column="2" Width="Auto" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
         <!--Phần 2-->
@@ -85,7 +85,7 @@
                 <RowDefinition Height="7*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Button  Grid.Row="0"   Height="70" Width="450" Background="#FFF39C11" BorderBrush="{x:Null}">
+            <Button  Grid.Row="0"   Height="70" Width="Auto" Margin="10" Background="#FFF39C11" BorderBrush="{x:Null}">
                 <StackPanel  Margin="10">
                     <TextBlock Text="Báo cáo thống kê sách trả trễ" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                 </StackPanel>
@@ -96,7 +96,7 @@
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
                 <DatePicker Name="Day" Loaded="day_Loaded"  Grid.Column="0" SelectedDate="{ Binding DateExpired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="200"/>
-                <Button Command="{Binding LoadReportLate}" Grid.Column="1" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                <Button Command="{Binding LoadReportLate}" Grid.Column="1" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
@@ -111,7 +111,7 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0"  Background="#FFB0B0B0" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch" Grid.ColumnSpan="5">
+            <materialDesign:Card Grid.Row="0"  Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch" Grid.ColumnSpan="5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView Name="ListReportLate" ItemsSource="{Binding Late_List, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  >
                         <ListView.View >
@@ -131,7 +131,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Command="{Binding ExportLate}" Grid.Column="3" Width="150" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button Command="{Binding ExportLate}" Margin="10" Grid.Column="3" Width="Auto" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
 

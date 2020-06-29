@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,8 +9,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace LibraryManagement.ViewModels
 {
@@ -119,6 +122,48 @@ namespace LibraryManagement.ViewModels
             return this._innerList[this.StartIndex + offset];
         }
 
+        public object GetItemById(string objectType, int index)
+        {
+            try
+            {
+                switch (objectType)
+                {
+                    case "Book":
+                        return _innerList.Find(el => (el as Book).idBook == index);
+                    case "Reader":
+                        return _innerList.Find(el => (el as Reader).idReader == index);
+                    default:
+                        return null;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Đã có lỗi xảy ra!");
+                return null;
+            }
+        }
+
+        public int GetPositionById(string objectType, int index)
+        {
+            try
+            {
+                switch (objectType)
+                {
+                    case "Book":
+                        return _innerList.FindIndex(el => (el as Book).idBook == index);
+                    case "Reader":
+                        return _innerList.FindIndex(el => (el as Reader).idReader == index);
+                    default:
+                        return -1;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Đã có lỗi xảy ra!");
+                return -1;
+            }
+        }
+
         public void MoveToNextPage()
         {
             if (this._currentPage < this.PageCount)
@@ -127,7 +172,7 @@ namespace LibraryManagement.ViewModels
             }
             this.Refresh();
         }
-        
+
         public void MoveToPreviousPage()
         {
             if (this._currentPage > 1)
@@ -136,7 +181,15 @@ namespace LibraryManagement.ViewModels
             }
             this.Refresh();
         }
-        
+
+        public void MoveToSelectedItem(string objectType, int id)
+        {
+            int position = GetPositionById(objectType, id);
+            int result = (position / ItemsPerPage) + 1;
+            CurrentPage = result;
+            this.Refresh();
+        }
+
         public void RemoveItem(T obj)
         {
             this._innerList.Remove(obj);
@@ -147,5 +200,5 @@ namespace LibraryManagement.ViewModels
             this._innerList.Add(obj);
             this.Refresh();
         }
-    } 
+    }
 }

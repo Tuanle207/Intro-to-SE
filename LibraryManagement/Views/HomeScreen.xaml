@@ -69,7 +69,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <materialDesign:PackIcon Kind="BookmarkPlus" Grid.Column="0" Width="Auto" Height="Auto"/>
-                    <TextBlock Grid.Column="1" Text="Mượn sách" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Margin="10"/>
+                    <TextBlock Grid.Column="1" Text="Mượn sách" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
                 </Grid>
             </Button>
             <Button Click="ButtonReturnBook_Click" Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" Background="#FF32AC26" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
@@ -78,7 +78,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Trả sách" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Margin="10"/>
+                    <TextBlock Grid.Column="1" Text="Trả sách" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
                     <materialDesign:PackIcon Kind="History" Grid.Column="0" Width="Auto" Height="Auto"/>
                 </Grid>
             </Button>
@@ -88,7 +88,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Phạt" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Margin="10"/>
+                    <TextBlock Grid.Column="1" Text="Phạt" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
                     <materialDesign:PackIcon Kind="CloseOctagonOutline" Grid.Column="0" Width="Auto" Height="Auto"/>
                 </Grid>
             </Button>
@@ -98,7 +98,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Thay đổi quy định" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Margin="10"/>
+                    <TextBlock Grid.Column="1" Text="Thay đổi quy định" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
                 </Grid>
             </Button>
         </Grid>
