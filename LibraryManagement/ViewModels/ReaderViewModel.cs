@@ -18,13 +18,14 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Data.Entity.Migrations;
+using System.ComponentModel;
 
 namespace LibraryManagement.ViewModels
 {
     class ReaderViewModel : BaseViewModel
     {
-        private ObservableCollection<Reader> _List;
-        public ObservableCollection<Reader> List { get => _List; set { _List = value; OnPropertyChanged(); } }
+        private PagingCollectionView<Reader> _List;
+        public PagingCollectionView<Reader> List { get => _List; set { _List = value; OnPropertyChanged(); } }
 
 
         private ObservableCollection<TypeReader> _TypeReader;
@@ -63,41 +64,27 @@ namespace LibraryManagement.ViewModels
         }
 
         private int _idReader;
-
-
         public int IdReader { get => _idReader; set { _idReader = value; OnPropertyChanged(); } }
 
         private string _nameReader;
-        public string NameReader {
+        public string NameReader
+        {
             get => _nameReader;
-            set {
-                    //string str = value as string;
-                    //if (!(str.Length > 0 && str != null))
-                    //{
-                    //    throw new Exception("Tên người dùng là bắt buộc");
-                    //}
-                    //if (value.Length < 3)
-                    //{
-                    //    throw new Exception("Số ký tự tối thiểu là 3");
-                    //}
-                    _nameReader = value; OnPropertyChanged(); 
-            } 
+            set
+            {
+                _nameReader = value; OnPropertyChanged();
+            }
         }
 
         private string _email;
-        public string Email { get => _email; set {
-                //string str = value as string;
-                //if (!(str.Length > 0 && str != null))
-                //{
-                //    throw new Exception("Email người dùng là bắt buộc");
-                //}
-                //if (!Regex.IsMatch(value, pattern))
-                //{
-                //    throw new Exception("Bạn cần nhập đúng email!");
-                //}
+        public string Email
+        {
+            get => _email; set
+            {
                 _email = value;
                 OnPropertyChanged();
-            } }
+            }
+        }
 
 
         private string _addressReader;
@@ -106,56 +93,43 @@ namespace LibraryManagement.ViewModels
             get => _addressReader;
             set
             {
-                //if (!(value.Length > 0 && value != null))
-                //{
-                //    throw new Exception("Địa chỉ người dùng là bắt buộc");
-                //}
-                //if (value.Length < 6)
-                //{
-                //    throw new Exception("Số ký tự tối thiểu là 6");
-                //}
                 _addressReader = value; OnPropertyChanged();
             }
         }
 
-        
+
 
 
         private int _idTypeReader;
-        public int IdTypeReader { 
-                                    get => _idTypeReader; 
-                                    set 
-                                    {
-                                        _idTypeReader = value;
-                                        OnPropertyChanged(); 
-                                    } 
-                                }
+        public int IdTypeReader
+        {
+            get => _idTypeReader;
+            set
+            {
+                _idTypeReader = value;
+                OnPropertyChanged();
+            }
+        }
 
 
-        private DateTime? _createdAt ;
+        private DateTime? _createdAt;
         private DateTime? _dobReader;
 
-        public DateTime? CreatedAt {
+        public DateTime? CreatedAt
+        {
             get => _createdAt;
             set
-            {   
-                //string str = value.ToString() as string;
-                //if (str.Length < 8 || str == null)
-                //{
-                //    throw new Exception("Ngày tạo người dùng là bắt buộc");
-                //}
-                _createdAt = value; OnPropertyChanged(); } }
-        public DateTime? DobReader { 
-                                    get => _dobReader; 
-                                    set 
-                                    {
-                                        //string str = value.ToString() as string;
-                                        //if (str.Length < 8 || str == null)
-                                        //{
-                                        //    throw new Exception("Ngày sinh người dùng là bắt buộc");
-                                        //}
-                                        _dobReader = value; OnPropertyChanged(); 
-                                    } 
+            {
+                _createdAt = value; OnPropertyChanged();
+            }
+        }
+        public DateTime? DobReader
+        {
+            get => _dobReader;
+            set
+            {
+                _dobReader = value; OnPropertyChanged();
+            }
         }
         private int _debt;
         public int Debt
@@ -163,11 +137,6 @@ namespace LibraryManagement.ViewModels
             get => _debt;
             set
             {
-                //float f;
-                //if (!(float.TryParse(value, out f) && value != null && value != ""))
-                //{
-                //    throw new Exception("Vui lòng nhập số!");
-                //}    
                 _debt = value;
                 OnPropertyChanged();
             }
@@ -188,7 +157,7 @@ namespace LibraryManagement.ViewModels
         {
             if (ReaderSearchKeyword == null || ReaderSearchKeyword.Trim() == "")
             {
-                List = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
                 return;
             }
             try
@@ -196,11 +165,11 @@ namespace LibraryManagement.ViewModels
                 var result = DataAdapter.Instance.DB.Readers.Where(
                                     reader => reader.nameReader.ToLower().StartsWith(ReaderSearchKeyword.ToLower())
                                     );
-                List = new ObservableCollection<Reader>(result);
+                List = new PagingCollectionView<Reader>(result.ToList(), 15);
             }
             catch (ArgumentNullException)
             {
-                List = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
+                List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
                 MessageBox.Show("Từ khóa tìm kiếm rỗng!");
             }
         }
@@ -210,14 +179,50 @@ namespace LibraryManagement.ViewModels
         public AppCommand<object> EditCommand { get; set; }
         public AppCommand<object> DeleteCommand { get; set; }
         public AppCommand<object> PrepareAddReaderCommand { get; set; }
+        public AppCommand<object> CheckCommand { get; set; }
+        public AppCommand<object> AddTypeReaderCommand { get; set; }
+        public AppCommand<object> DeleteTypeReaderCommand { get; set; }
+        public AppCommand<object> CancelCommand { get; set; }
+        public AppCommand<object> ReloadTypeReaderCommand { get; set; }
+        public ICommand MoveToPreviousReadersPage { get; set; }
+        public ICommand MoveToNextReadersPage { get; set; }
+        public ICommand ExtendReaderCard { get; set; }
 
         public ReaderViewModel()
         {
             // Retrieve data from DB
             RetrieveData();
+            CancelCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                SelectedItem.nameReader = NameReader;
+                SelectedItem.dobReader = (DateTime)DobReader;
+                SelectedItem.email = Email;
+                SelectedItem.addressReader = AddressReader;
+                SelectedItem.debt = Debt;
+                SelectedItem.createdAt = (DateTime)CreatedAt;
+                SelectedItem.idTypeReader = IdTypeReader;
+                RetrieveData();
+                OnPropertyChanged("SelectedItem");
+            });
+            ReloadTypeReaderCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
+            });
             AddCommand = new AppCommand<object>((p) =>
             {
-                if (NameReader == null || DobReader == null || Email == null || AddressReader == null || CreatedAt == null )
+                if (NameReader == null || DobReader == null || Email == null || AddressReader == null || CreatedAt == null)
                     return false;
                 return true;
 
@@ -231,66 +236,55 @@ namespace LibraryManagement.ViewModels
                         dobReader = (DateTime)DobReader,
                         email = Email,
                         addressReader = AddressReader,
-                        createdAt = (DateTime)CreatedAt,
-                        debt = Debt,
-                        idTypeReader = SelectedTypeReader.idTypeReader,
-                        latestExtended = (DateTime)CreatedAt
+                        createdAt = DateTime.Today,
+                        latestExtended = (DateTime)CreatedAt,
+                        debt = 0,
+                        idTypeReader = SelectedTypeReader.idTypeReader
                     };
                     DataAdapter.Instance.DB.Readers.Add(Reader);
                     DataAdapter.Instance.DB.SaveChanges();
-                    List.Add(Reader);
+                    InitProperty(Reader.idReader);
                     MessageBox.Show("Bạn đã thêm người dùng thành công");
                 }
-                catch(Exception)
+                catch (Exception)
                 {
-                    MessageBox.Show("Bạn chưa chọn loại người đọc!");
+                    MessageBox.Show("Đã có lỗi xảy ra!");
                 }
             });
 
             EditCommand = new AppCommand<object>((p) =>
             {
-                if (SelectedItem == null || SelectedTypeReader == null)
+                if (SelectedItem == null)
                     return false;
-
-                var displayList = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader);
-                if (displayList != null && displayList.Count() != 0)
-                    return true;
-
-                return false;
+                return true;
 
             }, (p) =>
             {
-
+                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
-                Reader.nameReader = NameReader;
-                Reader.dobReader = (DateTime)DobReader;
-                Reader.email = Email;
-                Reader.addressReader = AddressReader;
-                Reader.debt = Debt;
-                Reader.createdAt = (DateTime)CreatedAt;
+                Reader.nameReader = SelectedItem.nameReader;
+                Reader.dobReader = (DateTime)SelectedItem.dobReader;
+                Reader.email = SelectedItem.email;
+                Reader.addressReader = SelectedItem.addressReader;
+                Reader.debt = SelectedItem.debt;
+                Reader.createdAt = (DateTime)SelectedItem.createdAt;
                 Reader.idTypeReader = SelectedTypeReader.idTypeReader;
                 DataAdapter.Instance.DB.SaveChanges();
-                System.ComponentModel.ICollectionView view = CollectionViewSource.GetDefaultView(List);
-                view.Refresh();
+                InitProperty(Reader.idReader);
                 MessageBox.Show("Bạn đã sửa thông tin người dùng thành công");
             });
             DeleteCommand = new AppCommand<object>((p) =>
             {
-                if (SelectedItem == null || SelectedTypeReader == null)
+                if (SelectedItem == null)
                     return false;
-
-                var displayList = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader);
-                if (displayList != null && displayList.Count() != 0)
-                    return true;
-
-                return false;
+                return true;
 
             }, (p) =>
             {
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
                 DataAdapter.Instance.DB.Readers.Remove(Reader);
                 DataAdapter.Instance.DB.SaveChanges();
-                List.Remove(Reader);
+                InitProperty(-1);
                 MessageBox.Show("Bạn đã xóa người dùng thành công");
             });
             PrepareAddReaderCommand = new AppCommand<object>(
@@ -305,12 +299,69 @@ namespace LibraryManagement.ViewModels
                     Debt = 0;
                     SelectedTypeReader = TypeReader.FirstOrDefault();
                 });
+            CheckCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null || SelectedTypeReader == null)
+                    return false;
+                return true;
+
+            }, (p) =>
+            {
+
+            });
+            MoveToPreviousReadersPage = new AppCommand<object>(
+               p =>
+               {
+                   return List.CurrentPage > 1;
+               },
+               p =>
+               {
+                   List.MoveToPreviousPage();
+               });
+            MoveToNextReadersPage = new AppCommand<object>(
+                p =>
+                {
+                    return List.CurrentPage < List.PageCount;
+                },
+                p =>
+                {
+                    List.MoveToNextPage();
+                });
+            ExtendReaderCard = new AppCommand<object>(
+                p => SelectedItem != null,
+                p =>
+                {
+                    DateTime latestExtendedDate = SelectedItem.latestExtended;
+                    int expiryDays = DataAdapter.Instance.DB.Paramaters.Find(4).valueParameter * 30;
+                    if (DateTime.Now >= latestExtendedDate.AddDays(expiryDays))
+                    {
+                        SelectedItem.latestExtended = DateTime.Now;
+                    }
+                    else
+                    {
+                        SelectedItem.latestExtended = DateTime.Now.AddDays(SelectedItem.latestExtended.AddDays(expiryDays).Subtract(DateTime.Now).Days);
+                    }
+                    DataAdapter.Instance.DB.SaveChanges();
+                });
+
         }
 
         private void RetrieveData()
         {
-            List = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
             TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
+            InitProperty(-1);
+        }
+        private void InitProperty(int id)
+        {
+            List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
+            //if (List.Count > 0)
+            //{
+            //    SelectedItem = id == -1 ? (Reader)List.GetItemAt(0) : (Reader)List.GetItemById("Reader", id);
+            //    if (id != -1)
+            //    {
+            //        List.MoveToSelectedItem("Reader", id);
+            //    }
+            //}
         }
     }
 

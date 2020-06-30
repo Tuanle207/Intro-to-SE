@@ -25,22 +25,32 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <TextBox Name="tbStaffName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding StaffSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFDAE0E9" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
-                    <ListView.View >
-                        <GridView>
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idStaff }"></GridViewColumn>
-                            <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameStaff}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding dobStaff}"></GridViewColumn>
-                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressStaff}"></GridViewColumn>
-                            <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding phoneNumberStaff}"></GridViewColumn>
-                            <GridViewColumn Header="Tên tài khoản" DisplayMemberBinding="{Binding accountStaff}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-        </materialDesign:Card>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0" Grid.Column="0" Background="#FFDAE0E9" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idStaff }"></GridViewColumn>
+                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameStaff}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding dobStaff}"></GridViewColumn>
+                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressStaff}"></GridViewColumn>
+                                <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding phoneNumberStaff}"></GridViewColumn>
+                                <GridViewColumn Header="Tên tài khoản" DisplayMemberBinding="{Binding accountStaff}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+            <Grid Grid.Row="2" Grid.Column="0">
+                
+            </Grid>
+        </Grid>
+        
         <Label Content="Thông tin cơ bản" Grid.Row="0" Grid.Column="1" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Margin="10 0"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -55,6 +65,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -143,7 +154,7 @@
                 <Button x:Name="btnResetPassword" Grid.Column="2" Background="Black" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 -5 10 -5" Height="Auto" Padding="10" Command="{Binding ResetPasswordCommand}">
                     <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
                         <materialDesign:PackIcon Kind="PasswordReset" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Reset mật khẩu" Margin="10 0" VerticalAlignment="Center" FontSize="16"/>
+                        <TextBlock Text="Đặt lại mật khẩu" Margin="10 0" VerticalAlignment="Center" FontSize="16"/>
                     </StackPanel>
                 </Button>
             </Grid>

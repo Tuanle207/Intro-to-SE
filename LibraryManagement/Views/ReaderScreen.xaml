@@ -5,10 +5,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LibraryManagement.Views" 
+             xmlns:local="clr-namespace:LibraryManagement.Views"
              xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Background="#FFF0F0F0">
 
     <Grid Margin="10">
@@ -30,24 +31,47 @@
             </Grid>
         </Grid>
 
-        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" >
-                    <ListView.View >
-                        <GridView>
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idReader }"></GridViewColumn>
-                            <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameReader}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding dobReader}"></GridViewColumn>
-                            <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}"></GridViewColumn>
-                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressReader}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày tạo thẻ" DisplayMemberBinding="{Binding createdAt,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                            <GridViewColumn Header="Số nợ" DisplayMemberBinding="{Binding debt}"></GridViewColumn>
-                            <GridViewColumn Header="Loại người đọc" DisplayMemberBinding="{Binding TypeReader.nameTypeReader}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-        </materialDesign:Card>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0" Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" >
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idReader }"></GridViewColumn>
+                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameReader}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding dobReader}"></GridViewColumn>
+                                <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}"></GridViewColumn>
+                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressReader}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày tạo thẻ" DisplayMemberBinding="{Binding createdAt,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Số nợ" DisplayMemberBinding="{Binding debt}"></GridViewColumn>
+                                <GridViewColumn Header="Loại người đọc" DisplayMemberBinding="{Binding TypeReader.nameTypeReader}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                        <Button x:Name="btnPrev" Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="50 0 20 0">&lt;</Button>
+                        <TextBlock Text="{Binding List.CurrentPage}"></TextBlock>
+                        <TextBlock>/</TextBlock>
+                        <TextBlock x:Name="btnNext" Text="{Binding List.PageCount}"></TextBlock>
+                        <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+        
 
         <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -64,6 +88,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" Margin="1">
                         <Grid.RowDefinitions>

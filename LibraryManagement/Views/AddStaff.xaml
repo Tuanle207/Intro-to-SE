@@ -106,7 +106,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Content="Chọn loại quyền" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <ComboBox Name="cbPermission" Grid.Row="1" Grid.Column="1" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}">
+                <ComboBox Name="cbPermission" Grid.Row="1" Grid.Column="1" Margin="10" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}">
                     
                 </ComboBox>
             </Grid>

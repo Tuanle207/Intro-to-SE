@@ -213,9 +213,6 @@
     <Compile Include="Views\CollectFine.xaml.cs">
       <DependentUpon>CollectFine.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditBookScreen.xaml.cs">
-      <DependentUpon>EditBookScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\HomeScreen.xaml.cs">
       <DependentUpon>HomeScreen.xaml</DependentUpon>
     </Compile>
@@ -283,10 +280,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CollectFine.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditBookScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

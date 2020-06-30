@@ -47,7 +47,7 @@
                 <Label Content="Tuổi tối thiểu" FontSize="16" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="0" >
-                <TextBox  Margin="10" Width="250"
+                <TextBox  Margin="10" Width="250" Padding="5 0 0 0" Height="35" 
                     Name="ageMin" BorderThickness="1" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                      Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
@@ -76,10 +76,10 @@
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
                 <TextBox 
-                    Name="ageMax" Width="250" Margin="10"
+                    Name="ageMax" Width="250" Margin="10"  Height="35" 
                     BorderThickness="1" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Resources>
                         <local:BindingProxy x:Key="proxyAgeMax" Data="{Binding ageMin}"/>
                         <Style TargetType="{x:Type Border}">
@@ -107,9 +107,9 @@
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
                 <TextBox 
-                    Name="expiryDate" Width="250" Margin="10" BorderThickness="1" 
+                    Name="expiryDate" Width="250" Margin="10" BorderThickness="1"  Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    Padding="5 0 0 0 " Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="expiryDate"
                         UpdateSourceTrigger="PropertyChanged" >
@@ -133,9 +133,9 @@
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1">
                 <TextBox 
-                    Name="distancePublish" Width="250" Margin="10" BorderThickness="1" 
+                    Name="distancePublish" Width="250" Margin="10" BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="distancePublish"
                         UpdateSourceTrigger="PropertyChanged" >
@@ -158,9 +158,9 @@
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1">
                 <TextBox 
-                    Name="bookBorrowMax" Width="250" Margin="10" BorderThickness="1" 
+                    Name="bookBorrowMax" Width="250" Margin="10"  BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}" >
+                    Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}" >
                     <TextBox.Text>
                         <Binding Path="bookBorrowMax"
                         UpdateSourceTrigger="PropertyChanged" >
@@ -183,9 +183,9 @@
             </Grid>
             <Grid Grid.Row="5"  Grid.Column="1">
                 <TextBox 
-                    Name="dateBorrowMax" Width="250" Margin="10" BorderThickness="1" 
+                    Name="dateBorrowMax" Width="250" Margin="10" BorderThickness="1"  Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    Padding="5 0 0 0 " Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="dateBorrowMax"
                         UpdateSourceTrigger="PropertyChanged" >
@@ -208,9 +208,9 @@
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1">
                 <TextBox 
-                    Name="moneyPenalty" Width="250" Margin="10" BorderThickness="1" 
+                    Name="moneyPenalty" Width="250" Margin="10" BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="moneyPenalty"
                         UpdateSourceTrigger="PropertyChanged" >

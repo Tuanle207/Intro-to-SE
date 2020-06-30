@@ -163,6 +163,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="7*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Label Content="Ngày nhập" Padding="15" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
@@ -184,6 +185,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="7*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Label Content="Trị giá" Padding="15" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
@@ -198,7 +200,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>-->
-                        <TextBox Name="tbPrice" BorderThickness="1" FontSize="20" Height="44" Width="540" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" >
+                        <TextBox Name="tbPrice" BorderThickness="1" FontSize="20" Height="44" Width="440" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" >
                             <TextBox.Text>
                                 <Binding Path="price"
                                     UpdateSourceTrigger="PropertyChanged" >
@@ -376,7 +378,7 @@
             <Button Command="{Binding AddBookToDBCommand}" Background="#FFF39C11" Height="80" Width="200" Click="Button_Click">
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <materialDesign:PackIcon Kind="BookAdd" Foreground="#FFDAE0E9" Width="60" Height="60" VerticalAlignment="Center"/>
-                    <TextBlock Text="Thêm sách" Margin="10" VerticalAlignment="Center" FontSize="16"/>
+                    <TextBlock Text="Thêm sách" Margin="10" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="White" />
                 </StackPanel>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
