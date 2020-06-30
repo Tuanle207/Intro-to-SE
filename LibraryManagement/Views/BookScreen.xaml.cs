@@ -32,24 +32,42 @@ namespace LibraryManagement.Views
             UpdateBook.Visibility = Visibility.Hidden;
             NameBook.IsEnabled = true;
             Category.IsEnabled = true;
-            ListAuthor.IsReadOnly = false;
+            ListAuthor.IsEnabled = true;
             Author.Visibility = Visibility.Visible;
             Publisher.IsEnabled = true;
             DateManufacture.IsEnabled = true;
             Price.IsEnabled = true;
+
+            //Tắt hết các tính năng không liên quan
+            AddBook.Visibility = Visibility.Hidden;
+            DeleteBook.Visibility = Visibility.Hidden;
+            StopBorrowBook.Visibility = Visibility.Hidden;
+            ListDisplayBook.IsEnabled = false;
+            NextPage.Visibility = Visibility.Hidden;
+            PrePage.Visibility = Visibility.Hidden;
+            SearchBook.IsEnabled = false;
         }
 
         private void SaveBook_Click(object sender, RoutedEventArgs e)
         {
             SaveBook.Visibility = Visibility.Hidden;
             UpdateBook.Visibility = Visibility.Visible;
-            NameBook.IsReadOnly = true;
+            NameBook.IsEnabled = false;
             Category.IsEnabled = false;
-            ListAuthor.IsReadOnly = true;
-            Author.IsEnabled = false;
+            ListAuthor.IsEnabled = false;
             Publisher.IsEnabled = false;
             DateManufacture.IsEnabled = false;
             Price.IsEnabled = false;
+            Author.Visibility = Visibility.Hidden;
+
+            //Mở lại các tính năng đã khóa
+            AddBook.Visibility = Visibility.Visible;
+            DeleteBook.Visibility = Visibility.Visible;
+            StopBorrowBook.Visibility = Visibility.Visible;
+            ListDisplayBook.IsEnabled = true;
+            NextPage.Visibility = Visibility.Visible;
+            PrePage.Visibility = Visibility.Visible;
+            SearchBook.IsEnabled = true;
         }
         private void ListDisplayBook_MouseDown(object sender, MouseButtonEventArgs e)
         {
