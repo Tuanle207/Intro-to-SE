@@ -28,6 +28,9 @@ namespace LibraryManagement.ViewModels
         private ObservableCollection<Author> _ListAuthors;
         public ObservableCollection<Author> ListAuthors { get => _ListAuthors; set { _ListAuthors = value; OnPropertyChanged(); } }
 
+        private ObservableCollection<Author> _ListAuthorSelected;
+        public ObservableCollection<Author> ListAuthorSelected { get => _ListAuthorSelected; set { _ListAuthorSelected = value; OnPropertyChanged(); } }
+
         //Selected data of DB
         private Book _SelectedItem;
         public Book SelectedItem
@@ -141,7 +144,7 @@ namespace LibraryManagement.ViewModels
         //open Window
         public ICommand AddBookCommand { get; set; }
         public ICommand DeleteBookCommand { get; set; }
-
+        public AppCommand<object> CancelCommand { get; set; }
 
         //effect DB
         public ICommand AddBookToDBCommand { get; set; }
@@ -170,6 +173,22 @@ namespace LibraryManagement.ViewModels
             SourceImageFile = null;
             InitProperties(-1);
             GetLastestBooks();
+
+            CancelCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+
+            }, (p) =>
+            {
+                SelectedItem.nameBook = nameBook;
+                SelectedItem.Category = SelectedCategory;
+                SelectedItem.Publisher = SelectedPublisher;
+                SelectedItem.dateManufacture = dateManufacture;
+                SelectedItem.dateAddBook = dateAddBook;
+                SelectedItem.price = price;
+                OnPropertyChanged("SelectedItem");
+            });
+
             AddBookCommand = new AppCommand<object>((p) => 
             { 
                 return true; 

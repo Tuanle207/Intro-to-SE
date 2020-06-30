@@ -10,7 +10,12 @@
              mc:Ignorable="d" 
              DataContext="{StaticResource BookViewModel}"
              d:DesignHeight="600" d:DesignWidth="800">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <UserControl.Resources>
         <ControlTemplate x:Key="textBoxErrorTemplate">
             <StackPanel>
@@ -69,9 +74,9 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="{Binding idBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" IsEnabled="False" Background="#FFE2DADA" Margin="10 20" Height="Auto" FontSize="20"/>
-                    <TextBox Text="{Binding nameBook,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="NameBook" Grid.Row="1" IsEnabled="False" Background="#FFE2DADA"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></TextBox>
-                    <ComboBox ItemsSource="{Binding category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="Category" Grid.Row="2" IsEnabled="False" DisplayMemberPath="nameCategory" SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" />
+                    <Label Content="{Binding SelectedItem.idBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" IsEnabled="False" Background="#FFE2DADA" Margin="20 10" Height="Auto" FontSize="20"/>
+                    <TextBox Text="{Binding SelectedItem.nameBook,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="NameBook" Grid.Row="1" IsEnabled="False" Background="#FFE2DADA"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></TextBox>
+                    <ComboBox ItemsSource="{Binding category, UpdateSourceTrigger=PropertyChanged}" Name="Category" Grid.Row="2" IsEnabled="False" DisplayMemberPath="nameCategory" SelectedItem="{Binding SelectedItem.Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" />
                     <Grid Grid.Column="1" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
@@ -104,10 +109,10 @@
                             </ComboBox>
                         </Grid>
                     </Grid>
-                    <ComboBox ItemsSource="{Binding publisher}" IsEnabled="False" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedPublisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="Publisher" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
+                    <ComboBox ItemsSource="{Binding publisher}" IsEnabled="False" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedItem.Publisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="Publisher" Grid.Row="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
                     <DatePicker Name="DateManufacture" IsEnabled="False" Grid.Row="5" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
                         <DatePicker.SelectedDate>
-                            <Binding Path="dateManufacture"
+                            <Binding Path="SelectedItem.dateManufacture"
                         UpdateSourceTrigger="PropertyChanged" >
                                 <Binding.ValidationRules>
                                     <vm:CheckDateManufactureValidation/>
@@ -115,13 +120,13 @@
                             </Binding>
                         </DatePicker.SelectedDate>
                     </DatePicker>
-                    <DatePicker SelectedDate="{Binding dateAddBook}" IsEnabled="False" Grid.Row="6" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2"></DatePicker>
+                    <DatePicker SelectedDate="{Binding SelectedItem.dateAddBook}" IsEnabled="False" Grid.Row="6" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2"></DatePicker>
                     <Grid Grid.Column="1" Grid.Row="7" Height="45" Margin="0,0,-0.4,-0.2" VerticalAlignment="Top">
                         <TextBox 
                         Name="Price" IsEnabled="False" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                         Padding="2" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
                             <TextBox.Text>
-                                <Binding Path="price"
+                                <Binding Path="SelectedItem.price"
                         UpdateSourceTrigger="PropertyChanged" >
                                     <Binding.ValidationRules>
                                         <vm:PriceValidation/>
@@ -156,19 +161,19 @@
                 </Button>
 
 
-                <Button Command="{Binding DeleteBookCommand}" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="DeleteBook" Command="{Binding DeleteBookCommand}" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Xóa" Margin="10" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding AddBookCommand}" Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Name="AddBook" Command="{Binding AddBookCommand}" Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="Adjust" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm mới" Margin="10" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Grid.Row="1" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Name="StopBorrowBook" Grid.Column="1" Grid.Row="1" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="Close" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Ngừng cho mượn" Margin="10" VerticalAlignment="Center" FontSize="20"/>
@@ -222,14 +227,14 @@
                     </ListView.View>
                 </ListView>
                 <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
-                    <Button Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                    <Button  x:Name="PrePage" Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
                     <TextBlock Text="{Binding ListBook.CurrentPage}"></TextBlock>
                     <TextBlock>/</TextBlock>
                     <TextBlock Text="{Binding ListBook.PageCount}"></TextBlock>
-                    <Button Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                    <Button x:Name="NextPage"  Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
                 </StackPanel>
             </Grid>
-            
+
         </Grid>
     </Grid>
 </UserControl>
