@@ -10,19 +10,20 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         DataContext="{StaticResource ReturnBookViewModel}"
-        Title="Trả sách" Height="720" Width="1140">
-
+        Title="Trả sách" 
+        WindowState="Maximized">
+                         
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.7*"/>
                 <RowDefinition Height="2.6*"/>
-                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="2.3*"/>
                 <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid Background="#FFC0D4D4">
+            <Grid Grid.Row="0" Margin="20 10 20 10">
+                <Grid Background="#FF6E85B6">
                     <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
@@ -30,9 +31,9 @@
                     <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </Grid>
-            <materialDesign:Card Grid.Row="1"  Margin="10,10,10,15" BorderThickness="0" VerticalAlignment="Stretch">
+            <materialDesign:Card Grid.Row="1"  Margin="20,10,20,10" BorderThickness="0" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <DataGrid Height="240"  Background="#FFDAE0E9" ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+                    <DataGrid Height="Auto" Background="#FFE3F0FF" ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                             <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
@@ -49,11 +50,11 @@
             </materialDesign:Card>
             <Grid Grid.Row="2">
                 <StackPanel Margin="300 4 0 0" Orientation="Horizontal">
-                    <Button Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                    <Button Foreground="Black" Background="#FF47608E" Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="380 0 20 0">&lt;</Button>
                     <TextBlock Text="{Binding ListReader.CurrentPage}"></TextBlock>
                     <TextBlock>/</TextBlock>
                     <TextBlock Text="{Binding ListReader.PageCount}"></TextBlock>
-                    <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                    <Button Foreground="Black" Background="#FF47608E" Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="3">
@@ -61,10 +62,9 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <materialDesign:Card Grid.Column="0"  Margin="10,10,10,15" BorderThickness="0" VerticalAlignment="Stretch">
+                <materialDesign:Card Grid.Column="0"  Margin="20,10,10,10" BorderThickness="0" VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-
-                        <DataGrid Height="Auto" ItemsSource="{Binding ListDetailBorrowCorresponding, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                        <DataGrid Background="#FFE3F0FF" ItemsSource="{Binding ListDetailBorrowCorresponding, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="1" BorderThickness="1">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn>
@@ -85,10 +85,9 @@
                         </DataGrid>
                     </ScrollViewer>
                 </materialDesign:Card>
-                <materialDesign:Card Grid.Column="1"  Margin="10,10,10,15" BorderThickness="0" VerticalAlignment="Stretch">
+                <materialDesign:Card Grid.Column="1"  Margin="10,10,20,10" BorderThickness="0" VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-
-                        <DataGrid Grid.Column="1" Height="Auto" ItemsSource="{Binding ListDetailBorrowSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                        <DataGrid Background="#FFE3F0FF" Grid.Column="1"  ItemsSource="{Binding ListDetailBorrowSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2" BorderThickness="1">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
@@ -113,104 +112,121 @@
             </Grid>
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
+                    
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Grid.Column="0">
-                    <TextBlock Foreground="#fff" 
-                        Background="#334195"
+                <materialDesign:Card Background="#FFE3F0FF" Grid.Column="0" Margin="30 10 10 15">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Label Foreground="Black"
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch" 
                         Padding="10"
-                    Grid.Row="0" Text="STT">
-                        
-                    </TextBlock>
-                </Grid>
-                
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
+                     Content="STT">
+                                </Label>
+                            </Grid>
+                            <Label Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch" 
                     Padding="10"
-                    Grid.Row="1" Text="Tên độc giả"/>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
+                    Grid.Row="1" Content="Tên độc giả">
+
+                            </Label>
+                            <Label Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Padding="10"
-                    Grid.Row="0" Grid.Column="2" Text="Ngày trả"/>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
+                    Grid.Row="0" Grid.Column="2" Content="Ngày trả"/>
+                            <Label Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
                     Padding="10"
-                    Grid.Row="1" Grid.Column="2" Text="Tiền phạt kỳ này"/>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
+                    Grid.Row="1" Grid.Column="2" Content="Tiền phạt kỳ này"/>
+                            <Label Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    TextAlignment="Left"
                     Padding="10"
-                    Grid.Row="2" Grid.Column="2" Text="Tổng nợ"/>
-                <!-- Data -->
-                <TextBox Foreground="#fff" 
+                    Grid.Row="2" Grid.Column="2" Content="Tổng nợ"/>
+                            <!-- Data -->
+                            <TextBox  Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    Margin="10" BorderThickness="1"
                     TextAlignment="Left"
                     IsReadOnly="True"
                     VerticalContentAlignment="Center"
-                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}"/>
-                <TextBox Foreground="#fff" 
+                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                            <TextBox  Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    Margin="10" BorderThickness="1"
                     TextAlignment="Left" IsReadOnly="True"
                     VerticalContentAlignment="Center"
                     Grid.Row="1" Grid.Column="1" Text="{Binding ReaderSelected.nameReader}">
-                </TextBox>
-                <TextBox Foreground="#fff" 
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
-                    TextAlignment="Left" VerticalContentAlignment="Center"
-                    Grid.Row="0" Grid.Column="3" Text=""/>
-                <DatePicker Grid.Column="3"
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+                            <DatePicker Grid.Column="3" Foreground="Black"
                         VerticalContentAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         TextBlock.TextAlignment="Justify"
                         SelectedDate="{Binding DateReturn, Mode=TwoWay}"
                         Margin="5"/>
-                <TextBox Foreground="#fff" 
+                            <TextBox Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                   Margin="10" BorderThickness="1"
                     TextAlignment="Left" IsReadOnly="True" VerticalContentAlignment="Center"
-                    Grid.Row="1" Grid.Column="3" Text="{Binding BillReturn.sumFine}"/>
-                <TextBox Foreground="#fff" 
+                    Grid.Row="1" Grid.Column="3" Text="{Binding BillReturn.sumFine}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                            <TextBox 
                     VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    HorizontalAlignment="Stretch" Margin="10" BorderThickness="1"
                     TextAlignment="Left" IsReadOnly="True" VerticalContentAlignment="Center"
-                    Grid.Row="2" Grid.Column="3" Text="{Binding BillReturn, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, Converter={StaticResource BillReturnToReaderDebt}}"/>
-
+                    Grid.Row="2" Grid.Column="3" Text="{Binding BillReturn, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, Converter={StaticResource BillReturnToReaderDebt}}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Grid>
+                    </ScrollViewer>
+                </materialDesign:Card>
                 <Grid Grid.Column="4" Grid.RowSpan="3">
-                    <Button Command="{Binding ReturnBook}" Content="Trả sách" VerticalAlignment="Center" Margin="30"/>
+                    <Button Foreground="Black" FontWeight="Bold" Background="#FF47608E" Command="{Binding ReturnBook}" Content="Trả sách" VerticalAlignment="Center" Margin="30" Height="60" Width="150">
+                        
+                    </Button>
                 </Grid>
-            </Grid>
+            </Grid> 
         </Grid>
     </Grid>
 </Window>

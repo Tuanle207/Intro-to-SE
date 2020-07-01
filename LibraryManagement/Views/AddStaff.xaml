@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:LibraryManagement.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        Background="#FFCAE1FF"
         ResizeMode="NoResize"
         Title="Thêm nhân viên" Height="700" Width="800">
     <Grid Margin="5">
@@ -33,12 +34,12 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="1" Content="Ngày sinh" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="2" Content="Điện thoại" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="3" Content="Địa chỉ"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="4" Content="Tên tài khoản" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="5" Content="Mật khẩu" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                    <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="Black" FontSize="18"/>
+                    <Label Grid.Row="1" Content="Ngày sinh" Background="{x:Null}" Foreground="Black" FontSize="18"/>
+                    <Label Grid.Row="2" Content="Điện thoại" Background="{x:Null}" Foreground="Black" FontSize="18"/>
+                    <Label Grid.Row="3" Content="Địa chỉ"  Background="{x:Null}" Foreground="Black" FontSize="18"/>
+                    <Label Grid.Row="4" Content="Tên tài khoản" Background="{x:Null}" Foreground="Black" FontSize="18"/>
+                    <Label Grid.Row="5" Content="Mật khẩu" Background="{x:Null}" Foreground="Black" FontSize="18"/>
                 </Grid>
                 <Grid Grid.Column="1" Margin="5">
                     <Grid.RowDefinitions>
@@ -49,29 +50,29 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="NameStaff" Grid.Row="0" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Text="{Binding NameStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <TextBox Foreground="Black" x:Name="NameStaff" Grid.Row="0" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Text="{Binding NameStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <DatePicker x:Name="DobStaff"  Grid.Row="1" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
-                    <TextBox x:Name="PhoneNumberStaff" Grid.Row="2" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" PreviewTextInput="PhoneNumberStaff_PreviewTextInput" Text="{Binding PhoneNumberStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <DatePicker Foreground="Black" x:Name="DobStaff"  Grid.Row="1" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}"  />
+                    <TextBox Foreground="Black" x:Name="PhoneNumberStaff" Grid.Row="2" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" PreviewTextInput="PhoneNumberStaff_PreviewTextInput" Text="{Binding PhoneNumberStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <TextBox x:Name="Address" Grid.Row="3" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Text="{Binding AddressStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
+                    <TextBox Foreground="Black" x:Name="Address" Grid.Row="3" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14" Text="{Binding AddressStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <TextBox x:Name="AccountStaff" Grid.Row="4" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14"
+                    <TextBox Foreground="Black" x:Name="AccountStaff" Grid.Row="4" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14"
                                 Text="{Binding AccountStaff, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
@@ -79,7 +80,7 @@
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <PasswordBox x:Name="mPasswordStaff" Grid.Row="5" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14"
+                    <PasswordBox Foreground="Black" x:Name="mPasswordStaff" Grid.Row="5" BorderThickness="1" Height="Auto" Margin="5 10" VerticalContentAlignment="Center" Padding="5 0" FontSize="14"
                                 InputScope="Password" PasswordChanged="mPasswordStaff_PasswordChanged">
                         <PasswordBox.Resources>
                             <Style TargetType="{x:Type Border}">
@@ -105,8 +106,8 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Content="Chọn loại quyền" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <ComboBox Name="cbPermission" Grid.Row="1" Grid.Column="1" Margin="10" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}">
+                <Label Foreground="Black" Grid.Row="0" Content="Chọn loại quyền" Background="{x:Null}"  FontSize="18" VerticalAlignment="Center"/>
+                <ComboBox Foreground="Black" Name="cbPermission" Grid.Row="1" Grid.Column="1" Margin="10" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource, ValidatesOnExceptions=True}">
                     
                 </ComboBox>
             </Grid>
@@ -117,7 +118,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Height="Auto" Width="Auto" Grid.Column="1" Click="Button_Click" Command="{Binding AddCommand}" Background="#FF32AC26" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
+            <Button Height="Auto" Width="Auto" Grid.Column="1" Click="Button_Click" Command="{Binding AddCommand}" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="false" />
@@ -138,8 +139,8 @@
                     </Style>
                 </Button.Style>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                    <TextBlock Text="Thêm" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <TextBlock Text="Thêm" Margin="40 10 10 10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                 </StackPanel>
             </Button>
         </Grid>

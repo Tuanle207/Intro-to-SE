@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         xmlns:local="clr-namespace:LibraryManagement.Views"
         xmlns:vm ="clr-namespace:LibraryManagement.ViewModels"
         mc:Ignorable="d"
@@ -23,182 +25,229 @@
     </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3.5*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Grid Background="#FFC0D4D4">
-                <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
+        <Grid  Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid Background="#FF6E85B6" Margin="10">
+                    <TextBlock Text="Nhập tên độc giả..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
             </Grid>
-            <DataGrid ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Height="500" BorderThickness="1">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
-                    <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
-                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding dobReader}"/>
-                    <DataGridTextColumn Header="Loại độc giả" Binding="{Binding TypeReader.nameTypeReader}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
-                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding addressReader}"/>
-                    <DataGridTextColumn Header="Ngày tạo" Binding="{Binding createdAt}"/>
-                    <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-        <StackPanel Grid.Column="1">
-            <TextBlock Background="#0a97b0" Foreground="#fff" Padding="15" TextAlignment="Center" FontSize="16">Thông tin phiếu phạt</TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
-                    Padding="10"
-                    Grid.Row="0" Text="STT"/>
-                <TextBox Foreground="#fff"
+            <Grid Grid.Row="1" >
+                <DataGrid Background="#FFE3F0FF" Margin="10" ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" BorderThickness="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
+                        <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
+                        <DataGridTextColumn Header="Ngày sinh" Binding="{Binding dobReader}"/>
+                        <DataGridTextColumn Header="Loại độc giả" Binding="{Binding TypeReader.nameTypeReader}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
+                        <DataGridTextColumn Header="Địa chỉ" Binding="{Binding addressReader}"/>
+                        <DataGridTextColumn Header="Ngày tạo" Binding="{Binding createdAt}"/>
+                        <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+           <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.33*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="10" >
+                    <TextBlock Foreground="Black" Background="#FF47608E" Padding="15" TextAlignment="Center" FontSize="16">Thông tin phiếu phạt</TextBlock>
+                    </Grid>
+                <materialDesign:Card Background="#FFE3F0FF" Grid.Row="1" Margin="10">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0 " Grid.Column="1">
+                                <TextBox Foreground="Black"
+                            IsReadOnly="True"
+                            VerticalAlignment="Stretch" 
+                            HorizontalAlignment="Stretch"
+                            BorderThickness="1" Margin="8"
+                            TextAlignment="Left" VerticalContentAlignment="Center"
+                            Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+
+                            </Grid>
+                            <Grid Grid.Row="1 " Grid.Column="1">
+                                <TextBox Foreground="Black"
                     IsReadOnly="True"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                     BorderThickness="1" Margin="8"
                     TextAlignment="Left" VerticalContentAlignment="Center"
-                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.idReader}"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch" 
-                    Padding="10"
-                    Grid.Row="0" Text="Họ tên độc giả"/>
-                <TextBox Foreground="#fff" 
-                    IsReadOnly="True"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.nameReader}">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+
+                            </Grid>
+                            <Grid Grid.Row="2 " Grid.Column="1">
+                                <TextBox 
+                    IsReadOnly="True" Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    BorderThickness="1" Margin="8"
                     TextAlignment="Left" VerticalContentAlignment="Center"
-                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.nameReader}"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch" 
-                    Padding="10"
-                    Grid.Row="0" Text="Ngày thu tiền"/>
-                <TextBox Foreground="#fff" 
-                    IsReadOnly="True"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding Payment.paymentDate}">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+
+                            </Grid>
+                            <Grid Grid.Row="3 " Grid.Column="1">
+                                <TextBox 
+                    IsReadOnly="True" Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    BorderThickness="1" Margin="8"
                     TextAlignment="Left" VerticalContentAlignment="Center"
-                    Grid.Row="0" Grid.Column="1" Text="{Binding Payment.paymentDate}"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch" 
-                    Padding="10"
-                    Grid.Row="0" Text="Tổng nợ"/>
-                <TextBox Foreground="#fff"
-                    IsReadOnly="True"
+                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.debt}" Grid.ColumnSpan="2">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+
+                            </Grid>
+                            <Grid Grid.Row="4 " Grid.Column="1">
+                                <TextBox  Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
-                    TextAlignment="Left" VerticalContentAlignment="Center"
-                    Grid.Row="0" Grid.Column="1" Text="{Binding ReaderSelected.debt}"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch" 
-                    Padding="10"
-                    Grid.Row="0" Text="Số tiền thu"/>
-                <TextBox Foreground="#fff" 
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    BorderThickness="1" Margin="8"
                     TextAlignment="Left" VerticalContentAlignment="Center"
                     x:Name="tbCollectedAmount"
                     Grid.Row="0" Grid.Column="1">
-                    <TextBox.Resources>
-                        <local:BindingProxy x:Key="proxy1" Data="{Binding ReaderSelected}"/>
-                    </TextBox.Resources>
-                    <TextBox.Text>
-                        <Binding Path="CollectedAmount" UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:CollectedAmountValidation>
-                                    <vm:CollectedAmountValidation.Wrapper>
-                                        <vm:CollectedAmountValidationWrapper MaxAmount="{Binding Data.debt, Source={StaticResource proxy1}}"/>
-                                    </vm:CollectedAmountValidation.Wrapper>
-                                </vm:CollectedAmountValidation>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Foreground="#fff" 
-                    Background="#334195"
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch" 
-                    Padding="10"
-                    Grid.Row="0" Text="Còn lại"/>
-                <TextBox Foreground="#fff"
-                    IsReadOnly="True"
+                                    <TextBox.Resources>
+                                        <local:BindingProxy x:Key="proxy1" Data="{Binding ReaderSelected}"/>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                    <TextBox.Text>
+                                        <Binding Path="CollectedAmount" UpdateSourceTrigger="PropertyChanged" >
+                                            <Binding.ValidationRules>
+                                                <vm:CollectedAmountValidation>
+                                                    <vm:CollectedAmountValidation.Wrapper>
+                                                        <vm:CollectedAmountValidationWrapper MaxAmount="{Binding Data.debt, Source={StaticResource proxy1}}"/>
+                                                    </vm:CollectedAmountValidation.Wrapper>
+                                                </vm:CollectedAmountValidation>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </Grid>
+                            <Grid Grid.Row="5 " Grid.Column="1">
+                                <TextBox
+                    IsReadOnly="True" Foreground="Black"
                     VerticalAlignment="Stretch" 
                     HorizontalAlignment="Stretch"
-                    Background="#647AA3"
-                    Padding="5 0"
+                    BorderThickness="1" Margin="8"
                     TextAlignment="Left"
                     Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center"
                     Text="{Binding Payment.remainDebt}">
-                </TextBox>
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                            </Grid>
+                            <Grid Grid.Row="0 " Grid.Column="0">
+                                <TextBlock Padding="10" Text="STT" FontSize="16" Foreground="Black"/>
+                            </Grid>
+                            <Grid Grid.Row="1 " Grid.Column="0">
+                                <TextBlock Padding="10" FontSize="16"  HorizontalAlignment="Stretch" Foreground="Black" Text="Họ tên độc giả"/>
+                            </Grid>
+                            <Grid Grid.Row="2 " Grid.Column="0">
+                                <TextBlock  Foreground="Black"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10" FontSize="16"
+                     Text="Ngày thu tiền"/>
+                            </Grid>
+                            <Grid Grid.Row="3 " Grid.Column="0">
+                                <TextBlock Foreground="Black"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10" FontSize="16"
+                    Grid.Row="0" Text="Tổng nợ"/>
+                            </Grid>
+                            <Grid Grid.Row="4 " Grid.Column="0">
+                                <TextBlock  Foreground="Black"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10" FontSize="16"
+                    Grid.Row="0" Text="Số tiền thu"/>
+                            </Grid>
+                            <Grid Grid.Row="5 " Grid.Column="0">
+                                <TextBlock Foreground="Black"
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch" 
+                    Padding="10"  FontSize="16"
+                    Grid.Row="0" Text="Còn lại"/>
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer>
+                </materialDesign:Card>
+                <Grid Grid.Row="3">
+                    <Button Background="#FF6E85B6" Command="{Binding CollectFine}" Height="50" Width="150" Content="Thu tiền phạt" FontWeight="Bold" ToolTip="Nhập số tiền thu hợp lệ để tiếp tục" Margin="10" >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCollectedAmount}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
             </Grid>
-            <Button Command="{Binding CollectFine}" Height="50" Content="THU TIỀN PHẠT" ToolTip="Nhập số tiền thu hợp lệ để tiếp tục">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCollectedAmount}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-                </Button.Style>
-            </Button>
             
-        </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2"></Grid>
     </Grid>
 </Window>

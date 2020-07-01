@@ -18,7 +18,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <Grid  Grid.Column="0" Grid.Row="0" Background="#FFC0D4D4" Margin="10" Height="Auto">
+        <Grid  Grid.Column="0" Grid.Row="0" Background="#FF6E85B6" Margin="10" Height="Auto">
             <TextBlock Margin="10" Text="Nhập tên nhân viên..." FontSize="16"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbStaffName, Path=Text.IsEmpty,
@@ -30,7 +30,7 @@
                 <RowDefinition Height="9*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0" Grid.Column="0" Background="#FFDAE0E9" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
+            <materialDesign:Card Grid.Row="0" Grid.Column="0" Background="#FFE3F0FF" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" FontSize="14" SelectionChanged="lvNhanVien_SelectionChanged">
                         <ListView.View >
@@ -51,7 +51,7 @@
             </Grid>
         </Grid>
         
-        <Label Content="Thông tin cơ bản" Grid.Row="0" Grid.Column="1" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Margin="10 0"/>
+        <Label Content="Thông tin cơ bản" Grid.Row="0" Grid.Column="1" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center" Margin="10 0"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"/>
@@ -60,12 +60,13 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0" Margin="10">
+            <materialDesign:Card Grid.Row="0" Grid.Column="1" Margin="10" Background="#FFE3F0FF">
                 <Grid x:Name="gridForNomalInfo" Margin="5">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.07*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="0.1*"/>
+                        <ColumnDefinition Width="0.07*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -74,34 +75,34 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="1" Content="Địa chỉ" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="2" Content="Điện thoại" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="3" Content="Ngày sinh"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <Label Grid.Row="4" Content="Tên tài khoản" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                    <TextBox x:Name="NameStaff" IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <Label Foreground="Black" Grid.Row="0" Grid.Column="1" Content="Họ tên" Background="{x:Null}"  FontSize="18"/>
+                    <Label Foreground="Black" Grid.Row="1" Grid.Column="1" Content="Địa chỉ" Background="{x:Null}"  FontSize="18"/>
+                    <Label Foreground="Black" Grid.Row="2" Grid.Column="1" Content="Điện thoại" Background="{x:Null}"  FontSize="18"/>
+                    <Label Foreground="Black" Grid.Row="3" Grid.Column="1" Content="Ngày sinh"  Background="{x:Null}"  FontSize="18"/>
+                    <Label Foreground="Black" Grid.Row="4" Grid.Column="1" Content="Tên tài khoản" Background="{x:Null}"  FontSize="18"/>
+                    <TextBox Foreground="Black" x:Name="NameStaff" IsReadOnly="True" Grid.Row="0" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding NameStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox Foreground="Black" x:Name="Address" IsReadOnly="True" Grid.Row="1" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AddressStaff ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <TextBox x:Name="PhoneNumber" IsReadOnly="True" Grid.Row="2" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding PhoneNumberStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <TextBox Foreground="Black" x:Name="PhoneNumber" IsReadOnly="True" Grid.Row="2" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding PhoneNumberStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <DatePicker x:Name="DobStaff" IsEnabled="False" Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
-                    <TextBox x:Name="UserName" IsReadOnly="True" Grid.Row="4" Grid.Column="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AccountStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                    <DatePicker Foreground="Black" x:Name="DobStaff" IsEnabled="False" Grid.Row="3" Grid.Column="2" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding DobStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
+                    <TextBox Foreground="Black" x:Name="UserName" IsReadOnly="True" Grid.Row="4" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" Text="{Binding AccountStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
@@ -115,7 +116,7 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Quyền hạn sử dụng" Grid.Column="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" Margin="10 0"/>
+                <Label Content="Quyền hạn sử dụng" Grid.Column="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center" Margin="10 0"/>
                 <ComboBox Name="cbPermission" Grid.Column="1" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" Margin="20 0" 
                           SelectionChanged="cbPermission_SelectionChanged" IsEnabled="False"
                           DisplayMemberPath="namePermission" IsReadOnly="True" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" 
@@ -150,11 +151,11 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Thao tác" Grid.Column="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0"/>
-                <Button x:Name="btnResetPassword" Grid.Column="2" Background="Black" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 -5 10 -5" Height="Auto" Padding="10" Command="{Binding ResetPasswordCommand}">
+                <Label Content="Thao tác" Grid.Column="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0"/>
+                <Button x:Name="btnResetPassword" Grid.Column="2" Background="#FF47608E" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 -5 10 -5" Width="220" Height="Auto" Padding="10" Command="{Binding ResetPasswordCommand}">
                     <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                        <materialDesign:PackIcon Kind="PasswordReset" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Đặt lại mật khẩu" Margin="10 0" VerticalAlignment="Center" FontSize="16"/>
+                        <materialDesign:PackIcon Foreground="Black" Kind="PasswordReset" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
+                        <TextBlock Foreground="Black" Text="Đặt lại mật khẩu" Margin="10 0" VerticalAlignment="Center" FontSize="16"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -164,16 +165,16 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddStaff" Height="Auto" Width="Auto" Grid.Column="0" Click="btnAddStaff_Click" Background="#FF32AC26" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
+                <Button x:Name="btnAddStaff" Height="80" Width="220" Grid.Column="0" Click="btnAddStaff_Click" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Thêm" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <materialDesign:PackIcon Foreground="Black" Kind="AccountAdd" Width="40" Height="40" VerticalAlignment="Center"/>
+                        <TextBlock Foreground="Black" Text="Thêm nhân viên" Margin="3" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnSua" Click="btnSua_Click" Height="Auto" Width="Auto" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
+                <Button x:Name="btnSua" Click="btnSua_Click" Height="80" Width="220" Grid.Column="1" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountEdit" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Sửa" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <materialDesign:PackIcon Foreground="Black" Kind="AccountEdit" Width="40" Height="40" VerticalAlignment="Center"/>
+                        <TextBlock Foreground="Black" Text="Cập nhật" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="btnLuu" Click="btnLuu_Click" Command="{Binding EditCommand}" Height="Auto" Width="Auto" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 10 10 20" Visibility="Hidden">
@@ -197,13 +198,13 @@
                     </Button.Style>
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountEdit" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Lưu" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="Lưu" Margin="10" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding DeleteCommand}" Height="Auto" Width="Auto" Grid.Column="2" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
+                <Button Command="{Binding DeleteCommand}" Height="80" Width="220" Grid.Column="2" Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountRemove" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Xóa" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <materialDesign:PackIcon  Foreground="Black" Kind="AccountRemove" Width="40" Height="40" VerticalAlignment="Center"/>
+                        <TextBlock Foreground="Black" Text="Xóa" Margin="10" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
             </Grid>

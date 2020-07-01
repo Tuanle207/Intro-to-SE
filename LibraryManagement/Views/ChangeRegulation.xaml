@@ -44,10 +44,10 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Label Content="Tuổi tối thiểu" FontSize="16" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Content="Tuổi tối thiểu" FontSize="16" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="0" >
-                <TextBox  Margin="10" Width="250" Padding="5 0 0 0" Height="35" 
+                <TextBox Foreground="Black" Margin="10" Width="250" Padding="5 0 0 0" Height="35" 
                     Name="ageMin" BorderThickness="1" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                      Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
@@ -72,10 +72,10 @@
             </Grid>
 
             <Grid Grid.Row ="1" Grid.Column="0" Margin="10">
-                <Label Height="42" Content="Tuổi tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Height="42" Content="Tuổi tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
-                <TextBox 
+                <TextBox  Foreground="Black"
                     Name="ageMax" Width="250" Margin="10"  Height="35" 
                     BorderThickness="1" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -102,11 +102,11 @@
             <Grid Grid.Row ="2" Grid.Column="0" Margin="10">
 
 
-                <Label Height="42" Content="Thời hạn thẻ (tháng)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Height="42" Content="Thời hạn thẻ (tháng)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
-                <TextBox 
+                <TextBox  Foreground="Black"
                     Name="expiryDate" Width="250" Margin="10" BorderThickness="1"  Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0 " Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
@@ -128,11 +128,11 @@
             <Grid Grid.Row ="3" Grid.Column="0" Margin="10">
 
 
-                <Label Height="42" Content="Khoảng cách năm xuất bản (năm)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Height="42" Content="Khoảng cách năm xuất bản (năm)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1">
-                <TextBox 
+                <TextBox Foreground="Black"
                     Name="distancePublish" Width="250" Margin="10" BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
@@ -153,11 +153,11 @@
             </Grid>
             <Grid Grid.Row ="4" Grid.Column="0" Margin="10">
 
-                <Label Height="42" Content="Số sách mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Height="42" Content="Số sách mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
             </Grid>
             <Grid Grid.Row="4" Grid.Column="1">
-                <TextBox 
+                <TextBox Foreground="Black"
                     Name="bookBorrowMax" Width="250" Margin="10"  BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}" >
@@ -178,11 +178,11 @@
             </Grid>
             <Grid Grid.Row ="5" Margin="10">
 
-                <Label Height="42" Content="Số ngày mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Height="42" Content="Số ngày mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
             </Grid>
             <Grid Grid.Row="5"  Grid.Column="1">
-                <TextBox 
+                <TextBox Foreground="Black"
                     Name="dateBorrowMax" Width="250" Margin="10" BorderThickness="1"  Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0 " Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
@@ -203,11 +203,11 @@
             </Grid>
             <Grid Grid.Row ="6" Margin="10">
 
-                <Label Height="42" Content="Tiền phạt trễ (VNĐ/ngày)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                <Label Foreground="Black" Height="42" Content="Tiền phạt trễ (VNĐ/ngày)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
             </Grid>
             <Grid Grid.Row="6" Grid.Column="1">
-                <TextBox 
+                <TextBox Foreground="Black"
                     Name="moneyPenalty" Width="250" Margin="10" BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
@@ -229,7 +229,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid Grid.Row="7" Margin="10">
-                <Button Command="{Binding EditParametersCommand}" Content="Xác nhận" Background="Green" FontSize="20" Width="150" Click="Button_Click" >
+                <Button Command="{Binding EditParametersCommand}" FontWeight="Bold" Content="Xác nhận" Background="#FF47608E" FontSize="20" Width="150" Click="Button_Click" >
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>

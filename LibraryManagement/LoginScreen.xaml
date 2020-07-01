@@ -52,7 +52,7 @@
             <TextBox x:Name="passWord" Grid.Column="1" BorderThickness="2" Padding="5 0" BorderBrush="Black" FontSize="18" VerticalAlignment="Center" Text="{Binding PasswordStaff,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Visibility="Hidden">
             </TextBox>
         </Grid>
-        <Button x:Name="btnLogin" Grid.Row="3" Content="Đăng nhập" Width="150" Command="{Binding LoginCommand}">
+        <Button Background="#FF47608E" x:Name="btnLogin" Grid.Row="3" Content="Đăng nhập" Width="150" Command="{Binding LoginCommand}">
 
         </Button>
     </Grid>

@@ -50,7 +50,7 @@
             <TextBlock>Hello</TextBlock>
         </Grid>
 
-        <Grid x:Name="gridForTitleBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#FF5C99D6">
+        <Grid x:Name="gridForTitleBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#FF47608E">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
             </Grid.Effect>
@@ -75,7 +75,7 @@
             </Grid>
             <Label x:Name="lbTitle" Grid.Column="1" Content="QUẢN LÝ THƯ VIỆN"
                    FontSize="20" FontWeight="Bold"
-                   Foreground="White" Background="#FF5C99D6"
+                   Foreground="White" Background="#FF47608E"
                    VerticalContentAlignment="Center"
                    HorizontalContentAlignment="Center"/>
         </Grid>
@@ -104,12 +104,12 @@
                        Margin="20 0 0 10"
                        FontSize="15" FontWeight="Medium" FontStyle="Italic"/>
                 <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
-                    <Button x:Name="btnLogout" VerticalAlignment="Center" Margin="0 0 5 10" Padding="10" Height="Auto" Background="Black" Command="{Binding LogoutCommand}">
+                    <Button x:Name="btnLogout" VerticalAlignment="Center" Margin="0 0 5 10" Padding="10" Height="Auto" Background="#FF47608E" Command="{Binding LogoutCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Đăng xuất" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnChangePassword" VerticalAlignment="Center" Margin="5 0 0 10" Padding="10" Height="Auto" Background="Black" Command="{Binding ChangePasswordCommand}" Click="btnChangePassword_Click">
+                    <Button x:Name="btnChangePassword" VerticalAlignment="Center" Margin="5 0 0 10" Padding="10" Height="Auto" Background="#FF47608E" Command="{Binding ChangePasswordCommand}" Click="btnChangePassword_Click">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Đổi mật khẩu" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -134,42 +134,42 @@
                       SelectionChanged="ListViewMenu_SelectionChanged">
                 <ListViewItem x:Name="ItemHome" Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Home" Height="25" Width="25" Margin="10"/>
+                        <materialDesign:PackIcon Kind="Home" Height="25" Width="25" Margin="20 10 10 10"/>
                         <TextBlock Text="Điều khiển" VerticalAlignment="Center" Margin="20 10" 
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemMember" Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="People" Height="25" Width="25" Margin="10"/>
+                        <materialDesign:PackIcon Kind="People" Height="25" Width="25" Margin="20 10 10 10"/>
                         <TextBlock Text="Độc giả" VerticalAlignment="Center" Margin="20 10" HorizontalAlignment="Left"
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemBook" Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Bookshelf" Height="25" Width="25" Margin="10"/>
+                        <materialDesign:PackIcon Kind="Bookshelf" Height="25" Width="25" Margin="20 10 10 10"/>
                         <TextBlock Text="Sách" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemReport" Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="ChartBar" Height="25" Width="25" Margin="10"/>
+                        <materialDesign:PackIcon Kind="ChartBar" Height="25" Width="25" Margin="20 10 10 10"/>
                         <TextBlock Text="Báo cáo" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemRegulation" Height="60" IsEnabled="{Binding CanChangeRegulation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" Margin="10"/>
+                        <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" Margin="20 10 10 10"/>
                         <TextBlock Text="Quy định" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemStaff" Height="60" IsEnabled="{Binding CanChangePermission}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="PersonBadge" Height="25" Width="25" Margin="10"/>
+                        <materialDesign:PackIcon Kind="PersonBadge" Height="25" Width="25" Margin="20 10 10 10"/>
                         <TextBlock Text="Nhân viên" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>

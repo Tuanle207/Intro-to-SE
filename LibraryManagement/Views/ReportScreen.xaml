@@ -10,6 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:toolkit="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
     mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800" Background="#FFF0F0F0">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -22,31 +23,31 @@
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="7*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3.5*"/>
             </Grid.RowDefinitions>
-            <Button  Grid.Row="0"  Height="70" Width="Auto" Margin="10" Background="#FFF39C11" BorderBrush="{x:Null}" >
-                <StackPanel  Margin="10">
-                    <TextBlock Text="Báo cáo thống kê mượn sách theo thể loại" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                </StackPanel>
-            </Button>
+            <Grid Grid.Row="0" Grid.Column="0" Margin="100 20 100 20" Background="#FF1F3D68">
+                <Label Foreground="White"  Content="BÁO CÁO THỐNG KÊ MƯỢN SÁCH THEO THỂ LOẠI " VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="3" FontSize="20" FontWeight="Bold" >
+                
+            </Label>
+            </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.3*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Tháng" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
-                <ComboBox Name="month" Loaded="month_Loaded" SelectedItem="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ComboBox Name="month" Loaded="month_Loaded" SelectedItem="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="80"  VerticalAlignment="Center" HorizontalAlignment="Left">
                 </ComboBox>
                 <TextBlock Grid.Column="2" Text="Năm" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
-                <ComboBox Name="year"  Loaded="year_Loaded" SelectedItem="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ComboBox Name="year"  Loaded="year_Loaded" SelectedItem="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Left">
                 </ComboBox>
-                <Button Command="{Binding LoadReportCategory}" Grid.Column="4" Content="Tìm" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                </Button>
+                <Button Foreground="Black" Background="#FF47608E" Command="{Binding LoadReportCategory}" Grid.Column="4" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0 0 10 0" Height="40"/>
+               
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0">
@@ -54,7 +55,7 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0"  Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
+            <materialDesign:Card Grid.Row="0" Background="#FFE3F0FF" Margin="20,10,10,10" BorderThickness="0" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView Name="ListReportCategory" ItemsSource="{Binding Category_List, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  >
                         <ListView.View >
@@ -70,48 +71,46 @@
             </materialDesign:Card>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="56*"/>
-                    <ColumnDefinition Width="77*"/>
-                    <ColumnDefinition Width="67*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"  Content="Tổng số lượt mượn" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Height="30" Margin="0,33,7,33"/>
-                <TextBox x:Name="sumTurn" Grid.Column="1" BorderThickness="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" Padding="5 0" VerticalAlignment="Center" FontSize="20" Height="36" Margin="22,30,24.6,30"/>
-                <Button Command="{Binding ExportCategory}" Margin="9.4,23,10,23" Grid.Column="2" Width="Auto" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Label Foreground="Black" Grid.Column="0"  Content="Tổng số lượt mượn" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Height="30" Margin="0,33,7,33"/>
+                <TextBox Foreground="Black" x:Name="sumTurn" Grid.Column="1" BorderThickness="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" Padding="5 0" FontSize="20" Height="36" Width="100" HorizontalAlignment="Left" >
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button Foreground="Black" Background="#FF47608E" Command="{Binding ExportCategory}" Margin="9.4,23,10,23" Grid.Column="2" Width="Auto" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
         <!--Phần 2-->
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="7*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3.5*"/>
             </Grid.RowDefinitions>
-            <Button  Grid.Row="0"   Height="70" Width="Auto" Margin="10" Background="#FFF39C11" BorderBrush="{x:Null}">
-                <StackPanel  Margin="10">
-                    <TextBlock Text="Báo cáo thống kê sách trả trễ" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                </StackPanel>
-            </Button>
+            <Grid Grid.Row="0" Margin="100 20 100 20" Background="#FF1F3D68">
+                <Label Foreground="White" Content="BÁO CÁO THỐNG KÊ SÁCH TRẢ TRỄ  " VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="3" FontSize="20" FontWeight="Bold" BorderThickness="0" />
+
+            </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <DatePicker Name="Day" Loaded="day_Loaded"  Grid.Column="0" SelectedDate="{ Binding DateExpired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="200"/>
-                <Button Command="{Binding LoadReportLate}" Grid.Column="1" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                <DatePicker Name="Day" Loaded="day_Loaded"  Grid.Column="0" SelectedDate="{ Binding DateExpired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120"/>
+                <Button Foreground="Black" Background="#FF47608E" Command="{Binding LoadReportLate}" Grid.Column="1" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0 0 20 0" Height="40"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="32*"/>
-                <ColumnDefinition Width="84*"/>
-                <ColumnDefinition Width="14*"/>
-                <ColumnDefinition Width="37*"/>
-                <ColumnDefinition Width="233*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0"  Background="#FFDAE0E9" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch" Grid.ColumnSpan="5">
+            <materialDesign:Card Grid.Row="0" Background="#FFE3F0FF" Margin="10,10,20,10" BorderThickness="0" VerticalAlignment="Stretch" Grid.ColumnSpan="5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView Name="ListReportLate" ItemsSource="{Binding Late_List, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  >
                         <ListView.View >
@@ -127,11 +126,11 @@
             </materialDesign:Card>
             <Grid Grid.Row="1" Grid.ColumnSpan="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Command="{Binding ExportLate}" Margin="10" Grid.Column="3" Width="Auto" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button Foreground="Black" Background="#FF47608E" Command="{Binding ExportLate}" Margin="0 10 20 10" Grid.Column="3" Width="Auto" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
 

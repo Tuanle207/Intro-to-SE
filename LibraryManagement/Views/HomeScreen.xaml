@@ -30,24 +30,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Image Grid.Column="1" Grid.Row="0" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/4.png" Stretch="Fill"/>
-            <Image Grid.Column="2" Grid.Row="0" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/2.png" Stretch="Fill"/>
-            <Image Grid.Column="3" Grid.Row="0" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/1.jpg" Stretch="Fill"/>
-            <Image Grid.Column="1" Grid.Row="1" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/1.jpg" Stretch="Fill"/>
-            <Image Grid.Column="2" Grid.Row="1" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/2.png" Stretch="Fill"/>
-            <Image Grid.Column="3" Grid.Row="1" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/3.jpg" Stretch="Fill"/>
-            <Image Grid.Column="1" Grid.Row="2" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/4.png" Stretch="Fill"/>
-            <Image Grid.Column="2" Grid.Row="2" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/4.png" Stretch="Fill"/>
-            <Image Grid.Column="3" Grid.Row="2" Width="Auto" Height="Auto" Margin="5 10" Source="/Assets/1.jpg" Stretch="Fill"/>
-            <materialDesign:PackIcon Kind="ArrowLeftDropCircle" Grid.Column="0" Grid.RowSpan="3"
-                                     Width="Auto" Height="Auto"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"/>
-            <materialDesign:PackIcon Kind="ArrowRightDropCircle" Grid.Column="4" Grid.RowSpan="3"
-                                     Width="Auto" Height="Auto"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"/>
-        </Grid>
+          </Grid>
 
         <Label Grid.Row="0" Grid.Column="0" Content="SÁCH MỚI" HorizontalAlignment="Center" VerticalAlignment="Center" 
                FontWeight="Bold" FontStyle="Italic" Foreground="#DD000000" FontSize="22"/>
@@ -60,46 +43,55 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2.3*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Height="Auto" Width="Auto" Background="#FFF39C11" BorderBrush="{x:Null}" Margin="10" HorizontalContentAlignment="Left" Click="ButtonBorrowBook_Click">
+            <Button Grid.Column="0" Grid.Row="0" Height="80" Width="220" Background="#FF00BB9A"  BorderBrush="{x:Null}" Margin="10" HorizontalContentAlignment="Left" Click="ButtonBorrowBook_Click">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Kind="BookmarkPlus" Grid.Column="0" Width="Auto" Height="Auto"/>
-                    <TextBlock Grid.Column="1" Text="Mượn sách" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
+                    <materialDesign:PackIcon Foreground="Black" Kind="BookmarkPlus" Grid.Column="0" Width="40" Height="40"/>
+                    <TextBlock Foreground="Black" Grid.Column="1" Text="Mượn sách" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="10"/>
                 </Grid>
             </Button>
-            <Button Click="ButtonReturnBook_Click" Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" Background="#FF32AC26" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
+            <Button Click="ButtonReturnBook_Click" Grid.Column="1" Grid.Row="0" Height="80" Width="220"  Background="#88DE80" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Trả sách" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
-                    <materialDesign:PackIcon Kind="History" Grid.Column="0" Width="Auto" Height="Auto"/>
+                    <TextBlock Foreground="Black" Grid.Column="1" Text="Trả sách" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="10"/>
+                    <materialDesign:PackIcon Foreground="Black" Kind="History" Grid.Column="0" Width="40" Height="40"/>
                 </Grid>
             </Button>
-            <Button Click="ButtonCollectFine_Click" Grid.Column="1" Grid.Row="1" Height="Auto" Width="Auto" Background="#FFE6001F" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
+            <Button Click="ButtonCollectFine_Click" Grid.Column="1" Grid.Row="1" Height="80" Width="220"  Background="#f44336" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Phạt" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
-                    <materialDesign:PackIcon Kind="CloseOctagonOutline" Grid.Column="0" Width="Auto" Height="Auto"/>
+                    <TextBlock Foreground="Black" Grid.Column="1" Text="Phạt" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="10"/>
+                    <materialDesign:PackIcon Foreground="Black" Kind="CloseOctagonOutline" Grid.Column="0" Width="40" Height="40"/>
                 </Grid>
             </Button>
-            <Button Click="ButtonChangeRegulation_Click" Grid.Column="0" Grid.Row="1" Height="Auto" Width="Auto" Background="#FFE6001F" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Thay đổi quy định" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="10"/>
-                </Grid>
+            <Button Background="#FF47608E" Click="ButtonChangeRegulation_Click" Grid.Column="0" Grid.Row="1" Height="80" Width="220" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
+                <TextBlock Foreground="Black" Grid.Column="1" Text="Thay đổi quy định" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" />
+           
+            </Button>
+            <Button Height="80" Width="220" Grid.Row="2"  Grid.Column="0" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <materialDesign:PackIcon Foreground="Black" Kind="AccountMultiplePlus" Width="40" Height="40" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="Black" Text="Thêm tác giả" Margin="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
+                
+            </Button>
+            <Button  Height="80" Width="220" Grid.Column="1" Grid.Row="2" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <materialDesign:PackIcon Foreground="Black" Kind="AccountMultiplePlus" Width="40" Height="40"  VerticalAlignment="Center" Margin="0"/>
+                    <TextBlock Foreground="Black" Text="Thêm thể loại" Margin="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
             </Button>
         </Grid>
     </Grid>

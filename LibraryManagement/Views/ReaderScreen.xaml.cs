@@ -21,11 +21,14 @@ namespace LibraryManagement.Views
     /// </summary>
     public partial class ReaderScreen : UserControl
     {
+
+       
         public ReaderScreen()
         {
             InitializeComponent();
+            
         }
-
+        
         private void ButtonAddReader_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -63,5 +66,6 @@ namespace LibraryManagement.Views
             TypeReader.IsEnabled = false;
 
         }
+        
     }
 }

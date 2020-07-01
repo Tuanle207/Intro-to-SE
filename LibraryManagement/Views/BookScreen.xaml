@@ -26,7 +26,7 @@
                 <RowDefinition Height="40*"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Thông tin cơ bản" HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
+            <Label Grid.Row="0" Content="Thông tin cơ bản" HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="20"/>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.8*"/>
@@ -36,7 +36,7 @@
                 <Grid Grid.Column="0">
                     <Image Grid.Column="0" Stretch="Fill" Source="/Assets/3.jpg" Margin="10"/>
                 </Grid>
-                <materialDesign:Card Grid.Column="2">
+                <materialDesign:Card Grid.Column="2" Background="#FFE3F0FF">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.3*"/>
@@ -54,29 +54,29 @@
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="1" Content="Mã sách" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="14"/>
-                        <Label Grid.Row="1" Grid.Column="1" Content="Tên sách" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="14"/>
-                        <Label Grid.Row="2" Grid.Column="1" Content="Thể loại" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="14"/>
-                        <Label Grid.Row="3" Grid.Column="1" Content="Tác giả" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="14"/>
-                        <Label Grid.Row="4" Grid.Column="1" Content="Nhà xuất bản" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="14"/>
-                        <Label Grid.Row="5" Grid.Column="1" Content="Ngày xuất bản" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="#DD000000" FontSize="14"/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Mã sách" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" Foreground="Black" FontSize="14"/>
+                        <Label Grid.Row="1" Grid.Column="1" Content="Tên sách" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}"  FontSize="14" Foreground="Black"/>
+                        <Label Grid.Row="2" Grid.Column="1" Content="Thể loại" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}"  FontSize="14" Foreground="Black"/>
+                        <Label Grid.Row="3" Grid.Column="1" Content="Tác giả" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}"  FontSize="14" Foreground="Black"/>
+                        <Label Grid.Row="4" Grid.Column="1" Content="Nhà xuất bản" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}"  FontSize="14" Foreground="Black"/>
+                        <Label Grid.Row="5" Grid.Column="1" Content="Ngày xuất bản" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}"  FontSize="14" Foreground="Black"/>
                         <!--<Label Content="{Binding idBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"  Margin="10 20" Height="Auto" FontSize="20"/>-->
-                        <TextBox IsReadOnly="True" Grid.Row="0" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding idBook ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                        <TextBox Foreground="Black" IsReadOnly="True" Grid.Row="0" Grid.Column="2" BorderThickness="1" VerticalAlignment="Bottom" Padding="5 0" Margin="3.2,0,3.4,3.4" FontSize="14" Text="{Binding idBook ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        
-                        <TextBox Name="NameBook" IsReadOnly="True" Grid.Row="1" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding nameBook ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+
+                        <TextBox Foreground="Black" Name="NameBook" IsReadOnly="True" Grid.Row="1" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding nameBook ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        <TextBox Name="Category" IsReadOnly="True" Grid.Row="2" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding SelectedCategory.nameCategory, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                        <TextBox Foreground="Black" Name="Category" IsReadOnly="True" Grid.Row="2" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding SelectedCategory.nameCategory, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -89,7 +89,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <DataGrid Name="ListAuthor" IsEnabled="False" ItemsSource="{Binding ListAuthors, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                                <DataGrid Background="#FFE3F0FF" Name="ListAuthor" IsEnabled="False" ItemsSource="{Binding ListAuthors, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                           AutoGenerateColumns="False" IsReadOnly="True" >
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn>
@@ -106,7 +106,7 @@
                                 </DataGrid>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <ComboBox Name="Author" Visibility="Hidden" ItemsSource="{Binding author}" DisplayMemberPath="nameAuthor" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                                <ComboBox Name="Author" Visibility="Hidden" ItemsSource="{Binding author}" DisplayMemberPath="nameAuthor" SelectedItem="{Binding SelectedAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction Command="{Binding AddAuthors}" CommandParameter="{Binding ElementName=listComboBox, Path=SelectedValue}"/>
@@ -115,14 +115,14 @@
                                 </ComboBox>
                             </Grid>
                         </Grid>
-                        <ComboBox Width="280" ItemsSource="{Binding publisher}" Grid.Column="2" IsEnabled="False" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedPublisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="Publisher" FontSize="14" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
+                        <ComboBox Width="140" ItemsSource="{Binding publisher}" Grid.Column="2" IsEnabled="False" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedPublisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="Publisher" FontSize="14" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
                         <Grid Grid.Row="5" Grid.Column="2"   >
-                            <DatePicker Name="DateManufacture" IsEnabled="False" Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding dateManufacture,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
+                            <DatePicker Foreground="Black" Name="DateManufacture" IsEnabled="False" Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding dateManufacture,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
                         </Grid>
-                        <Label Grid.Row="6" Grid.Column="1" Content="Ngày nhập" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-                        <Label Grid.Row="7" Grid.Column="1" Content="Trị giá" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-                        <DatePicker IsEnabled="False" Grid.Row="6" Grid.Column="2" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding dateAddBook,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
-                        <TextBox Name="Price" IsReadOnly="True" Grid.Row="7" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding price ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                        <Label Foreground="Black" Grid.Row="6" Grid.Column="1" Content="Ngày nhập" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                        <Label Foreground="Black" Grid.Row="7" Grid.Column="1" Content="Trị giá" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                        <DatePicker Foreground="Black" IsEnabled="False" Grid.Row="6" Grid.Column="2" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding dateAddBook,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, StringFormat='dd/MM/yyyy'}"/>
+                        <TextBox Foreground="Black" Name="Price" IsReadOnly="True" Grid.Row="7" Grid.Column="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="3" FontSize="14" Text="{Binding price ,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -142,16 +142,16 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="UpdateBook" Click="UpdateBook_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
-                        <TextBlock Text="Cập nhật" VerticalAlignment="Center" Margin="10" FontSize="18" FontWeight="Bold"/>
+                <Button x:Name="UpdateBook" Click="UpdateBook_Click"  Visibility="Visible"  Height="80" Width="220" Grid.Column="0" Grid.Row="0" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <materialDesign:PackIcon Foreground="Black" Kind="ContentDuplicate" Width="40" Height="40"/>
+                        <TextBlock Text="Cập nhật" VerticalAlignment="Center" Foreground="Black" Margin="5" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="SaveBook" Visibility="Hidden" Command="{Binding EditBookToDBCommand}" Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20" Click="SaveBook_Click">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
-                        <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="10" FontSize="18" FontWeight="Bold"/>
+                <Button x:Name="SaveBook" Visibility="Hidden" Command="{Binding EditBookToDBCommand}" Height="80" Width="220" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20" Click="SaveBook_Click">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="40" Height="40"/>
+                        <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
                 <!--<Button x:Name="SaveBook" Visibility="Hidden" Command="{Binding EditBookToDBCommand}" Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20" Click="SaveBook_Click">
@@ -179,23 +179,23 @@
                         <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="10" FontSize="20" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>-->
-                
-                <Button Command="{Binding DeleteBookCommand}" Height="Auto" Width="Auto" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
-                        <TextBlock Text="Xóa" VerticalAlignment="Center" Margin="10" FontSize="18" FontWeight="Bold"/>
+
+                <Button Command="{Binding DeleteBookCommand}" Height="80" Width="220" Grid.Column="1" Grid.Row="0" Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <materialDesign:PackIcon Kind="DeleteForever" Foreground="Black" Width="40" Height="40"/>
+                        <TextBlock Text="Xóa" VerticalAlignment="Center" Foreground="Black" Margin="5" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding AddBookCommand}"  Height ="Auto" Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="BookAdd" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Thêm mới" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                <Button Command="{Binding AddBookCommand}"  Height="80" Width="220" Grid.Column="0" Grid.Row="1" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <materialDesign:PackIcon Kind="BookAdd" Foreground="Black" Width="40" Height="40" VerticalAlignment="Center"/>
+                        <TextBlock Text="Thêm mới" Margin="5" Foreground="Black" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Grid.Row="1"  Height ="Auto" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="Close" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Ngừng cho mượn" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                <Button Grid.Column="1" Grid.Row="1"  Height="80" Width="220" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <materialDesign:PackIcon Kind="BookMultipleAdd" Foreground="Black" Width="40" Height="40" VerticalAlignment="Center"/>
+                        <TextBlock Text="Thêm nhiều sách" Margin="5" Foreground="Black" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -289,13 +289,13 @@
         </Grid>-->
         <Grid Grid.Column="1" Margin="10" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-               
+
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Grid Grid.Column="1" Background="#FFC0D4D4" Margin="10" Height="Auto">
+                <Grid Grid.Column="1" Background="#FF6E85B6" Margin="10" Height="Auto">
                     <TextBlock Margin="10" Text="Nhập tên sách..." FontSize="16"
                         Foreground="#000"
                         Visibility="{Binding ElementName=SearchBook, Path=Text.IsEmpty,
@@ -308,7 +308,7 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2" />
                 <TextBox Name="SearchBook" Background="Transparent" Margin="10,10,10,9.8" FontSize="16" BorderBrush="Red" Text="{Binding ReaderSearchKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>-->
             </Grid>
-            <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFDAE0E9" Margin="10,10,10,15" BorderThickness="0" VerticalAlignment="Stretch">
+            <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFE3F0FF" Margin="10,10,10,15" BorderThickness="0" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="ListDisplayBook" ItemsSource="{Binding ListBook}"  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" >
                         <ListView.View >
@@ -335,11 +335,11 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="1">
                     <StackPanel Orientation="Horizontal" Margin="50 0 0 0">
-                        <Button Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="20,33,20,33.4">&lt;</Button>
+                        <Button Foreground="Black" Background="#FF47608E" Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="20,33,20,33.4">&lt;</Button>
                         <TextBlock Text="{Binding ListBook.CurrentPage}"></TextBlock>
                         <TextBlock>/</TextBlock>
                         <TextBlock Text="{Binding ListBook.PageCount}"></TextBlock>
-                        <Button Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20,33,0,33.4" Content="&gt;"/>
+                        <Button Foreground="Black" Background="#FF47608E" Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20,33,0,33.4" Content="&gt;"/>
                     </StackPanel>
                 </Grid>
             </Grid>

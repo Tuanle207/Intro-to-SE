@@ -161,6 +161,7 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AuthorViewModel.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\MoneyPenaltyValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\ExpiryDateValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\DistancePublishValidation.cs" />
