@@ -66,8 +66,9 @@
                             <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}"></GridViewColumn>
                             <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressReader}"></GridViewColumn>
                             <GridViewColumn Header="Ngày tạo thẻ" DisplayMemberBinding="{Binding createdAt,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày gia hạn" DisplayMemberBinding="{Binding latestExtended,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                             <GridViewColumn Header="Số nợ" DisplayMemberBinding="{Binding debt}"></GridViewColumn>
-                            <GridViewColumn Header="Loại người đọc" DisplayMemberBinding="{Binding TypeReader.nameTypeReader}"></GridViewColumn>
+                            <GridViewColumn Header="Loại độc giả" DisplayMemberBinding="{Binding TypeReader.nameTypeReader}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -258,14 +259,23 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddReader" Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 10">
+                <Button  Command="{Binding ImportReaderNew}" Content="DS mới" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5 10 5 10">
+                </Button>
+                <Button  Command="{Binding ImportReaderOld}" Content="DS cũ" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5 10 5 10">
+                </Button>
+                <Button  Command="{Binding ExportReader}" Content="Xuất danh sách" Grid.Column="2" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5 10 5 10">
+                </Button>
+                <Button x:Name="btnAddReader" Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Grid.Column="3" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnTypeReader" Height="Auto" Width="Auto" Click="ButtonTypeReader_Click" Grid.Column="1" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5, 20, 10, 10">
+                <Button x:Name="btnTypeReader" Height="Auto" Width="Auto" Click="ButtonTypeReader_Click" Grid.Column="4" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5, 20, 10, 10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm loại độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
