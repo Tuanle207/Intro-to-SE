@@ -4,6 +4,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
+using System.Runtime.InteropServices;
+using System.Data.Entity.Migrations;
+using System.ComponentModel;
+using Microsoft.Win32;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
+using System.Windows.Controls;
+using Microsoft.Office.Interop.Excel;
+using System.Collections.Generic;
 
 namespace LibraryManagement.ViewModels
 {
@@ -33,6 +46,7 @@ namespace LibraryManagement.ViewModels
                     Debt = SelectedItem.debt;
                     IdTypeReader = SelectedItem.idTypeReader;
                     SelectedTypeReader = SelectedItem.TypeReader;
+                    LatestExtended = SelectedItem.latestExtended;
                 }
             }
         }
@@ -57,6 +71,7 @@ namespace LibraryManagement.ViewModels
 
         private DateTime? _createdAt ;
         private DateTime? _dobReader;
+        private DateTime? _latestExtended;
 
         public DateTime? CreatedAt {
             get => _createdAt;
@@ -64,6 +79,14 @@ namespace LibraryManagement.ViewModels
             {   
                 _createdAt = value; OnPropertyChanged(); } }
         public DateTime? DobReader { get => _dobReader; set {  _dobReader = value; OnPropertyChanged(); } 
+        }
+        public DateTime? LatestExtended
+        {
+            get => _latestExtended;
+            set
+            {
+                _latestExtended = value; OnPropertyChanged();
+            }
         }
         private int _debt;
         public int Debt{ get => _debt; set { _debt = value; OnPropertyChanged();}}
@@ -95,6 +118,10 @@ namespace LibraryManagement.ViewModels
         public ICommand MoveToPreviousReadersPage { get; set; }
         public ICommand MoveToNextReadersPage { get; set; }
         public ICommand ExtendReaderCard { get; set; }
+        public AppCommand<object> ExportReader { get; set; }
+        public AppCommand<object> ImportReaderOld { get; set; }
+
+        public AppCommand<object> ImportReaderNew { get; set; }
 
         public ReaderViewModel()
         {
@@ -190,12 +217,19 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-                var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
-                DataAdapter.Instance.DB.Readers.Remove(Reader);
-                DataAdapter.Instance.DB.SaveChanges();
-                List.Refresh();
-                SetSelectedItemToFirstItemOfPage(true);
-                MessageBox.Show("Bạn đã xóa người dùng thành công");
+                try
+                { 
+                    var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
+                    DataAdapter.Instance.DB.Readers.Remove(Reader);
+                    DataAdapter.Instance.DB.SaveChanges();
+                    List.Refresh();
+                    SetSelectedItemToFirstItemOfPage(true);
+                    MessageBox.Show("Bạn đã xóa người dùng thành công");
+                }
+                catch(Exception a)
+                {
+                    MessageBox.Show("Độc giả đang mượn sách");
+                }
             });
             PrepareAddReaderCommand = new AppCommand<object>(
                 p => true,
@@ -254,6 +288,9 @@ namespace LibraryManagement.ViewModels
                         SelectedItem.latestExtended = DateTime.Now.AddDays(SelectedItem.latestExtended.AddDays(expiryDays).Subtract(DateTime.Now).Days);
                     }
                     DataAdapter.Instance.DB.SaveChanges();
+                    OnPropertyChanged("SelectedItem");
+                    List.Refresh();
+                    MessageBox.Show("Gia hạn độc giả thành công!");
                 });
             CancelAddCommand = new AppCommand<object>(
                 p => true,
@@ -273,6 +310,334 @@ namespace LibraryManagement.ViewModels
                         SelectedItem = SelectedItem;
                     }
                 });
+                ExportReader = new AppCommand<object>(
+                    param => true,
+                    param =>
+                    {
+                        try
+                        {
+                            string filePath = "";
+                            // tạo SaveFileDialog để lưu file excel
+                            SaveFileDialog dialog = new SaveFileDialog();
+
+                            // chỉ lọc ra các file có định dạng Excel
+                            dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
+
+                            // Nếu mở file và chọn nơi lưu file thành công sẽ lưu đường dẫn lại dùng
+                            if (dialog.ShowDialog() == true)
+                            {
+                                filePath = dialog.FileName;
+
+                                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                                using (ExcelPackage p = new ExcelPackage())
+                                {
+                                    // đặt tên người tạo file
+                                    p.Workbook.Properties.Author = "4T UIT";
+
+                                    // đặt tiêu đề cho file
+                                    p.Workbook.Properties.Title = "Danh sách độc giả lưu trữ";
+
+                                    //Tạo một sheet để làm việc trên đó
+                                    p.Workbook.Worksheets.Add("ListReader LibraryManagement");
+
+
+                                    // lấy sheet vừa add ra để thao tác
+                                    ExcelWorksheet ws = p.Workbook.Worksheets["ListReader LibraryManagement"];
+
+                                    // đặt tên cho sheet
+                                    ws.Name = "ListReader LibraryManagement";
+                                    // fontsize mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Size = 11;
+                                    // font family mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Name = "Calibri";
+
+                                    // Tạo danh sách các column header
+                                    string[] arrColumnHeader = {
+                                                        "ID",
+                                                        "Họ tên",
+                                                        "Ngày sinh",
+                                                        "Email",
+                                                        "Địa chỉ",
+                                                        "Ngày tạo thẻ",
+                                                        "Số nợ",
+                                                        "Loại độc giả",
+                                                        "Ngày gia hạn"
+                                };
+
+                                    // lấy ra số lượng cột cần dùng dựa vào số lượng header
+                                    var countColHeader = arrColumnHeader.Count();
+
+                                    ws.Cells[1, 1].Value = "Danh sách độc giả";
+                                    ws.Cells[1, 1, 1, countColHeader].Merge = true;
+                                    // in đậm
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                                    // căn giữa
+                                    ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+
+                                    //Ngày in danh sách
+                                    ws.Cells[2, 1].Value = "Ngày in danh sách: " + DateTime.Today.ToShortDateString();
+                                    ws.Cells[2, 1, 2, countColHeader].Merge = true;
+                                    // in đậm
+                                    ws.Cells[2, 1, 2, countColHeader].Style.Font.Bold = true;
+                                    // căn giữa
+                                    ws.Cells[2, 1, 2, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                    int colIndex = 1;
+                                    int rowIndex = 3;
+
+                                    ws.Column(1).Width = 10;
+                                    ws.Column(2).Width = 20;
+                                    ws.Column(3).Width = 20;
+                                    ws.Column(4).Width = 20;
+                                    ws.Column(5).Width = 20;
+                                    ws.Column(6).Width = 20;
+                                    ws.Column(7).Width = 20;
+                                    ws.Column(8).Width = 20;
+                                    ws.Column(9).Width = 20;
+                                    //tạo các header từ column header đã tạo từ bên trên
+                                    foreach (var item in arrColumnHeader)
+                                    {
+                                        var cell = ws.Cells[rowIndex, colIndex];
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+
+                                        //set màu thành gray
+                                        var fill = cell.Style.Fill;
+                                        fill.PatternType = ExcelFillStyle.Solid;
+                                        fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+
+                                        //căn chỉnh các border
+                                        var border = cell.Style.Border;
+                                        border.Bottom.Style =
+                                            border.Top.Style =
+                                            border.Left.Style =
+                                            border.Right.Style = ExcelBorderStyle.Thin;
+
+                                        //gán giá trị
+                                        cell.Value = item;
+
+                                        colIndex++;
+                                    }
+
+                                    //lấy ra danh sách Reader
+                                    List<Reader> ListReader = DataAdapter.Instance.DB.Readers.ToList();
+
+                                    //với mỗi item trong danh sách sẽ ghi trên 1 dòng
+                                    foreach (var item in ListReader)
+                                    {
+                                        // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
+                                        colIndex = 1;
+
+                                        // rowIndex tương ứng từng dòng dữ liệu
+                                        rowIndex++;
+
+                                        //gán giá trị cho từng cell      
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.idReader;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.nameReader;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.dobReader.ToShortDateString();
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.email;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.addressReader;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.createdAt.ToShortDateString();
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.debt;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.TypeReader.nameTypeReader;
+
+                                        ws.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.latestExtended.ToShortDateString();
+
+                                    }
+
+                                    //Lưu file lại
+                                    Byte[] bin = p.GetAsByteArray();
+                                    File.WriteAllBytes(filePath, bin);
+                                }
+                                MessageBox.Show("Xuất excel thành công!");
+                            }
+                            
+                            }
+                            catch (Exception E)
+                            {
+                                MessageBox.Show("Có lỗi khi lưu file");
+                            }
+                 });
+                    ImportReaderOld = new AppCommand<object>(
+                    param => true,
+                    param =>
+                    {
+                        try
+                        {
+
+                            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                            //// mở file excel
+                            OpenFileDialog dlg = new OpenFileDialog();
+                            string fileName = "";
+                            if (dlg.ShowDialog() == true)
+                            {
+                                fileName = dlg.FileName;
+
+                                var package = new ExcelPackage(new FileInfo(fileName));
+
+                                // lấy ra sheet đầu tiên để thao tác
+                                ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+
+                                // duyệt tuần tự từ dòng thứ 2 đến dòng cuối cùng của file. lưu ý file excel bắt đầu từ số 1 không phải số 0
+                                for (int i = workSheet.Dimension.Start.Row + 3; i <= workSheet.Dimension.End.Row; i++)
+                                {
+                                    // biến j biểu thị cho một column trong file
+                                    int j = 2;
+                                    string name = workSheet.Cells[i, j++].Value.ToString();
+
+                                    // lấy ra giá trị ngày tháng và ép kiểu thành DateTime
+                                    string dobTemp = workSheet.Cells[i, j++].Value.ToString();
+                                    DateTime dob = new DateTime();
+                                    if (dobTemp != null)
+                                    {
+                                        dob = Convert.ToDateTime(dobTemp);
+                                    }
+                                    string mail = workSheet.Cells[i, j++].Value.ToString();
+                                    string address = workSheet.Cells[i, j++].Value.ToString();
+                                    string crTemp = workSheet.Cells[i, j++].Value.ToString();
+                                    DateTime cr = new DateTime();
+                                    if (crTemp != null)
+                                    {
+                                        cr = Convert.ToDateTime(crTemp);
+                                    }
+                                    string dbt = workSheet.Cells[i, j++].Value.ToString();
+                                    string typerd = workSheet.Cells[i, j++].Value.ToString();
+
+                                    //RetrieveData();
+                                    //InitReaders();
+                                    int typereader = 1;
+                                    foreach (var item in TypeReader)
+                                    {
+                                        if (item.nameTypeReader == typerd)
+                                            typereader = item.idTypeReader;
+                                    }
+                                    string ltTemp = workSheet.Cells[i, j++].Value.ToString();
+                                    DateTime lt = new DateTime();
+                                    if (ltTemp != null)
+                                    {
+                                        lt = Convert.ToDateTime(ltTemp);
+                                    }
+
+
+                                    //tạo Reader từ dữ liệu đã lấy được
+                                    Reader rd = new Reader()
+                                    {
+                                        nameReader = name,
+                                        dobReader = dob,
+                                        email = mail,
+                                        addressReader = address,
+                                        createdAt = cr,
+                                        debt = Int32.Parse(dbt),
+                                        idTypeReader = typereader,
+                                        latestExtended = lt
+                                    };
+
+                                    // add Reader vào danh sách 
+                                    DataAdapter.Instance.DB.Readers.Add(rd);
+                                    DataAdapter.Instance.DB.SaveChanges();
+                                }
+                                List.MoveToLastPage();
+                                this.SetSelectedItemToFirstItemOfPage(false);
+                                MessageBox.Show("Import danh sách độc giả thành công!");
+                            }
+                        }
+                        catch (Exception ee)
+                        {
+                            MessageBox.Show("Đã xảy ra lỗi khi Import dữ liệu!");
+                        }
+                    });
+                    ImportReaderNew = new AppCommand<object>(
+                    param => true,
+                    param =>
+                    {
+                        try
+                        {
+                            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                            //// mở file excel
+                            OpenFileDialog dlg = new OpenFileDialog();
+                            string fileName = "";
+                            if (dlg.ShowDialog() == true)
+                            {
+                                fileName = dlg.FileName;
+                                var package = new ExcelPackage(new FileInfo(fileName));
+
+                                // lấy ra sheet đầu tiên để thao tác
+                                ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+
+                                // duyệt tuần tự từ dòng thứ 2 đến dòng cuối cùng của file. lưu ý file excel bắt đầu từ số 1 không phải số 0
+                                for (int i = workSheet.Dimension.Start.Row + 2; i <= workSheet.Dimension.End.Row; i++)
+                                {
+                                    // biến j biểu thị cho một column trong file
+                                    int j = 1;
+                                    string name = workSheet.Cells[i, j++].Value.ToString();
+
+                                    // lấy ra giá trị ngày tháng và ép kiểu thành DateTime
+                                    string dobTemp = workSheet.Cells[i, j++].Value.ToString();
+                                    DateTime dob = new DateTime();
+                                    if (dobTemp != null)
+                                    {
+                                        dob = Convert.ToDateTime(dobTemp);
+                                    }
+                                    string mail = workSheet.Cells[i, j++].Value.ToString();
+                                    string address = workSheet.Cells[i, j++].Value.ToString();
+                                    string typerd = workSheet.Cells[i, j++].Value.ToString();
+
+                                    //RetrieveData();
+                                    int typereader = 1;
+                                    foreach (var item in TypeReader)
+                                    {
+                                        if (item.nameTypeReader == typerd)
+                                            typereader = item.idTypeReader;
+                                    }
+
+
+                                    //tạo Reader từ dữ liệu đã lấy được
+                                    Reader rd = new Reader()
+                                    {
+                                        nameReader = name,
+                                        dobReader = dob,
+                                        email = mail,
+                                        addressReader = address,
+                                        createdAt = DateTime.Now,
+                                        debt = 0,
+                                        idTypeReader = typereader,
+                                        latestExtended = DateTime.Now
+                                    };
+
+                                    // add Reader vào danh sách 
+                                    DataAdapter.Instance.DB.Readers.Add(rd);
+                                    DataAdapter.Instance.DB.SaveChanges();
+                                    //List.AddItem(rd);
+                                    //InitProperty(rd.idReader);
+                                }
+                                List.MoveToLastPage();
+                                this.SetSelectedItemToFirstItemOfPage(false);
+                                MessageBox.Show("Import danh sách độc giả mới thành công!");
+                            }
+                        }
+                        catch (Exception ee)
+                        {
+                            MessageBox.Show("Đã xảy ra lỗi khi Import dữ liệu!");
+                        }
+                    });
+
         }
 
         private void InitReaders(string keyword = null)
