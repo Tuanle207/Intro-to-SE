@@ -1,32 +1,16 @@
 ﻿using LibraryManagement.Models;
-using LibraryManagement.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Migrations.Model;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
-using System.Runtime.InteropServices;
-using System.Data.Entity.Migrations;
-using System.ComponentModel;
 
 namespace LibraryManagement.ViewModels
 {
     class ReaderViewModel : BaseViewModel
     {
-        private PagingCollectionView<Reader> _List;
-        public PagingCollectionView<Reader> List { get => _List; set { _List = value; OnPropertyChanged(); } }
-
+        private ReaderPaginatingCollection _List;
+        public ReaderPaginatingCollection List { get => _List; set { _List = value; OnPropertyChanged(); } }
 
         private ObservableCollection<TypeReader> _TypeReader;
         public ObservableCollection<TypeReader> TypeReader { get => _TypeReader; set { _TypeReader = value; OnPropertyChanged(); } }
@@ -53,57 +37,23 @@ namespace LibraryManagement.ViewModels
             }
         }
         private TypeReader _SelectedTypeReader;
-        public TypeReader SelectedTypeReader
-        {
-            get => _SelectedTypeReader;
-            set
-            {
-                _SelectedTypeReader = value;
-                OnPropertyChanged();
-            }
-        }
+        public TypeReader SelectedTypeReader { get => _SelectedTypeReader; set { _SelectedTypeReader = value; OnPropertyChanged(); } }
 
         private int _idReader;
         public int IdReader { get => _idReader; set { _idReader = value; OnPropertyChanged(); } }
 
         private string _nameReader;
-        public string NameReader {
-            get => _nameReader;
-            set {
-                    _nameReader = value; OnPropertyChanged(); 
-            } 
-        }
+        public string NameReader {get => _nameReader; set { _nameReader = value; OnPropertyChanged(); } }
 
         private string _email;
-        public string Email { get => _email; set {
-                _email = value;
-                OnPropertyChanged();
-            } }
+        public string Email { get => _email; set {_email = value;OnPropertyChanged();} }
 
 
         private string _addressReader;
-        public string AddressReader
-        {
-            get => _addressReader;
-            set
-            {
-                _addressReader = value; OnPropertyChanged();
-            }
-        }
-
-        
-
+        public string AddressReader { get => _addressReader; set { _addressReader = value; OnPropertyChanged(); }}
 
         private int _idTypeReader;
-        public int IdTypeReader { 
-                                    get => _idTypeReader; 
-                                    set 
-                                    {
-                                        _idTypeReader = value;
-                                        OnPropertyChanged(); 
-                                    } 
-                                }
-
+        public int IdTypeReader { get => _idTypeReader; set { _idTypeReader = value; OnPropertyChanged(); } }
 
         private DateTime? _createdAt ;
         private DateTime? _dobReader;
@@ -113,23 +63,11 @@ namespace LibraryManagement.ViewModels
             set
             {   
                 _createdAt = value; OnPropertyChanged(); } }
-        public DateTime? DobReader { 
-                                    get => _dobReader; 
-                                    set 
-                                    {
-                                        _dobReader = value; OnPropertyChanged(); 
-                                    } 
+        public DateTime? DobReader { get => _dobReader; set {  _dobReader = value; OnPropertyChanged(); } 
         }
         private int _debt;
-        public int Debt
-        {
-            get => _debt;
-            set
-            { 
-                _debt = value;
-                OnPropertyChanged();
-            }
-        }
+        public int Debt{ get => _debt; set { _debt = value; OnPropertyChanged();}}
+
         //Search Reader
         private string readerSearchKeyword;
         public string ReaderSearchKeyword
@@ -139,40 +77,21 @@ namespace LibraryManagement.ViewModels
             {
                 readerSearchKeyword = value;
                 OnPropertyChanged();
-                SearchReader();
-            }
-        }
-        private void SearchReader()
-        {
-            if (ReaderSearchKeyword == null || ReaderSearchKeyword.Trim() == "")
-            {
-                List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
-                return;
-            }
-            try
-            {
-                var result = DataAdapter.Instance.DB.Readers.Where(
-                                    reader => reader.nameReader.ToLower().StartsWith(ReaderSearchKeyword.ToLower())
-                                    );
-                List = new PagingCollectionView<Reader>(result.ToList(), 15);
-            }
-            catch (ArgumentNullException)
-            {
-                List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
-                MessageBox.Show("Từ khóa tìm kiếm rỗng!");
+                InitReaders(readerSearchKeyword);
             }
         }
 
 
-        public AppCommand<object> AddCommand { get; set; }
-        public AppCommand<object> EditCommand { get; set; }
-        public AppCommand<object> DeleteCommand { get; set; }
-        public AppCommand<object> PrepareAddReaderCommand { get; set; }
-        public AppCommand<object> CheckCommand { get; set;}
-        public AppCommand<object> AddTypeReaderCommand { get; set;}
-        public AppCommand<object> DeleteTypeReaderCommand { get; set;}
-        public AppCommand<object> CancelCommand { get; set;}
-        public AppCommand<object> ReloadTypeReaderCommand { get; set;}
+        public ICommand AddCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand PrepareAddReaderCommand { get; set; }
+        public ICommand CheckCommand { get; set;}
+        public ICommand AddTypeReaderCommand { get; set;}
+        public ICommand DeleteTypeReaderCommand { get; set;}
+        public ICommand CancelCommand { get; set;}
+        public ICommand CancelAddCommand { get; set; }
+        public ICommand ReloadTypeReaderCommand { get; set;}
         public ICommand MoveToPreviousReadersPage { get; set; }
         public ICommand MoveToNextReadersPage { get; set; }
         public ICommand ExtendReaderCard { get; set; }
@@ -180,7 +99,8 @@ namespace LibraryManagement.ViewModels
         public ReaderViewModel()
         {
             // Retrieve data from DB
-            RetrieveData();
+            InitReaders();
+           
             CancelCommand = new AppCommand<object>((p) =>
             {
                 if (SelectedItem == null || SelectedTypeReader == null)
@@ -196,8 +116,8 @@ namespace LibraryManagement.ViewModels
                 SelectedItem.debt = Debt;
                 SelectedItem.createdAt = (DateTime)CreatedAt;
                 SelectedItem.idTypeReader = IdTypeReader;
-                RetrieveData();
                 OnPropertyChanged("SelectedItem");
+                ReaderSearchKeyword = null;
             });
             ReloadTypeReaderCommand = new AppCommand<object>((p) =>
             {
@@ -211,7 +131,7 @@ namespace LibraryManagement.ViewModels
             });
             AddCommand = new AppCommand<object>((p) =>
             {
-                if (NameReader == null || DobReader == null || Email == null || AddressReader == null || CreatedAt == null )
+                if (NameReader == null || Email == null || AddressReader == null )
                     return false;
                 return true;
 
@@ -232,7 +152,8 @@ namespace LibraryManagement.ViewModels
                     };
                     DataAdapter.Instance.DB.Readers.Add(Reader);
                     DataAdapter.Instance.DB.SaveChanges();
-                    InitProperty(Reader.idReader);
+                    List.MoveToLastPage();
+                    SetSelectedItemToFirstItemOfPage(false);
                     MessageBox.Show("Bạn đã thêm người dùng thành công");
                 }
                 catch(Exception)
@@ -259,7 +180,6 @@ namespace LibraryManagement.ViewModels
                 Reader.createdAt = (DateTime)SelectedItem.createdAt;
                 Reader.idTypeReader = SelectedTypeReader.idTypeReader;
                 DataAdapter.Instance.DB.SaveChanges();
-                InitProperty(Reader.idReader);
                 MessageBox.Show("Bạn đã sửa thông tin người dùng thành công");
             });
             DeleteCommand = new AppCommand<object>((p) =>
@@ -273,7 +193,8 @@ namespace LibraryManagement.ViewModels
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
                 DataAdapter.Instance.DB.Readers.Remove(Reader);
                 DataAdapter.Instance.DB.SaveChanges();
-                InitProperty(-1);
+                List.Refresh();
+                SetSelectedItemToFirstItemOfPage(true);
                 MessageBox.Show("Bạn đã xóa người dùng thành công");
             });
             PrepareAddReaderCommand = new AppCommand<object>(
@@ -306,6 +227,7 @@ namespace LibraryManagement.ViewModels
                p =>
                {
                    List.MoveToPreviousPage();
+                   SetSelectedItemToFirstItemOfPage(true);
                });
             MoveToNextReadersPage = new AppCommand<object>(
                 p =>
@@ -315,6 +237,7 @@ namespace LibraryManagement.ViewModels
                 p =>
                 {
                     List.MoveToNextPage();
+                    SetSelectedItemToFirstItemOfPage(true);
                 });
             ExtendReaderCard = new AppCommand<object>(
                 p => SelectedItem != null,
@@ -332,25 +255,53 @@ namespace LibraryManagement.ViewModels
                     }
                     DataAdapter.Instance.DB.SaveChanges();
                 });
-
+            CancelAddCommand = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    if (SelectedItem != null)
+                    {
+                        IdReader = SelectedItem.idReader;
+                        NameReader = SelectedItem.nameReader;
+                        DobReader = SelectedItem.dobReader;
+                        Email = SelectedItem.email;
+                        AddressReader = SelectedItem.addressReader;
+                        CreatedAt = SelectedItem.createdAt;
+                        Debt = SelectedItem.debt;
+                        IdTypeReader = SelectedItem.idTypeReader;
+                        SelectedTypeReader = SelectedItem.TypeReader;
+                        SelectedItem = SelectedItem;
+                    }
+                });
         }
 
-        private void RetrieveData()
+        private void InitReaders(string keyword = null)
         {
             TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
-            InitProperty(-1);
+            if (keyword != null)
+            {
+                List = new ReaderPaginatingCollection(15, keyword);
+            }
+            else
+            {
+                List = new ReaderPaginatingCollection(15);
+            }
+            SetSelectedItemToFirstItemOfPage(true);
         }
-        private void InitProperty(int id)
+        private void SetSelectedItemToFirstItemOfPage(bool isFirstItem)
         {
-            List = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList(), 15);
-            //if (List.Count > 0)
-            //{
-            //    SelectedItem = id == -1 ? (Reader)List.GetItemAt(0) : (Reader)List.GetItemById("Reader", id);
-            //    if (id != -1)
-            //    {
-            //        List.MoveToSelectedItem("Reader", id);
-            //    }
-            //}
+            if (List.Readers == null || List.Readers.Count == 0)
+            {
+                return;
+            }
+            if (isFirstItem)
+            {
+                SelectedItem = List.Readers.FirstOrDefault();
+            }
+            else
+            {
+                SelectedItem = List.Readers.LastOrDefault();
+            }
         }
     }
 

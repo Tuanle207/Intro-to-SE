@@ -42,7 +42,16 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="{Binding BookImageCover, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ImageToSource}}" Grid.Column="0" Stretch="Fill" Margin="10"/>
+                <Grid Grid.Column="0">
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnSelectImage" Command="{Binding AddImage}" Visibility="Hidden" Grid.Row="0" FontSize="12" Width="100" VerticalAlignment="Center" Content="Chọn ảnh"/>
+                        <Image x:Name="imgCover" Grid.Row="1" Source="{Binding SelectedItem.image, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ImageToSource}}" Grid.Column="0" Stretch="Fill" Margin="10"/>
+                    </Grid>
+                </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -146,7 +155,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="UpdateBook" Click="UpdateBook_Click"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="UpdateBook" Click="UpdateBook_Click" Command="{Binding PrepareUpdateImage}" Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="0" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
                         <TextBlock Text="Cập nhật" VerticalAlignment="Center" Margin="10" FontSize="20" FontWeight="Bold"/>
@@ -197,7 +206,7 @@
                 <TextBox Name="SearchBook" Text="{Binding BookSearchKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Background="#FFC0D4D4" TextWrapping="Wrap" Margin="10" FontSize="24"/>
             </Grid>
             <Grid Grid.Row="2">
-                <ListView x:Name="ListDisplayBook" ItemsSource="{Binding ListBook}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayBook_MouseDown">
+                <ListView x:Name="ListDisplayBook" ItemsSource="{Binding List.Books}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayBook_MouseDown">
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Sửa thông tin" Click="UpdateBook_Click">
@@ -228,9 +237,9 @@
                 </ListView>
                 <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
                     <Button  x:Name="PrePage" Command="{Binding MoveToPreviousBooksPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
-                    <TextBlock Text="{Binding ListBook.CurrentPage}"></TextBlock>
+                    <TextBlock Text="{Binding List.CurrentPage}"></TextBlock>
                     <TextBlock>/</TextBlock>
-                    <TextBlock Text="{Binding ListBook.PageCount}"></TextBlock>
+                    <TextBlock Text="{Binding List.PageCount}"></TextBlock>
                     <Button x:Name="NextPage"  Command="{Binding MoveToNextBooksPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
                 </StackPanel>
             </Grid>

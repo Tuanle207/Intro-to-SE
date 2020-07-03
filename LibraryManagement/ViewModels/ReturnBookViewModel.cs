@@ -20,7 +20,7 @@ namespace LibraryManagement.ViewModels
         /// Variables, Properties definition
         /// </summary>
         private string readerSearchKeyword;
-        private PagingCollectionView<Reader> listReader;
+        private ReaderPaginatingCollection listReader;
         private Reader readerSelected;
         private ObservableCollection<DetailBillBorrow> listDetailBorrowCorresponding;
         private ObservableCollection<DetailBillBorrow> listDetailBorrowSelected;
@@ -34,10 +34,10 @@ namespace LibraryManagement.ViewModels
             {
                 readerSearchKeyword = value;
                 OnPropertyChanged();
-                SearchReader();
+                InitReaders(readerSearchKeyword);
             }
         }
-        public PagingCollectionView<Reader> ListReader {
+        public ReaderPaginatingCollection ListReader {
             get => listReader;
             set { listReader = value; OnPropertyChanged(); }
         }
@@ -226,37 +226,15 @@ namespace LibraryManagement.ViewModels
         /// </summary>
         private void RetrieveDataAndClearInput()
         {
-            DateReturn = DateTime.Now;
-            ReaderSelected = null;
-            ReaderSearchKeyword = null;
+
             BillReturn = new BillReturn { sumFine = 0 };
+            DateReturn = DateTime.Now;
+            InitReaders();
+            ReaderSearchKeyword = null;
             ListDetailBorrowSelected = new ObservableCollection<DetailBillBorrow>();
-            SearchReader();
             RetrieveDetailBorrow();
         }
-        /// <summary>
-        /// Search reader based on keyword
-        /// </summary>
-        private void SearchReader()
-        {
-            if (ReaderSearchKeyword == null || ReaderSearchKeyword.Trim() == "")
-            {
-                ListReader = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
-                return;
-            }
-            try
-            {
-                var result = DataAdapter.Instance.DB.Readers.Where(
-                                    reader => reader.nameReader.ToLower().StartsWith(ReaderSearchKeyword.ToLower())
-                                    );
-                ListReader = new PagingCollectionView<Reader>(result.ToList());
-            }
-            catch (ArgumentNullException)
-            {
-                ListReader = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
-                MessageBox.Show("Từ khóa tìm kiếm rỗng!");
-            }
-        }
+
         /// <summary>
         /// Retrieve detail borrow data with corresponding reader
         /// </summary>
@@ -310,5 +288,35 @@ namespace LibraryManagement.ViewModels
             return fine;
         }
 
+
+        // Init data for pagination
+        private void InitReaders(string keyword = null)
+        {
+            if (keyword != null)
+            {
+                ListReader = new ReaderPaginatingCollection(10, keyword);
+            }
+            else
+            {
+                ListReader = new ReaderPaginatingCollection(10);
+            }
+            SetSelectedItemToFirstItemOfPage(true);
+        }
+
+        private void SetSelectedItemToFirstItemOfPage(bool isFirstItem)
+        {
+            if (ListReader.Readers == null || ListReader.Readers.Count == 0)
+            {
+                return;
+            }
+            if (isFirstItem)
+            {
+                ReaderSelected = ListReader.Readers.FirstOrDefault();
+            }
+            else
+            {
+                ReaderSelected = ListReader.Readers.LastOrDefault();
+            }
+        }
     }
 }

@@ -11,11 +11,11 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Background="#FFF0F0F0">
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Unloaded">
-                <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -38,7 +38,7 @@
 
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayReader_MouseDown" >
+                <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List.Readers}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayReader_MouseDown" >
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Gia hạn độc giả" Command="{Binding ExtendReaderCard}">

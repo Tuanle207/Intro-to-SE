@@ -7,12 +7,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement.Views"
         xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:WPFToolKit="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-    
         ResizeMode="NoResize"
         Title="Thêm độc giả" Height="700" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding CancelAddCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="5">
         <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
