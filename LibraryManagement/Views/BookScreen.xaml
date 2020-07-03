@@ -161,22 +161,22 @@
                 </Button>
 
 
-                <Button x:Name="DeleteBook" Command="{Binding DeleteBookCommand}" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button x:Name="DeleteBook" Command="{Binding DeleteBookCommand}" Grid.Column="1" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10" Height="Auto">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Xóa" Margin="10" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </Button>
-                <Button Name="AddBook" Command="{Binding AddBookCommand}" Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Name="AddBook" Command="{Binding AddBookCommand}" Grid.Column="0" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10" Height="Auto">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <materialDesign:PackIcon Kind="Adjust" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
                         <TextBlock Text="Thêm mới" Margin="10" VerticalAlignment="Center" FontSize="20"/>
                     </StackPanel>
                 </Button>
-                <Button Name="StopBorrowBook" Grid.Column="1" Grid.Row="1" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                <Button Name="StopBorrowBook" Command="{Binding AddBookFromFileCommand}" Grid.Column="1" Grid.Row="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10" Height="Auto">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="Close" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Ngừng cho mượn" Margin="10" VerticalAlignment="Center" FontSize="20"/>
+                        <materialDesign:PackIcon Kind="FileExcel" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
+                        <TextBlock Text="Nhập từ file" Margin="10" VerticalAlignment="Center" FontSize="16"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -193,7 +193,11 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
-                <materialDesign:PackIcon Grid.Column="0" Kind="Undo" Background="Black" Width="Auto" Height="Auto" Foreground="White" Margin="10" VerticalAlignment="Center"/>
+                <Button x:Name="btnExport" Command="{Binding ExportBooksCommand}" Height="Auto" Margin="10" Padding="5">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="FileExport" Width="Auto" Height="Auto"/>
+                    </StackPanel>
+                </Button>
                 <TextBox Name="SearchBook" Text="{Binding BookSearchKeyword, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Background="#FFC0D4D4" TextWrapping="Wrap" Margin="10" FontSize="24"/>
             </Grid>
             <Grid Grid.Row="2">

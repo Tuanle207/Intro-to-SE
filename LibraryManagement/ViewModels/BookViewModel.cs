@@ -8,11 +8,13 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LibraryManagement.ViewModels
 {
@@ -143,6 +145,9 @@ namespace LibraryManagement.ViewModels
 
         //open Window
         public ICommand AddBookCommand { get; set; }
+        public ICommand AddBookFromFileCommand { get; set; }
+
+        public ICommand ExportBooksCommand { get; set; }
         public ICommand DeleteBookCommand { get; set; }
         public AppCommand<object> CancelCommand { get; set; }
 
@@ -207,6 +212,176 @@ namespace LibraryManagement.ViewModels
 
             });
 
+            AddBookFromFileCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                string newFileName = GetImageName();
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                openFileDialog.Multiselect = false;
+                openFileDialog.Title = "Open file excel to import books";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    Excel.Application xlApp = new Excel.Application();
+                    Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(openFileDialog.FileName);
+                    Excel._Worksheet xlWorkSheet = xlWorkBook.Sheets[1];
+                    Excel.Range xlRange = xlWorkSheet.UsedRange;
+                    int rowCount = xlRange.Rows.Count;
+                    int colCount = xlRange.Columns.Count;
+                    for (int i = 2; i <= rowCount; i++)
+                    {
+                        SourceImageFile = null;
+                        nameBook = xlRange.Cells[i, 2].Value.ToString();  
+                        string nameCategory = xlRange.Cells[i, 3].Value.ToString();
+                        foreach (var x in category)
+                        {
+                            if (x.nameCategory == nameCategory)
+                            {
+                                SelectedCategory = x;
+                                break;
+                            }    
+                        }
+                        string authors = xlRange.Cells[i, 4].Value.ToString();
+                        string namePublisher = xlRange.Cells[i, 5].Value.ToString();
+                        foreach (var x in publisher)
+                        {
+                            if (x.namePublisher == namePublisher)
+                            {
+                                SelectedPublisher = x;
+                                break;
+                            }
+                        }
+                        dateManufacture = Convert.ToDateTime(xlRange.Cells[i, 6].Value.ToString());
+                        dateAddBook = DateTime.Now;
+                        price = int.Parse(xlRange.Cells[i, 7].Value.ToString());
+                        var book = new Book()
+                        {
+                            nameBook = nameBook,
+                            dateManufacture = dateManufacture,
+                            dateAddBook = dateAddBook,
+                            price = price,
+                            idCategory = SelectedCategory.idCategory,
+                            idPublisher = SelectedPublisher.idPublisher,
+                            statusBook = "có sẵn",
+                            image = SourceImageFile != null ? newFileName : "default-image.png"
+                        };
+                        ListAuthors = new ObservableCollection<Author>();
+                        string[] nameAuthors = authors.Split('|');
+                        for (int j = 0; j < nameAuthors.Length; j++)
+                        {
+                            string nameAuthor = nameAuthors[j];
+                            foreach (var x in author)
+                            {
+                                if (x.nameAuthor == nameAuthor)
+                                {
+                                    SelectedAuthor = x;
+                                    break;
+                                }    
+                            }    
+                            ListAuthors.Add(SelectedAuthor);
+                        }
+                        for (int j = 0; j < ListAuthors.Count; j++)
+                        {
+                            book.Authors.Add(ListAuthors[j]);
+                        }
+                        DataAdapter.Instance.DB.Books.Add(book);
+                        DataAdapter.Instance.DB.SaveChanges();
+                        //InitProperties(book.idBook);
+                    }
+
+                    //cleanup
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
+                    //rule of thumb for releasing com objects:
+                    //  never use two dots, all COM objects must be referenced and released individually
+                    //  ex: [somthing].[something].[something] is bad
+
+                    //release com objects to fully kill excel process from running in the background
+                    Marshal.ReleaseComObject(xlRange);
+                    Marshal.ReleaseComObject(xlWorkSheet);
+
+                    //close and release
+                    xlWorkBook.Close();
+                    Marshal.ReleaseComObject(xlWorkBook);
+
+                    //quit and release
+                    xlApp.Quit();
+                    Marshal.ReleaseComObject(xlApp);
+
+                    GetLastestBooks();
+                    MessageBox.Show("Thêm sách thành công!");
+                }    
+            });
+
+            ExportBooksCommand = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                saveFileDialog.Title = "Choose place to save export file";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    object misValue = System.Reflection.Missing.Value;
+                    Excel.Application xlApp = new Excel.Application();
+                    Excel.Workbook xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    Excel._Worksheet xlWorkSheet = xlWorkBook.Sheets[1];
+                    xlWorkSheet.Cells[1, 1] = "STT";
+                    xlWorkSheet.Cells[1, 2] = "Tên sách";
+                    xlWorkSheet.Cells[1, 3] = "Thể loại";
+                    xlWorkSheet.Cells[1, 4] = "Tác giả";
+                    xlWorkSheet.Cells[1, 5] = "Nhà xuất bản";
+                    xlWorkSheet.Cells[1, 6] = "Năm xuất bản";
+                    xlWorkSheet.Cells[1, 7] = "Trị giá";
+
+                    PagingCollectionView<Book> books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
+                    int j = 0;
+                    for (int temp = 0; temp < books.PageCount; temp++)
+                    {
+                        for (int i = 0; i < books.Count; i++)
+                        {
+                            xlWorkSheet.Cells[i + 2 + j, 1] = (i + 1 + j).ToString();
+                            xlWorkSheet.Cells[i + 2 + j, 2] = ((Book)books.GetItemAt(i)).nameBook;
+                            xlWorkSheet.Cells[i + 2 + j, 3] = ((Book)books.GetItemAt(i)).Category.nameCategory;
+                            ICollection<Author> listAuthors = ((Book)books.GetItemAt(i)).Authors.ToList();
+                            string writer = "";
+                            for (int k = 0; k < listAuthors.Count; k++)
+                                writer += (listAuthors.ElementAt(k).nameAuthor + "|");
+                            if (writer.Length > 0)
+                                writer = writer.Remove(writer.Length - 1);
+                            xlWorkSheet.Cells[i + 2 + j, 4] = writer;
+                            xlWorkSheet.Cells[i + 2 + j, 5] = ((Book)books.GetItemAt(i)).Publisher.namePublisher;
+                            xlWorkSheet.Cells[i + 2 + j, 6] = ((Book)books.GetItemAt(i)).dateManufacture;
+                            xlWorkSheet.Cells[i + 2 + j, 7] = ((Book)books.GetItemAt(i)).price;
+                        }
+                        j += books.Count;
+                        books.MoveToNextPage();
+                    }
+
+                    xlWorkBook.SaveAs(saveFileDialog.FileName, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlApp.Quit();
+
+                    releaseObject(xlWorkSheet);
+                    releaseObject(xlWorkBook);
+                    releaseObject(xlApp);
+
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Xuất file thành công! Bạn có muốn mở file?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);  
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        openFileDialog.FileName = saveFileDialog.FileName;
+                        if (openFileDialog.ShowDialog() == true)
+                        {
+                            System.Diagnostics.Process.Start(openFileDialog.FileName);
+                        }
+                    }    
+                }
+            });
             
             category = new ObservableCollection<Category>(DataAdapter.Instance.DB.Categories);
             publisher = new ObservableCollection<Publisher>(DataAdapter.Instance.DB.Publishers);
@@ -446,6 +621,23 @@ namespace LibraryManagement.ViewModels
             }
         }
 
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
         private void InitProperties(int id)
         {
             ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
