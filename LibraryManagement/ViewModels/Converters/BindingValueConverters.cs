@@ -23,7 +23,7 @@ namespace LibraryManagement.ViewModels
             {
                 if (value == null)
                     return false;
-                PagingCollectionView<Book> list = (PagingCollectionView<Book>)value;
+                LatestBookPaginationCollection list = (LatestBookPaginationCollection)value;
                 int button = Int32.Parse(paramater.ToString());
                 if (button == 1)
                 {

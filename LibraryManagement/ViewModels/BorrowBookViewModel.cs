@@ -15,9 +15,9 @@ namespace LibraryManagement.ViewModels
         /// <summary>
         /// Variables, properties definition
         /// </summary>
-        private PagingCollectionView<Book> books;
+        private BookPaginatingCollection books;
         private ObservableCollection<Book> listBooksSelected;
-        private PagingCollectionView<Reader> readers;
+        private ReaderPaginatingCollection readers;
         private Reader readerSelected;
         private string bookKeyword;
         private string readerKeyword;
@@ -27,7 +27,7 @@ namespace LibraryManagement.ViewModels
                 listBooksSelected = value; 
                 OnPropertyChanged(); 
             } }
-        public PagingCollectionView<Book> Books
+        public BookPaginatingCollection Books
         {
             get => books;
             set
@@ -36,7 +36,7 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        public PagingCollectionView<Reader> Readers { 
+        public ReaderPaginatingCollection Readers { 
             get => readers; 
             set { 
                 readers = value;
@@ -50,8 +50,8 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string BookKeyword { get => bookKeyword; set { bookKeyword = value; OnPropertyChanged(); SearchBook(); } }
-        public string ReaderKeyword { get => readerKeyword; set { readerKeyword = value; OnPropertyChanged(); SearchReader(); } }
+        public string BookKeyword { get => bookKeyword; set { bookKeyword = value; OnPropertyChanged(); InitBooks(bookKeyword); } }
+        public string ReaderKeyword { get => readerKeyword; set { readerKeyword = value; OnPropertyChanged(); InitReaders(readerKeyword); } }
 
         public ICommand BorrowCommand { get; set; }
         public ICommand SelectBook { get; set; }
@@ -85,12 +85,8 @@ namespace LibraryManagement.ViewModels
                 ListBooksSelected.Clear();
             }
 
-            Books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList());
-
-            if (Readers == null)
-            {
-                Readers = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
-            }
+            InitBooks();
+            InitReaders();
             ReaderSelected = null;
         }
         /// <summary>
@@ -260,50 +256,10 @@ namespace LibraryManagement.ViewModels
                 p =>
                 {
                     Readers.MoveToNextPage();
+                    
                 });
         }
 
-        private void SearchReader()
-        {
-            if (ReaderKeyword == null || ReaderKeyword.Trim() == "")
-            {
-                Readers = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
-                return;
-            }
-            try
-            {
-                var result = DataAdapter.Instance.DB.Readers.Where(
-                    reader => reader.nameReader.ToLower().StartsWith(ReaderKeyword.ToLower())
-                    );
-                Readers = new PagingCollectionView<Reader>(result.ToList());
-            }
-            catch (ArgumentNullException)
-            {
-                Readers = new PagingCollectionView<Reader>(DataAdapter.Instance.DB.Readers.ToList());
-                MessageBox.Show("Nhập tên độc giả để tìm kiếm!");
-            }
-        }
-
-        private void SearchBook()
-        {
-            if (BookKeyword == null || BookKeyword.Trim() == "")
-            {
-                Books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList());
-                return;
-            }
-            try
-            {
-                var result = DataAdapter.Instance.DB.Books.Where(
-                                    book => book.nameBook.ToLower().StartsWith(BookKeyword.ToLower())
-                                    );
-                Books = new PagingCollectionView<Book>(result.ToList());
-            }
-            catch (ArgumentNullException)
-            {
-                Books = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList());
-                MessageBox.Show("Nhập tên sách để tìm kiếm!");
-            }
-        }
 
         private int GetBookBorrowedOfReader(Reader reader)
         {
@@ -335,6 +291,47 @@ namespace LibraryManagement.ViewModels
             int expiryMonths = DataAdapter.Instance.DB.Paramaters.Find(3).valueParameter;
             int daysLeft = (reader.latestExtended.AddDays(expiryMonths * 30) - DateTime.Now).Days;
             return daysLeft >= 0 ? true : false;
+        }
+
+        private void SetSelectedItemToFirstItemOfPage(bool isFirstItem)
+        {
+            if (Readers.Readers == null || Readers.Readers.Count == 0)
+            {
+                return;
+            }
+            if (isFirstItem)
+            {
+                ReaderSelected = Readers.Readers.FirstOrDefault();
+            }
+            else
+            {
+                ReaderSelected = Readers.Readers.LastOrDefault();
+            }
+        }
+
+        private void InitReaders(string keyword = null)
+        {
+            if (keyword != null)
+            {
+                Readers = new ReaderPaginatingCollection(10, keyword);
+            }
+            else
+            {
+                Readers = new ReaderPaginatingCollection(10);
+            }
+            SetSelectedItemToFirstItemOfPage(true);
+        }
+
+        private void InitBooks(string keyword = null)
+        {
+            if (keyword != null)
+            {
+                Books = new BookPaginatingCollection(10, keyword);
+            }
+            else
+            {
+                Books = new BookPaginatingCollection(10);
+            }
         }
     }
 }

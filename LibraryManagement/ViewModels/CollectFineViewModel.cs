@@ -18,7 +18,7 @@ namespace LibraryManagement.ViewModels
         /// <summary>
         /// Definition of fields
         /// </summary>
-        private ObservableCollection<Reader> listReader;
+        private ReaderPaginatingCollection listReader;
         private Reader readerSelected;
         private Payment payment;
         private int collectedAmount;
@@ -26,7 +26,7 @@ namespace LibraryManagement.ViewModels
         /// <summary>
         /// Fefinition of properties
         /// </summary>
-        public ObservableCollection<Reader> ListReader
+        public ReaderPaginatingCollection ListReader
         {
             get => listReader;
             set
@@ -59,12 +59,13 @@ namespace LibraryManagement.ViewModels
             get => collectedAmount;
             set { collectedAmount = value; calcRemainingDebt(); OnPropertyChanged(); }
         }
-        public string ReaderKeyword { get => readerKeyword; set { readerKeyword = value; OnPropertyChanged(); SearchReader(); } }
+        public string ReaderKeyword { get => readerKeyword; set { readerKeyword = value; OnPropertyChanged(); InitReaders(readerKeyword); } }
         /// <summary>
         /// Command for buttons
         /// </summary>
         public ICommand CollectFine { get; set; }
-        
+        public ICommand MoveToPreviousReadersPage { get; set; }
+        public ICommand MoveToNextReadersPage { get; set; }
 
 
         /// <summary>
@@ -122,50 +123,74 @@ namespace LibraryManagement.ViewModels
                     {
                         MessageBox.Show("Không thể thao tác vì lỗi cơ sở dữ liệu!");
                     }
-
-
                 }
             );
+            MoveToPreviousReadersPage = new AppCommand<object>(
+              p =>
+              {
+                  return ListReader.CurrentPage > 1;
+              },
+              p =>
+              {
+                  ListReader.MoveToPreviousPage();
+              });
+            MoveToNextReadersPage = new AppCommand<object>(
+                p =>
+                {
+                    return ListReader.CurrentPage < ListReader.PageCount;
+                },
+                p =>
+                {
+                    ListReader.MoveToNextPage();
+                });
         }
 
         private void Init()
         {
             Payment = new Payment { paymentDate = DateTime.Now };
-            ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
-            if (ListReader.Count != 0)
-            {
-                ReaderSelected = ListReader.FirstOrDefault();
-            }
-            else ReaderSelected = null;
+            InitReaders();
             CollectedAmount = 0;
             
         }
-        private void SearchReader()
-        {
-            if (ReaderKeyword == null || ReaderKeyword.Trim() == "")
-            {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
-                return;
-            }
-            try
-            {
-                var result = DataAdapter.Instance.DB.Readers.Where(
-                                    reader => reader.nameReader.ToLower().StartsWith(ReaderKeyword.ToLower())
-                                    );
-                ListReader = new ObservableCollection<Reader>(result);
-            }
-            catch (ArgumentNullException)
-            {
-                ListReader = new ObservableCollection<Reader>(DataAdapter.Instance.DB.Readers);
-                MessageBox.Show("Nhập tên độc giả để tìm kiếm!");
-            }
-        }
+
         private void calcRemainingDebt()
         {
             if (Payment != null && ReaderSelected != null)
             {
                 Payment.remainDebt = ReaderSelected.debt - CollectedAmount >= 0 ? ReaderSelected.debt - CollectedAmount : 0;
                 OnPropertyChanged("Payment");
+            }
+        }
+
+
+
+        // Init data for pagination
+        private void InitReaders(string keyword = null)
+        {
+            if (keyword != null)
+            {
+                ListReader = new ReaderPaginatingCollection(10, keyword);
+            }
+            else
+            {
+                ListReader = new ReaderPaginatingCollection(10);
+            }
+            SetSelectedItemToFirstItemOfPage(true);
+        }
+
+        private void SetSelectedItemToFirstItemOfPage(bool isFirstItem)
+        {
+            if (ListReader.Readers == null || ListReader.Readers.Count == 0)
+            {
+                return;
+            }
+            if (isFirstItem)
+            {
+                ReaderSelected = ListReader.Readers.FirstOrDefault();
+            }
+            else
+            {
+                ReaderSelected = ListReader.Readers.LastOrDefault();
             }
         }
     }

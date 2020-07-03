@@ -28,7 +28,7 @@
             <ScrollViewer x:Name="newBooksSection" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Background="#FFF1F1F1">
                 <StackPanel>
                     <StackPanel Margin="20 0">
-                        <ItemsControl x:Name="ListViewLatestBooks" ItemsSource="{Binding ListLatestBooks}">
+                        <ItemsControl x:Name="ListViewLatestBooks" ItemsSource="{Binding ListLatestBooks.Books}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Margin="5" Width="140" Height="190">

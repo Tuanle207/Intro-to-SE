@@ -161,6 +161,10 @@
     <Compile Include="Models\TypeReader.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Paginations\BookPaginatingCollection.cs" />
+    <Compile Include="ViewModels\Paginations\LatestBookPaginationCollection.cs" />
+    <Compile Include="ViewModels\Paginations\PaginatingCollection.cs" />
+    <Compile Include="ViewModels\Paginations\ReaderPaginatingCollection.cs" />
     <Compile Include="ViewModels\Validations\BookValidations\BookNameValidation.cs" />
     <Compile Include="ViewModels\Validations\LoginValidations\PasswordLoginValidation.cs" />
     <Compile Include="ViewModels\Validations\LoginValidations\UserNameLoginValidation.cs" />

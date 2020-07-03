@@ -113,7 +113,7 @@
                 <Label Content="Nhà xuất bản" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             </Grid>
             <Grid Grid.Column="1" Background="Gold">
-                <ComboBox Name="publisher" ItemsSource="{Binding publisher}" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedPublisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
+                <ComboBox Name="publisher" ItemsSource="{Binding publisher}" DisplayMemberPath="namePublisher" SelectedItem="{Binding SelectedPublisher, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" ></ComboBox>
             </Grid>
         </Grid>
         <Grid Grid.Row ="4" Margin="10">
@@ -125,7 +125,16 @@
                 <Label Content="Năm xuất bản" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             </Grid>
             <Grid Grid.Column="1" Background="Gold" Height="33" Margin="0,0,-0.4,-0.2" VerticalAlignment="Top">
-                <DatePicker SelectedDate="{Binding dateManufacture}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2"/>
+                <DatePicker x:Name="dateManufacture" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="dateManufacture"
+                        UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <vm:CheckDateManufactureValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
             </Grid>
         </Grid>
         <Grid Grid.Row ="5" Margin="10">
@@ -174,6 +183,7 @@
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbPrice}" Value="False"/>
                                     <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameBook}" Value="False"/>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=dateManufacture}" Value="False"/>
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True"/>
                             </MultiDataTrigger>

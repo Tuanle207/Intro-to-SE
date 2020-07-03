@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Models;
+using LibraryManagement.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,13 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
-
+        
         private void UpdateBook_Click(object sender, RoutedEventArgs e)
         {
+            // Set source binding to BookImageCover
+            Binding imgBinding = new Binding("BookImageCover");
+            BindingOperations.SetBinding(imgCover, Image.SourceProperty, imgBinding);
+
             SaveBook.Visibility = Visibility.Visible;
             UpdateBook.Visibility = Visibility.Hidden;
             NameBook.IsEnabled = true;
@@ -37,6 +42,7 @@ namespace LibraryManagement.Views
             Publisher.IsEnabled = true;
             DateManufacture.IsEnabled = true;
             Price.IsEnabled = true;
+            btnSelectImage.Visibility = Visibility.Visible;
 
             //Tắt hết các tính năng không liên quan
             AddBook.Visibility = Visibility.Hidden;
@@ -50,6 +56,11 @@ namespace LibraryManagement.Views
 
         private void SaveBook_Click(object sender, RoutedEventArgs e)
         {
+            // Set source binding back to SelectedItem.image
+            Binding imgBinding = new Binding("SelectedItem.image");
+            imgBinding.Converter = new ImageToSource();
+            BindingOperations.SetBinding(imgCover, Image.SourceProperty, imgBinding);
+
             SaveBook.Visibility = Visibility.Hidden;
             UpdateBook.Visibility = Visibility.Visible;
             NameBook.IsEnabled = false;
@@ -59,6 +70,7 @@ namespace LibraryManagement.Views
             DateManufacture.IsEnabled = false;
             Price.IsEnabled = false;
             Author.Visibility = Visibility.Hidden;
+            btnSelectImage.Visibility = Visibility.Hidden;
 
             //Mở lại các tính năng đã khóa
             AddBook.Visibility = Visibility.Visible;

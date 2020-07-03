@@ -34,18 +34,32 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Height="500" BorderThickness="1">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
-                    <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
-                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding dobReader}"/>
-                    <DataGridTextColumn Header="Loại độc giả" Binding="{Binding TypeReader.nameTypeReader}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
-                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding addressReader}"/>
-                    <DataGridTextColumn Header="Ngày tạo" Binding="{Binding createdAt}"/>
-                    <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="0" ItemsSource="{Binding ListReader.Readers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" BorderThickness="1" Height="450">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
+                        <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
+                        <DataGridTextColumn Header="Ngày sinh" Binding="{Binding dobReader}"/>
+                        <DataGridTextColumn Header="Loại độc giả" Binding="{Binding TypeReader.nameTypeReader}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
+                        <DataGridTextColumn Header="Địa chỉ" Binding="{Binding addressReader}"/>
+                        <DataGridTextColumn Header="Ngày tạo" Binding="{Binding createdAt}"/>
+                        <DataGridTextColumn Header="Nợ" Binding="{Binding debt}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="1" Margin="0 2 0 0" Orientation="Horizontal">
+                    <Button Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
+                    <TextBlock Text="{Binding ListReader.CurrentPage}"></TextBlock>
+                    <TextBlock>/</TextBlock>
+                    <TextBlock Text="{Binding ListReader.PageCount}"></TextBlock>
+                    <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                </StackPanel>
+            </Grid>
+            
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock Background="#0a97b0" Foreground="#fff" Padding="15" TextAlignment="Center" FontSize="16">Thông tin phiếu phạt</TextBlock>

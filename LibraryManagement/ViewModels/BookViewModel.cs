@@ -12,18 +12,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 
 namespace LibraryManagement.ViewModels
 {
     class BookViewModel : BaseViewModel
     {
+        private BookPaginatingCollection list;
+        public BookPaginatingCollection List { get => list; set { list = value; OnPropertyChanged(); } }
 
-        private PagingCollectionView<Book> _ListBook;
-        public PagingCollectionView<Book> ListBook { get => _ListBook; set { _ListBook = value; OnPropertyChanged(); } }
-
-        private PagingCollectionView<Book> _ListLatestBooks;
-        public PagingCollectionView<Book> ListLatestBooks { get => _ListLatestBooks; set { _ListLatestBooks = value; OnPropertyChanged(); } }
+        private BookPaginatingCollection _ListLatestBooks;
+        public BookPaginatingCollection ListLatestBooks { get => _ListLatestBooks; set { _ListLatestBooks = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Author> _ListAuthors;
         public ObservableCollection<Author> ListAuthors { get => _ListAuthors; set { _ListAuthors = value; OnPropertyChanged(); } }
@@ -52,6 +52,7 @@ namespace LibraryManagement.ViewModels
                     BookImageCover = SelectedItem.image;
                     ListAuthors = new ObservableCollection<Author>(SelectedItem.Authors);
                 }
+                
             }
         }
 
@@ -133,7 +134,7 @@ namespace LibraryManagement.ViewModels
             {
                 bookSearchKeyword = value;
                 OnPropertyChanged();
-                SearchBook();
+                InitBooks(bookSearchKeyword);
             }
         }
 
@@ -144,7 +145,7 @@ namespace LibraryManagement.ViewModels
         //open Window
         public ICommand AddBookCommand { get; set; }
         public ICommand DeleteBookCommand { get; set; }
-        public AppCommand<object> CancelCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         //effect DB
         public ICommand AddBookToDBCommand { get; set; }
@@ -164,14 +165,15 @@ namespace LibraryManagement.ViewModels
         
         //Add book image cover
         public ICommand AddImage { get; set; }
+        public ICommand PrepareUpdateImage { get; set; }
 
-      
+
 
         public BookViewModel()
         {
             //BookImageCover = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), $"/BookImageCover/default-image.png");
             SourceImageFile = null;
-            InitProperties(-1);
+            InitBooks();
             GetLastestBooks();
 
             CancelCommand = new AppCommand<object>((p) =>
@@ -180,13 +182,17 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-                SelectedItem.nameBook = nameBook;
-                SelectedItem.Category = SelectedCategory;
-                SelectedItem.Publisher = SelectedPublisher;
-                SelectedItem.dateManufacture = dateManufacture;
-                SelectedItem.dateAddBook = dateAddBook;
-                SelectedItem.price = price;
-                OnPropertyChanged("SelectedItem");
+                if (SelectedItem != null)
+                {
+                    SelectedItem.nameBook = nameBook;
+                    SelectedItem.Category = SelectedCategory;
+                    SelectedItem.Publisher = SelectedPublisher;
+                    SelectedItem.dateManufacture = dateManufacture;
+                    SelectedItem.dateAddBook = dateAddBook;
+                    SelectedItem.price = price;
+                    OnPropertyChanged("SelectedItem");
+                }
+                BookSearchKeyword = null;
             });
 
             AddBookCommand = new AppCommand<object>((p) => 
@@ -231,18 +237,13 @@ namespace LibraryManagement.ViewModels
                 //Kiểm tra điều kiện
                 if (string.IsNullOrEmpty(nameBook))
                     return false;
-                if (price <= 0 || SelectedCategory == null ||SelectedPublisher == null || ListAuthors.Count == 0)
+                if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
                     return false;
-
-                var displayList = DataAdapter.Instance.DB.Books.Where(x => x.nameBook == nameBook);
-                if (displayList == null)
-                    return false;
-
                 return true;
             }, (p) =>
             {
                 string newFileName = GetImageName();
-                /// Copy image to DB
+                /// Copy image to project path
                 if (SourceImageFile != null)
                 {
                     string destinationFile = GetFullPath(newFileName);
@@ -255,7 +256,6 @@ namespace LibraryManagement.ViewModels
                         MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
                     }
                 }
-               
 
                 var book = new Book()
                 {
@@ -273,11 +273,13 @@ namespace LibraryManagement.ViewModels
                 {
                     book.Authors.Add(ListAuthors[i]);
                 }
-
+                // save changes
                 DataAdapter.Instance.DB.Books.Add(book);
                 DataAdapter.Instance.DB.SaveChanges();
+
                 SourceImageFile = null;
-                InitProperties(book.idBook);
+                List.MoveToLastPage();
+                SetSelectedItemToFirstItemOfPage(false);
                 GetLastestBooks();
                 MessageBox.Show("Thêm sách thành công!");
             });
@@ -301,7 +303,24 @@ namespace LibraryManagement.ViewModels
                 book.price = price;
                 book.idCategory = SelectedCategory.idCategory;
                 book.idPublisher = SelectedPublisher.idPublisher;
-                
+
+                string newFileName = GetImageName();
+                /// Copy image to project path
+                if (SourceImageFile != null)
+                {
+                    string destinationFile = GetFullPath(newFileName);
+                    try
+                    {
+                        System.IO.File.Copy(SourceImageFile, destinationFile, true);
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
+                    }
+                }
+
+                book.image = SourceImageFile != null ? newFileName : "default-image.png";
+
                 //Clear Authors in book
                 book.Authors.Clear();
                 for (int i = 0; i < ListAuthors.Count; i++)
@@ -309,7 +328,7 @@ namespace LibraryManagement.ViewModels
                     book.Authors.Add(ListAuthors[i]);
                 }
                 DataAdapter.Instance.DB.SaveChanges();
-                InitProperties(book.idBook);
+                SourceImageFile = null;
                 MessageBox.Show("Sửa sách thành công");
             });
 
@@ -324,7 +343,8 @@ namespace LibraryManagement.ViewModels
                 var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
                 DataAdapter.Instance.DB.Books.Remove(book);
                 DataAdapter.Instance.DB.SaveChanges();
-                InitProperties(-1);
+                List.Refresh();
+                SetSelectedItemToFirstItemOfPage(true);
                 GetLastestBooks();
                 MessageBox.Show("Xóa sách thành công");
             });
@@ -359,20 +379,22 @@ namespace LibraryManagement.ViewModels
             MoveToPreviousBooksPage = new AppCommand<object>(
                 p =>
                 {
-                    return ListBook.CurrentPage > 1;
+                    return this.List.CurrentPage > 1;
                 },
                 p =>
                 {
-                    ListBook.MoveToPreviousPage();
+                    List.MoveToPreviousPage();
+                    SetSelectedItemToFirstItemOfPage(true);
                 });
             MoveToNextBooksPage = new AppCommand<object>(
                 p =>
                 {
-                    return ListBook.CurrentPage < ListBook.PageCount;
+                    return this.List.CurrentPage < this.List.PageCount;
                 },
                 p =>
                 {
-                    ListBook.MoveToNextPage();
+                    List.MoveToNextPage();
+                    SetSelectedItemToFirstItemOfPage(true);
                 });
 
             PrevBooks = new AppCommand<object>(
@@ -388,16 +410,19 @@ namespace LibraryManagement.ViewModels
             NextBooks = new AppCommand<object>(
                 p =>
                 {
-                    return ListLatestBooks.CurrentPage < ListBook.PageCount;
+                    return ListLatestBooks.CurrentPage < List.PageCount;
                 },
                 p =>
                 {
                     ListLatestBooks.MoveToNextPage();
                     OnPropertyChanged("ListLatestBooks");
                 });
-
-
-
+            PrepareUpdateImage = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    BookImageCover = GetFullPath(SelectedItem.image);
+                });
         }
 
         private string GetImageName()
@@ -424,44 +449,38 @@ namespace LibraryManagement.ViewModels
             return destinationFile;
         }
 
-        //Search Book function
-        private void SearchBook()
+
+        private void InitBooks(string keyword = null)
         {
-            if (BookSearchKeyword == null || BookSearchKeyword.Trim() == "")
+            if (keyword != null)
             {
-                ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
-                return;
+                List = new BookPaginatingCollection(20, keyword);
             }
-            try
+            else
             {
-                var result = DataAdapter.Instance.DB.Books.Where(
-                                    book => book.nameBook.ToLower().StartsWith(bookSearchKeyword.ToLower())
-                                    );
-                ListBook = new PagingCollectionView<Book>(result.ToList(), 15);
+                List = new BookPaginatingCollection(20);
             }
-            catch (ArgumentNullException)
+            SetSelectedItemToFirstItemOfPage(true);
+        }
+        private void SetSelectedItemToFirstItemOfPage(bool isFirstItem)
+        {
+            if (List.Books == null || List.Books.Count == 0)
             {
-                ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
-                MessageBox.Show("Từ khóa tìm kiếm rỗng!");
+               return;
+            }
+            if (isFirstItem)
+            {
+                SelectedItem = List.Books.FirstOrDefault();
+            }
+            else
+            {
+                SelectedItem = List.Books.LastOrDefault();
             }
         }
 
-        private void InitProperties(int id)
-        {
-            ListBook = new PagingCollectionView<Book>(DataAdapter.Instance.DB.Books.ToList(), 15);
-            if (ListBook.Count > 0)
-            {
-                SelectedItem = id == -1 ? (Book)ListBook.GetItemAt(0) : (Book)ListBook.GetItemById("Book", id);
-                if (id != -1)
-                {
-                    ListBook.MoveToSelectedItem("Book", id);
-                }
-            }   
-        }
         private void GetLastestBooks()
         {
-            var Books = DataAdapter.Instance.DB.Books.OrderByDescending(el => el.dateAddBook).Take(18);
-            ListLatestBooks = new PagingCollectionView<Book>(Books.ToList(), 9);
+            ListLatestBooks = new LatestBookPaginationCollection(9, 18);
         }
     }
 }

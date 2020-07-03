@@ -20,7 +20,7 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid Height="240" ItemsSource="{Binding ListReader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid Height="240" ItemsSource="{Binding ListReader.Readers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                     <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>

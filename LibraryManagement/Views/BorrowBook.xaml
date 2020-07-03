@@ -32,7 +32,7 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBox Name="tbBookName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding BookKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid x:Name="dtgSach" ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="350">
+            <DataGrid x:Name="dtgSach" ItemsSource="{Binding Books.Books, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="350">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -87,7 +87,7 @@
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBox Name="tbReaderName" Background="Transparent" FontSize="16" Margin="10" BorderBrush="Red" Text="{Binding ReaderKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <DataGrid x:Name="dtgReader" ItemsSource="{Binding Readers}" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="180">
+            <DataGrid x:Name="dtgReader" ItemsSource="{Binding Readers.Readers}" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" Height="180">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                     <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
