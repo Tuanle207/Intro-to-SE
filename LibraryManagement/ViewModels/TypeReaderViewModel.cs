@@ -73,15 +73,17 @@ namespace LibraryManagement.ViewModels
             
             AddTypeReaderCommand = new AppCommand<object>((p) =>
             {
-                if (NameAddTypeReader == null || NameAddTypeReader =="")
+                if (NameAddTypeReader == null || NameAddTypeReader == "")
                     return false;
-                else
-                {
-                    return true;
-                }    
-
+                 return true;
             }, (p) =>
             {
+                var displayList = DataAdapter.Instance.DB.TypeReaders.Where(x => x.nameTypeReader.ToLower() == NameAddTypeReader.ToLower());
+                if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("Loại tác giả bị trùng");
+                    return;
+                }
                 var tp = new TypeReader()
                 {
                     nameTypeReader = NameAddTypeReader
@@ -90,7 +92,7 @@ namespace LibraryManagement.ViewModels
                 DataAdapter.Instance.DB.SaveChanges();
                 ListTypeReader.Add(tp);
                 MessageBox.Show("Bạn đã thêm loại độc giả thành công");
-                NameAddTypeReader = "";
+                NameAddTypeReader = null;
 
         });
             DeleteTypeReaderCommand = new AppCommand<object>((p) =>
@@ -106,18 +108,16 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-                try
-                {
-                    var type = DataAdapter.Instance.DB.TypeReaders.Where(x => x.idTypeReader == SelectedItemTypeReader.idTypeReader).SingleOrDefault();
-                    DataAdapter.Instance.DB.TypeReaders.Remove(type);
-                    DataAdapter.Instance.DB.SaveChanges();
-                    ListTypeReader.Remove(type);
-                    MessageBox.Show("Bạn đã xóa loại độc giả thành công");
-                }
-                catch(Exception e)
+                var type = DataAdapter.Instance.DB.TypeReaders.Where(x => x.idTypeReader == SelectedItemTypeReader.idTypeReader).SingleOrDefault();
+                if (DataAdapter.Instance.DB.Readers.Where(el => el.idTypeReader == type.idTypeReader).Count() > 0)
                 {
                     MessageBox.Show("Không thể xóa loại độc giả do còn độc giả tham chiếu!");
+                    return;
                 }
+                DataAdapter.Instance.DB.TypeReaders.Remove(type);
+                DataAdapter.Instance.DB.SaveChanges();
+                ListTypeReader.Remove(type);
+                MessageBox.Show("Bạn đã xóa loại độc giả thành công");
             });
         }
 
