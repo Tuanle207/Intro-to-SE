@@ -3,6 +3,7 @@ using LibraryManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,14 +66,23 @@ namespace LibraryManagement.ViewModels
             //Add Category
             AddCategoryToDBCommand = new AppCommand<object>((p) =>
             {
-                if (NameCategory == null) return false;
-                var displayList = DataAdapter.Instance.DB.Categories.Where(x => x.nameCategory == NameCategory);
-                if (displayList == null)
+                if (NameCategory == null || NameCategory == "")
                     return false;
                 return true;
 
             }, (p) =>
             {
+                if (NameCategory == null)
+                {
+                    MessageBox.Show("Thể loại không được bỏ trống");
+                    return; 
+                }
+                var displayList = DataAdapter.Instance.DB.Categories.Where(x => x.nameCategory.ToLower() == NameCategory.ToLower());
+                if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("Thể loại bị trùng");
+                    return;
+                }
                 var category = new Category()
                 {
                     nameCategory = NameCategory
@@ -93,17 +103,17 @@ namespace LibraryManagement.ViewModels
                 return true;
             }, (p) =>
             {
-                try
+                var category = DataAdapter.Instance.DB.Categories.Where(x => x.idCategory == SelectedItem.idCategory).SingleOrDefault();
+
+                if (DataAdapter.Instance.DB.Books.Where(b => b.idCategory == category.idCategory).Count() > 0) {
+                    MessageBox.Show("Không thể xóa thể loại do thể loại còn được tham chiếu trong sách");
+                }
+                else
                 {
-                    var category = DataAdapter.Instance.DB.Categories.Where(x => x.idCategory == SelectedItem.idCategory).SingleOrDefault();
                     DataAdapter.Instance.DB.Categories.Remove(category);
                     DataAdapter.Instance.DB.SaveChanges();
                     ListCategory.Remove(category);
                     MessageBox.Show("Xóa thể loại thành công");
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Không thể xóa thể loại do thể loại còn được tham chiếu trong sách");
                 }
             });
         }

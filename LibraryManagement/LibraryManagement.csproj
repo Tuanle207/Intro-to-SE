@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderValidations.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\ComfirmPasswordValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\PhoneNumerValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\PasswordValidation.cs" />

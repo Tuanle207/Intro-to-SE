@@ -66,14 +66,22 @@ namespace LibraryManagement.ViewModels
             //AddAuthor
             AddAuthorToDBCommand = new AppCommand<object>((p) =>
             {
-                if (NameAuthor == null) return false;
-                var displayList = DataAdapter.Instance.DB.Authors.Where(x => x.nameAuthor == NameAuthor);
-                if (displayList == null)
+                if (NameAuthor == null || NameAuthor == "")
                     return false;
                 return true;
-
             }, (p) =>
             {
+                if (NameAuthor == null)
+                {
+                    MessageBox.Show("Tên tác giả không được bỏ trống");
+                    return;
+                }
+                var displayList = DataAdapter.Instance.DB.Authors.Where(x => x.nameAuthor.ToLower() == NameAuthor.ToLower());
+                if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("Tên tác giả bị trùng");
+                    return;
+                }
                 var author = new Author()
                 {
                     nameAuthor = NameAuthor
@@ -94,18 +102,19 @@ namespace LibraryManagement.ViewModels
                 return true;
             }, (p) =>
             {
-                try
-                {
                     var author = DataAdapter.Instance.DB.Authors.Where(x => x.idAuthor == SelectedItem.idAuthor).SingleOrDefault();
+                    foreach(var el in DataAdapter.Instance.DB.Books)
+                    {
+                        if (el.Authors.Where(a => a.idAuthor == author.idAuthor).Count() > 0)
+                        {
+                            MessageBox.Show("Không thể xóa tác giả do tác giả còn được tham chiếu trong sách");
+                            return;
+                        }
+                    }
                     DataAdapter.Instance.DB.Authors.Remove(author);
                     DataAdapter.Instance.DB.SaveChanges();
                     ListAuthor.Remove(author);
                     MessageBox.Show("Xóa tác giả thành công");
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Không thể xóa tác giả do tác giả còn được tham chiếu trong sách");
-                }
             });
         }
     }
