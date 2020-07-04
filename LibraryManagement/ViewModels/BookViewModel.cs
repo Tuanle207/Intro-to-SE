@@ -420,6 +420,8 @@ namespace LibraryManagement.ViewModels
                 return true;
             }, (p) =>
             {
+
+
                 string newFileName = GetImageName();
                 /// Copy image to project path
                 if (SourceImageFile != null)
@@ -659,6 +661,15 @@ namespace LibraryManagement.ViewModels
             return destinationFile;
         }
 
+        private bool CheckManufactureDateValidation(DateTime date)
+        {
+            int checkDateManufacture = DataAdapter.Instance.DB.Paramaters.Find(4).valueParameter;
+            if ((DateTime.Now - date).Days > checkDateManufacture * 365)
+            {
+                MessageBox.Show($"Chỉ chấp nhận sách được xuất bản trong vòng {checkDateManufacture} năm");
+            }
+            return true;
+        }
 
         private void InitBooks(string keyword = null)
         {
