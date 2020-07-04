@@ -645,11 +645,11 @@ namespace LibraryManagement.ViewModels
             TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
             if (keyword != null)
             {
-                List = new ReaderPaginatingCollection(15, keyword);
+                List = new ReaderPaginatingCollection(30, keyword);
             }
             else
             {
-                List = new ReaderPaginatingCollection(15);
+                List = new ReaderPaginatingCollection(30);
             }
             SetSelectedItemToFirstItemOfPage(true);
         }

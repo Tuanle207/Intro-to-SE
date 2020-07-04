@@ -631,11 +631,11 @@ AddBookFromFileCommand = new AppCommand<object>((p) =>
         {
             if (keyword != null)
             {
-                List = new BookPaginatingCollection(20, keyword);
+                List = new BookPaginatingCollection(30, keyword);
             }
             else
             {
-                List = new BookPaginatingCollection(20);
+                List = new BookPaginatingCollection(30);
             }
             SetSelectedItemToFirstItemOfPage(true);
         }
