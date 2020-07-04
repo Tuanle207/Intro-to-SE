@@ -218,7 +218,7 @@ namespace LibraryManagement.ViewModels
 
             });
 
-AddBookFromFileCommand = new AppCommand<object>((p) =>
+            AddBookFromFileCommand = new AppCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
@@ -518,6 +518,10 @@ AddBookFromFileCommand = new AppCommand<object>((p) =>
             }, (p) =>
             {
                 var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+                
+                // Find borrow, return
+
+
                 DataAdapter.Instance.DB.Books.Remove(book);
                 DataAdapter.Instance.DB.SaveChanges();
                 List.Refresh();

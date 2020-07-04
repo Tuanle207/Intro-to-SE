@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement.Views"
         mc:Ignorable="d" 
+        xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:command="http://www.galasoft.ch/mvvmlight"
         Title="AddTypeReader" Height="200" Width="600"
         >
@@ -16,8 +17,30 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Margin="10,20" Height="50" Width="100" Content="Nhập tên loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="12" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtAddTypeReader" Grid.Column="1" Margin="10,20"   Text="{Binding NameAddTypeReader, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"    Background="#FFE2DADA" FontSize="20" Height="50" Width="100" ></TextBox>
+        <TextBox x:Name="txtAddTypeReader" Grid.Column="1" Margin="10,20"    Background="#FFE2DADA" FontSize="20" Height="50" Width="100" >
+            <TextBox.Text>
+                <Binding Path="NameAddTypeReader"
+                        UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" >
+                    <Binding.ValidationRules>
+                        <vm:AuthorValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Button Command="{Binding AddTypeReaderCommand}" Click="Button_Click"  Margin="10,20" Height="50" Width="150" Grid.Column="2" Content="Thêm loại độc giả" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="false" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=txtAddTypeReader, Path=(Validation.HasError)}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
     </Grid>
 </Window>
