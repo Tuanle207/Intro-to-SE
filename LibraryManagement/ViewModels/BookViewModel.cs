@@ -16,6 +16,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using OfficeOpenXml.Filter;
 
 namespace LibraryManagement.ViewModels
 {
@@ -518,16 +519,44 @@ namespace LibraryManagement.ViewModels
             }, (p) =>
             {
                 var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
-                
-                // Find borrow, return
 
+                // Check if book is being borrowed? if it is, do not delete it.
+                var isBeingBorrowed = DataAdapter.Instance.DB.DetailBillBorrows
+                    .Where(el => el.idBook == book.idBook && el.returned == 0)
+                    .Count() > 0;
+                if (isBeingBorrowed)
+                {
+                    MessageBox.Show("Không thể xóa sách đang được mượn");
+                    return;
+                }
 
+                // Otherwise, delete it anyway
+                // 1. Delete all information about detail borrow
+                var detailBorrow = DataAdapter.Instance.DB.DetailBillBorrows.Where(el => el.idBook == el.idBook);
+                DataAdapter.Instance.DB.DetailBillBorrows.RemoveRange(detailBorrow);
+                // 2. Delete all information about detail return
+                var detailReturn = DataAdapter.Instance.DB.DetailBillReturns.Where(el => el.idBook == el.idBook);
+                DataAdapter.Instance.DB.DetailBillReturns.RemoveRange(detailReturn);
+                // 3. finally delete it
                 DataAdapter.Instance.DB.Books.Remove(book);
-                DataAdapter.Instance.DB.SaveChanges();
-                List.Refresh();
-                SetSelectedItemToFirstItemOfPage(true);
-                GetLastestBooks();
-                MessageBox.Show("Xóa sách thành công");
+
+                // save changes to DB
+                try
+                {
+                    DataAdapter.Instance.DB.SaveChanges();
+                    MessageBox.Show("Xóa sách thành công");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Đã có lỗi xảy ra, không thể thực hiện thao tác xóa sách");
+                }
+                finally
+                {
+                    List.Refresh();
+                    SetSelectedItemToFirstItemOfPage(true);
+                    GetLastestBooks();
+                }
+                
             });
 
             //Delete Author in List Author

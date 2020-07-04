@@ -17,6 +17,7 @@ using System.IO;
 using System.Windows.Controls;
 using Microsoft.Office.Interop.Excel;
 using System.Collections.Generic;
+using System.Runtime.Remoting;
 
 namespace LibraryManagement.ViewModels
 {
@@ -118,8 +119,8 @@ namespace LibraryManagement.ViewModels
         public ICommand MoveToPreviousReadersPage { get; set; }
         public ICommand MoveToNextReadersPage { get; set; }
         public ICommand ExtendReaderCard { get; set; }
-        public AppCommand<object> ExportReader { get; set; }
-        public AppCommand<object> ImportReaderOld { get; set; }
+        public ICommand ExportReader { get; set; }
+        public ICommand ImportReaderOld { get; set; }
 
         public AppCommand<object> ImportReaderNew { get; set; }
 
@@ -217,18 +218,67 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
+                var reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
+
+                // Check if reader is borrowing any book? if it is, do not delete reader
+                var borrowing = DataAdapter.Instance.DB.DetailBillBorrows
+                    .Where(el => el.BillBorrow.idReader == reader.idReader && el.returned == 0)
+                    .Count() > 0;
+                if (borrowing)
+                {
+                    MessageBox.Show("Không thể xóa độc giả đang mượn sách");
+                    return;
+                }
+                // Check if reader still has debt need to payment? if it is, do not delete reader
+                if (reader.debt > 0)
+                {
+                    MessageBox.Show("Không thể xóa độc giả còn nợ");
+                    return;
+                }
+
+                // Otherwise, delete reader anyway
+                // 1. delete information about borrowing
+                var borrowed = DataAdapter.Instance.DB.BillBorrows
+                    .Where(el => el.idReader == reader.idReader);
+                foreach(var el in borrowed)
+                {
+                    var detailBorrowedCorresponding = DataAdapter.Instance.DB.DetailBillBorrows
+                        .Where(detail => detail.idBillBorrow == el.idBillBorrow);
+                    DataAdapter.Instance.DB.DetailBillBorrows.RemoveRange(detailBorrowedCorresponding);
+                }
+                DataAdapter.Instance.DB.BillBorrows.RemoveRange(borrowed);
+                
+                // 2. delete information about returning
+                var returned = DataAdapter.Instance.DB.BillReturns
+                    .Where(el => el.idReader == reader.idReader);
+                foreach (var el in returned)
+                {
+                    var detailReturnedCorresponding = DataAdapter.Instance.DB.DetailBillReturns
+                        .Where(detail => detail.idBillReturn == el.idBillReturn);
+                    DataAdapter.Instance.DB.DetailBillReturns.RemoveRange(detailReturnedCorresponding);
+                }
+                DataAdapter.Instance.DB.BillReturns.RemoveRange(returned);
+
+                // 3. delete information about collecting fine
+                var collected = DataAdapter.Instance.DB.Payments.Where(el => el.idReader == reader.idReader);
+                DataAdapter.Instance.DB.Payments.RemoveRange(collected);
+
+                // finnally delete it
+
+                DataAdapter.Instance.DB.Readers.Remove(reader);
                 try
-                { 
-                    var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
-                    DataAdapter.Instance.DB.Readers.Remove(Reader);
+                {
                     DataAdapter.Instance.DB.SaveChanges();
+                    MessageBox.Show("Xóa độc giả thành công");
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show("Đã có lỗi xảy ra, không thể thực hiện thao tác xóa độc giả");
+                }
+                finally
+                {
                     List.Refresh();
                     SetSelectedItemToFirstItemOfPage(true);
-                    MessageBox.Show("Bạn đã xóa người dùng thành công");
-                }
-                catch(Exception a)
-                {
-                    MessageBox.Show("Độc giả đang mượn sách");
                 }
             });
             PrepareAddReaderCommand = new AppCommand<object>(
