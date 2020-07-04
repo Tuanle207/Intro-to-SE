@@ -40,11 +40,11 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Tháng" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
-                <ComboBox Name="month" Loaded="month_Loaded" SelectedItem="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="80"  VerticalAlignment="Center" HorizontalAlignment="Left">
+                <ComboBox Name="month" Loaded="month_Loaded" SelectedItem="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="60"  VerticalAlignment="Center" HorizontalAlignment="Left">
                 </ComboBox>
                 <TextBlock Grid.Column="2" Text="Năm" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 </TextBlock>
-                <ComboBox Name="year"  Loaded="year_Loaded" SelectedItem="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="100"  VerticalAlignment="Center" HorizontalAlignment="Left">
+                <ComboBox Name="year"  Loaded="year_Loaded" SelectedItem="{Binding Year,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="60"  VerticalAlignment="Center" HorizontalAlignment="Left">
                 </ComboBox>
                 <Button Foreground="Black" Background="#FF47608E" Command="{Binding LoadReportCategory}" Grid.Column="4" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0 0 10 0" Height="40"/>
                
@@ -75,15 +75,15 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Foreground="Black" Grid.Column="0"  Content="Tổng số lượt mượn" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Height="30" Margin="0,33,7,33"/>
-                <TextBox Foreground="Black" x:Name="sumTurn" Grid.Column="1" BorderThickness="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" Padding="5 0" FontSize="20" Height="36" Width="100" HorizontalAlignment="Left" >
+                <Label Foreground="Black" Grid.Column="0"  Content="Tổng số lượt mượn" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Height="30" Margin="20,33,7,33"/>
+                <TextBox Foreground="Black" x:Name="sumTurn" Grid.Column="1" BorderThickness="1" Text="{Binding SumBorrow, UpdateSourceTrigger=PropertyChanged}" Padding="5 0" FontSize="20" Height="36" Width="80" HorizontalAlignment="Left" >
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="10"/>
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
-                <Button Foreground="Black" Background="#FF47608E" Command="{Binding ExportCategory}" Margin="9.4,23,10,23" Grid.Column="2" Width="Auto" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button Foreground="Black" Background="#FF47608E" Command="{Binding ExportCategory}" Margin="50,23,50,23" Grid.Column="2" Width="Auto" Height="50" Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
         <!--Phần 2-->
@@ -101,7 +101,7 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <DatePicker Name="Day" Loaded="day_Loaded"  Grid.Column="0" SelectedDate="{ Binding DateExpired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120"/>
+                <DatePicker Name="Day" Loaded="day_Loaded"  Grid.Column="0" SelectedDate="{ Binding DateExpired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100"/>
                 <Button Foreground="Black" Background="#FF47608E" Command="{Binding LoadReportLate}" Grid.Column="1" Content="Tìm kiếm" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0 0 20 0" Height="40"/>
             </Grid>
         </Grid>
@@ -130,7 +130,7 @@
                     <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Foreground="Black" Background="#FF47608E" Command="{Binding ExportLate}" Margin="0 10 20 10" Grid.Column="3" Width="Auto" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button Foreground="Black" Background="#FF47608E" Command="{Binding ExportLate}" Margin="50 10 60 10" Grid.Column="3" Width="Auto" Height="50"  Content="Xuất báo cáo" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
             </Grid>
         </Grid>
 

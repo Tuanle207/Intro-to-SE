@@ -64,7 +64,7 @@ namespace LibraryManagement.ViewModels
         /// Command for buttons
         /// </summary>
         public ICommand CollectFine { get; set; }
-        
+
 
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace LibraryManagement.ViewModels
             }
             else ReaderSelected = null;
             CollectedAmount = 0;
-            
+
         }
         private void SearchReader()
         {

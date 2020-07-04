@@ -22,7 +22,7 @@ namespace LibraryManagement.ViewModels
         private int _ageMax;
         public int ageMax
         {
-            get => _ageMax; set { _ageMax = value; OnPropertyChanged();}
+            get => _ageMax; set { _ageMax = value; OnPropertyChanged(); }
         }
 
         private int _expiryDate;
@@ -55,7 +55,7 @@ namespace LibraryManagement.ViewModels
             get => _dateBorrowMax; set { _dateBorrowMax = value; OnPropertyChanged(); }
         }
 
-     
+
         public ICommand EditParametersCommand { get; set; }
         public ICommand InitParamaters { get; set; }
 
@@ -65,7 +65,9 @@ namespace LibraryManagement.ViewModels
             EditParametersCommand = new AppCommand<object>(
                 (p) =>
                 {
-                    return true;
+                    if (ageMin > 0 && ageMax > 0 && expiryDate > 0 && distancePublish > 0 && bookBorrowMax > 0 && moneyPenalty >= 0 && dateBorrowMax > 0)
+                        return true;
+                    return false;
                 }, (p) =>
                 {
                     // Sửa lại các giá trị 
@@ -104,6 +106,6 @@ namespace LibraryManagement.ViewModels
             bookBorrowMax = DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
             moneyPenalty = DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
             dateBorrowMax = DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
-    }
+        }
     }
 }

@@ -37,13 +37,16 @@ namespace LibraryManagement.ViewModels
                 SearchReader();
             }
         }
-        public PagingCollectionView<Reader> ListReader {
+        public PagingCollectionView<Reader> ListReader
+        {
             get => listReader;
             set { listReader = value; OnPropertyChanged(); }
         }
-        public Reader ReaderSelected {
+        public Reader ReaderSelected
+        {
             get => readerSelected;
-            set {
+            set
+            {
                 readerSelected = value;
                 OnPropertyChanged();
                 RetrieveDetailBorrow();
@@ -54,15 +57,18 @@ namespace LibraryManagement.ViewModels
                 }
             }
         }
-        public ObservableCollection<DetailBillBorrow> ListDetailBorrowCorresponding {
+        public ObservableCollection<DetailBillBorrow> ListDetailBorrowCorresponding
+        {
             get => listDetailBorrowCorresponding;
             set { listDetailBorrowCorresponding = value; OnPropertyChanged(); }
         }
-        public ObservableCollection<DetailBillBorrow> ListDetailBorrowSelected {
+        public ObservableCollection<DetailBillBorrow> ListDetailBorrowSelected
+        {
             get => listDetailBorrowSelected;
             set { listDetailBorrowSelected = value; OnPropertyChanged(); }
         }
-        public BillReturn BillReturn {
+        public BillReturn BillReturn
+        {
             get => billReturn;
             set
             {
@@ -199,6 +205,7 @@ namespace LibraryManagement.ViewModels
                     {
                         // Change Application state to intialize state
                         RetrieveDataAndClearInput();
+                        MessageBox.Show("Trả sách thành công!");
                     }
                 });
             MoveToPreviousReadersPage = new AppCommand<object>(
@@ -272,12 +279,12 @@ namespace LibraryManagement.ViewModels
                                                      select d;
                     ListDetailBorrowCorresponding = new ObservableCollection<DetailBillBorrow>(BooksBorrowedCorresponding);
                 }
-                catch(ArgumentNullException)
+                catch (ArgumentNullException)
                 {
                     MessageBox.Show("Đã có lỗi xảy ra khi đọc dữ liệu!");
                     RetrieveDataAndClearInput();
                 }
-               
+
             }
             else
             {
@@ -303,7 +310,7 @@ namespace LibraryManagement.ViewModels
             OnPropertyChanged("BillReturn");
         }
         private int getFine(DateTime date, int finePerExcessDay, int daysBorrowAllowed)
-        {   
+        {
             int fine = (DateTime.Now.Subtract(date).Days - daysBorrowAllowed) * finePerExcessDay;
             if (fine < 0) fine = 0;
             return fine;

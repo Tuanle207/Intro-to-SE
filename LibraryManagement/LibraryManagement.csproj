@@ -162,6 +162,10 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AuthorViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\TypeReaderModel.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\AuthorValidation.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\CategoryValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\MoneyPenaltyValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\ExpiryDateValidation.cs" />
     <Compile Include="ViewModels\Validations\ParameterValidations\DistancePublishValidation.cs" />
@@ -187,8 +191,17 @@
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
+    <Compile Include="Views\AddAuthorScreen.xaml.cs">
+      <DependentUpon>AddAuthorScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddCategoryScreen.xaml.cs">
+      <DependentUpon>AddCategoryScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddStaff.xaml.cs">
       <DependentUpon>AddStaff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuthorScreen.xaml.cs">
+      <DependentUpon>AuthorScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BorrowBook.xaml.cs">
       <DependentUpon>BorrowBook.xaml</DependentUpon>
@@ -204,6 +217,9 @@
     </Compile>
     <Compile Include="Views\BookScreen.xaml.cs">
       <DependentUpon>BookScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryScreen.xaml.cs">
+      <DependentUpon>CategoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChangeRegulation.xaml.cs">
       <DependentUpon>ChangeRegulation.xaml</DependentUpon>
@@ -232,6 +248,12 @@
     <Compile Include="Views\StaffScreen.xaml.cs">
       <DependentUpon>StaffScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewAddTypeReader.xaml.cs">
+      <DependentUpon>ViewAddTypeReader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewTypeReader.xaml.cs">
+      <DependentUpon>ViewTypeReader.xaml</DependentUpon>
+    </Compile>
     <Page Include="DataContextDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -252,7 +274,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddAuthorScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddCategoryScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthorScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BookScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -305,6 +343,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StaffScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewAddTypeReader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewTypeReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,6 +422,7 @@
   <ItemGroup>
     <Resource Include="Assets\uit.jpg" />
     <Resource Include="Assets\backgroundLogin.jpg" />
+    <Resource Include="icon.png" />
     <Content Include="Models\DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataModel.edmx</DependentUpon>

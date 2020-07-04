@@ -177,7 +177,7 @@
                         <TextBlock Foreground="Black" Text="Cập nhật" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnLuu" Click="btnLuu_Click" Command="{Binding EditCommand}" Height="Auto" Width="Auto" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 10 10 20" Visibility="Hidden">
+                <Button x:Name="btnLuu" Click="btnLuu_Click" Command="{Binding EditCommand}" Height="80" Width="220" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 10 10 20" Visibility="Hidden">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="IsEnabled" Value="false" />

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:LibraryManagement.Views" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+          
              d:DesignHeight="600" d:DesignWidth="800"  Background="#FFF0F0F0">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -43,8 +44,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2.3*"/>
+                <RowDefinition Height="3.3*"/>
             </Grid.RowDefinitions>
             <Button Grid.Column="0" Grid.Row="0" Height="80" Width="220" Background="#FF00BB9A"  BorderBrush="{x:Null}" Margin="10" HorizontalContentAlignment="Left" Click="ButtonBorrowBook_Click">
                 <Grid>
@@ -72,27 +72,21 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Foreground="Black" Grid.Column="1" Text="Phạt" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="10"/>
+                    <TextBlock Foreground="Black" Grid.Column="1" Text="Phạt" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="30 10 10 10"/>
                     <materialDesign:PackIcon Foreground="Black" Kind="CloseOctagonOutline" Grid.Column="0" Width="40" Height="40"/>
                 </Grid>
             </Button>
             <Button Background="#FF47608E" Click="ButtonChangeRegulation_Click" Grid.Column="0" Grid.Row="1" Height="80" Width="220" BorderBrush="{x:Null}"  Margin="10" HorizontalContentAlignment="Left">
-                <TextBlock Foreground="Black" Grid.Column="1" Text="Thay đổi quy định" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" />
-           
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Foreground="Black" Kind="KeyChange" Grid.Column="0" Width="25" Height="25" Margin="0 0 0 0"/>
+                <TextBlock Foreground="Black" Grid.Column="1" Text="Thay đổi quy định" VerticalAlignment="Center" FontSize="14.5" FontWeight="Bold" Margin="5 0 0 0" />
+                </Grid>
             </Button>
-            <Button Height="80" Width="220" Grid.Row="2"  Grid.Column="0" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <materialDesign:PackIcon Foreground="Black" Kind="AccountMultiplePlus" Width="40" Height="40" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="Black" Text="Thêm tác giả" Margin="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-                </StackPanel>
-                
-            </Button>
-            <Button  Height="80" Width="220" Grid.Column="1" Grid.Row="2" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
-                <StackPanel Orientation="Horizontal" Margin="0">
-                    <materialDesign:PackIcon Foreground="Black" Kind="AccountMultiplePlus" Width="40" Height="40"  VerticalAlignment="Center" Margin="0"/>
-                    <TextBlock Foreground="Black" Text="Thêm thể loại" Margin="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-                </StackPanel>
-            </Button>
+        
         </Grid>
     </Grid>
 </UserControl>

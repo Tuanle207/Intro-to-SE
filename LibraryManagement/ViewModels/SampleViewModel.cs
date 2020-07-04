@@ -15,10 +15,12 @@ namespace LibraryManagement.ViewModels
         // List of Paramater loaded from database
         private ObservableCollection<Paramater> paramatersList;
         // Property for encapsulation
-        public ObservableCollection<Paramater> ParamatersList { 
-            get => paramatersList; 
-            set { 
-                paramatersList = value; 
+        public ObservableCollection<Paramater> ParamatersList
+        {
+            get => paramatersList;
+            set
+            {
+                paramatersList = value;
                 OnPropertyChanged();
             }
         }
@@ -58,6 +60,6 @@ namespace LibraryManagement.ViewModels
             // Create a new instance of ObservableColleion with List as constructor's paramater.
             paramatersList = new ObservableCollection<Paramater>(List);
         }
-  
+
     }
 }

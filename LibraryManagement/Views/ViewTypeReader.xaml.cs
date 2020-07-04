@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using LibraryManagement.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,23 +14,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for AddMember.xaml
+    /// Interaction logic for ViewTypeReader.xaml
     /// </summary>
-    public partial class AddReader : Window
+    public partial class ViewTypeReader : Window
     {
-        public AddReader()
+        public ViewTypeReader()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnAddTypeReader_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            ViewAddTypeReader w = new ViewAddTypeReader();
+            w.ShowDialog();
         }
     }
 }

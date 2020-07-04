@@ -11,23 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for AddMember.xaml
+    /// Interaction logic for AuthorScreen.xaml
     /// </summary>
-    public partial class AddReader : Window
+    public partial class AuthorScreen : Window
     {
-        public AddReader()
+        public AuthorScreen()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

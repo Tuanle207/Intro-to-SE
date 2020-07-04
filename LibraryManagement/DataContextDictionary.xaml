@@ -13,6 +13,8 @@
     <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
     <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
     <viewmodel:ReportViewModel x:Key="ReportViewModel"></viewmodel:ReportViewModel>
+    <viewmodel:AuthorViewModel x:Key="AuthorViewModel"></viewmodel:AuthorViewModel>
+    <viewmodel:CategoryViewModel x:Key="CategoryViewModel"></viewmodel:CategoryViewModel>
 
     <!-- Value Converter -->
     <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>

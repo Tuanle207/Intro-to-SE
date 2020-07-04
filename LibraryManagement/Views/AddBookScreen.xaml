@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Background="#FFBFD4FF"
         DataContext="{StaticResource BookViewModel}"
-      
+      Icon="icon.png"
         Title="Thêm Sách" Height="600" Width="600">
     <Window.Resources>
         <ControlTemplate x:Key="textBoxErrorTemplate">

@@ -35,15 +35,6 @@ namespace LibraryManagement.ViewModels
             get => _accountStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Tên tài khoản là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _accountStaff = value; OnPropertyChanged();
             }
         }
@@ -54,15 +45,6 @@ namespace LibraryManagement.ViewModels
             get => _passwordStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Mật khẩu là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _passwordStaff = value; OnPropertyChanged();
             }
         }
@@ -73,15 +55,6 @@ namespace LibraryManagement.ViewModels
             get => _newPasswordStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Mật khẩu là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _newPasswordStaff = value; OnPropertyChanged();
             }
         }
@@ -92,15 +65,6 @@ namespace LibraryManagement.ViewModels
             get => _confirmPasswordStaff;
             set
             {
-                string str = value as string;
-                if (!(str.Length > 0 && str != null))
-                {
-                    throw new Exception("Mật khẩu là bắt buộc");
-                }
-                if (value.Length < 3)
-                {
-                    throw new Exception("Số ký tự tối thiểu là 3");
-                }
                 _confirmPasswordStaff = value; OnPropertyChanged();
             }
         }
@@ -133,7 +97,7 @@ namespace LibraryManagement.ViewModels
             get => _nameStaff;
             set
             {
-                _nameStaff = value; 
+                _nameStaff = value;
                 OnPropertyChanged();
             }
         }
@@ -174,7 +138,7 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-                
+
                 for (int i = 0; i < List.Count; i++)
                 {
                     string username = List[i].accountStaff;
@@ -192,7 +156,7 @@ namespace LibraryManagement.ViewModels
                         break;
                     }
                     else CurrentStaff = null;
-                }    
+                }
                 if (CurrentStaff == null)
                 {
                     MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);

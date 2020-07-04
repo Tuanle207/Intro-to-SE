@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:LibraryManagement.Views" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         DataContext="{StaticResource ParameterViewModel}"
-
+         Background="#FFBFD4FF"
+        Icon="icon.png"
         Title="Thay đổi quy định" Height="500" Width="600">
 
     <Window.Resources>
@@ -29,204 +31,206 @@
             <RowDefinition Height="7*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Label Foreground="Black" Content="Tuổi tối thiểu" FontSize="16" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-            </Grid>
-            <Grid Grid.Column="1" Grid.Row="0" >
-                <TextBox Foreground="Black" Margin="10" Width="250" Padding="5 0 0 0" Height="35" 
+        <materialDesign:Card Grid.Row="0" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label Foreground="Black" Content="Tuổi tối thiểu" FontSize="16" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="0" >
+                    <TextBox Foreground="Black" Margin="10" Width="250" Padding="5 0 0 0" Height="35" 
                     Name="ageMin" BorderThickness="1" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                      Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                    <TextBox.Resources>
-                        <local:BindingProxy x:Key="proxyAgeMin" Data="{Binding ageMax}"/>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                    <TextBox.Text>
-                        <Binding Path="ageMin" UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:AgeMinValidation>
-                                    <vm:AgeMinValidation.Wrapper>
-                                        <vm:AgeMinValidationWrapper MaxValue="{Binding Data, Source={StaticResource proxyAgeMin}}"/>
-                                    </vm:AgeMinValidation.Wrapper>
-                                </vm:AgeMinValidation>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </Grid>
+                        <TextBox.Resources>
+                            <local:BindingProxy x:Key="proxyAgeMin" Data="{Binding ageMax}"/>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="ageMin" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:AgeMinValidation>
+                                        <vm:AgeMinValidation.Wrapper>
+                                            <vm:AgeMinValidationWrapper MaxValue="{Binding Data, Source={StaticResource proxyAgeMin}}"/>
+                                        </vm:AgeMinValidation.Wrapper>
+                                    </vm:AgeMinValidation>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
 
-            <Grid Grid.Row ="1" Grid.Column="0" Margin="10">
-                <Label Foreground="Black" Height="42" Content="Tuổi tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <TextBox  Foreground="Black"
+                <Grid Grid.Row ="1" Grid.Column="0" Margin="10">
+                    <Label Foreground="Black" Height="42" Content="Tuổi tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <TextBox  Foreground="Black"
                     Name="ageMax" Width="250" Margin="10"  Height="35" 
                     BorderThickness="1" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                    <TextBox.Resources>
-                        <local:BindingProxy x:Key="proxyAgeMax" Data="{Binding ageMin}"/>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                    <TextBox.Text>
-                        <Binding Path="ageMax" UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:AgeMaxValidation>
-                                    <vm:AgeMaxValidation.Wrapper>
-                                        <vm:AgeMaxValidationWrapper MinValue="{Binding Data, Source={StaticResource proxyAgeMax}}"/>
-                                    </vm:AgeMaxValidation.Wrapper>
-                                </vm:AgeMaxValidation>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row ="2" Grid.Column="0" Margin="10">
+                        <TextBox.Resources>
+                            <local:BindingProxy x:Key="proxyAgeMax" Data="{Binding ageMin}"/>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="ageMax" UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.ValidationRules>
+                                    <vm:AgeMaxValidation>
+                                        <vm:AgeMaxValidation.Wrapper>
+                                            <vm:AgeMaxValidationWrapper MinValue="{Binding Data, Source={StaticResource proxyAgeMax}}"/>
+                                        </vm:AgeMaxValidation.Wrapper>
+                                    </vm:AgeMaxValidation>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row ="2" Grid.Column="0" Margin="10">
 
 
-                <Label Foreground="Black" Height="42" Content="Thời hạn thẻ (tháng)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <Label Foreground="Black" Height="42" Content="Thời hạn thẻ (tháng)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="1">
-                <TextBox  Foreground="Black"
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <TextBox  Foreground="Black"
                     Name="expiryDate" Width="250" Margin="10" BorderThickness="1"  Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0 " Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                    <TextBox.Text>
-                        <Binding Path="expiryDate"
+                        <TextBox.Text>
+                            <Binding Path="expiryDate"
                         UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:ExpiryDateValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row ="3" Grid.Column="0" Margin="10">
+                                <Binding.ValidationRules>
+                                    <vm:ExpiryDateValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row ="3" Grid.Column="0" Margin="10">
 
 
-                <Label Foreground="Black" Height="42" Content="Khoảng cách năm xuất bản (năm)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <Label Foreground="Black" Height="42" Content="Khoảng cách năm xuất bản (năm)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
-            </Grid>
-            <Grid Grid.Row="3" Grid.Column="1">
-                <TextBox Foreground="Black"
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="1">
+                    <TextBox Foreground="Black"
                     Name="distancePublish" Width="250" Margin="10" BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                    <TextBox.Text>
-                        <Binding Path="distancePublish"
+                        <TextBox.Text>
+                            <Binding Path="distancePublish"
                         UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:DistancePublishValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row ="4" Grid.Column="0" Margin="10">
+                                <Binding.ValidationRules>
+                                    <vm:DistancePublishValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row ="4" Grid.Column="0" Margin="10">
 
-                <Label Foreground="Black" Height="42" Content="Số sách mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <Label Foreground="Black" Height="42" Content="Số sách mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
-            </Grid>
-            <Grid Grid.Row="4" Grid.Column="1">
-                <TextBox Foreground="Black"
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="1">
+                    <TextBox Foreground="Black"
                     Name="bookBorrowMax" Width="250" Margin="10"  BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}" >
-                    <TextBox.Text>
-                        <Binding Path="bookBorrowMax"
+                        <TextBox.Text>
+                            <Binding Path="bookBorrowMax"
                         UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:BookBorrowMaxValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row ="5" Margin="10">
+                                <Binding.ValidationRules>
+                                    <vm:BookBorrowMaxValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row ="5" Margin="10">
 
-                <Label Foreground="Black" Height="42" Content="Số ngày mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <Label Foreground="Black" Height="42" Content="Số ngày mượn tối đa" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
-            </Grid>
-            <Grid Grid.Row="5"  Grid.Column="1">
-                <TextBox Foreground="Black"
+                </Grid>
+                <Grid Grid.Row="5"  Grid.Column="1">
+                    <TextBox Foreground="Black"
                     Name="dateBorrowMax" Width="250" Margin="10" BorderThickness="1"  Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0 " Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                    <TextBox.Text>
-                        <Binding Path="dateBorrowMax"
+                        <TextBox.Text>
+                            <Binding Path="dateBorrowMax"
                         UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:DateBorrowMaxValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row ="6" Margin="10">
+                                <Binding.ValidationRules>
+                                    <vm:DateBorrowMaxValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row ="6" Margin="10">
 
-                <Label Foreground="Black" Height="42" Content="Tiền phạt trễ (VNĐ/ngày)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <Label Foreground="Black" Height="42" Content="Tiền phạt trễ (VNĐ/ngày)" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
 
-            </Grid>
-            <Grid Grid.Row="6" Grid.Column="1">
-                <TextBox Foreground="Black"
+                </Grid>
+                <Grid Grid.Row="6" Grid.Column="1">
+                    <TextBox Foreground="Black"
                     Name="moneyPenalty" Width="250" Margin="10" BorderThickness="1" Height="35" 
                     FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" 
                     Padding="5 0 0 0" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                    <TextBox.Text>
-                        <Binding Path="moneyPenalty"
+                        <TextBox.Text>
+                            <Binding Path="moneyPenalty"
                         UpdateSourceTrigger="PropertyChanged" >
-                            <Binding.ValidationRules>
-                                <vm:MoneyPenaltyValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                                <Binding.ValidationRules>
+                                    <vm:MoneyPenaltyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
             </Grid>
-        </Grid>
+        </materialDesign:Card>
         <Grid Grid.Row="1">
             <Grid Grid.Row="7" Margin="10">
                 <Button Command="{Binding EditParametersCommand}" FontWeight="Bold" Content="Xác nhận" Background="#FF47608E" FontSize="20" Width="150" Click="Button_Click" >

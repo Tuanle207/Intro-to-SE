@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for AddMember.xaml
+    /// Interaction logic for AddCategoryScreen.xaml
     /// </summary>
-    public partial class AddReader : Window
+    public partial class AddCategoryScreen : Window
     {
-        public AddReader()
+        public AddCategoryScreen()
         {
             InitializeComponent();
         }

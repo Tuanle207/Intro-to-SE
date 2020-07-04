@@ -596,7 +596,7 @@ namespace LibraryManagement.ViewModels
                         }
                         MessageBox.Show("Xuất excel thành công!");
                     }
-                    catch (Exception EE)
+                    catch (Exception E)
                     {
                         MessageBox.Show("Có lỗi khi lưu file");
                     }

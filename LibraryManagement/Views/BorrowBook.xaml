@@ -11,6 +11,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         Title="Cho mượn sách"
+        Icon="icon.png"
         DataContext="{StaticResource BorrowBookViewModel}"
        WindowState="Maximized" Loaded="Window_Loaded">
 
