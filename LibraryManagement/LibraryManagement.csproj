@@ -166,7 +166,9 @@
     <Compile Include="ViewModels\Paginations\LatestBookPaginationCollection.cs" />
     <Compile Include="ViewModels\Paginations\PaginatingCollection.cs" />
     <Compile Include="ViewModels\Paginations\ReaderPaginatingCollection.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\AuthorNameValidation.cs" />
     <Compile Include="ViewModels\Validations\BookValidations\BookNameValidation.cs" />
+    <Compile Include="ViewModels\Validations\BookValidations\CategoryNameValidation.cs" />
     <Compile Include="ViewModels\Validations\LoginValidations\PasswordLoginValidation.cs" />
     <Compile Include="ViewModels\Validations\LoginValidations\UserNameLoginValidation.cs" />
     <Compile Include="ViewModels\TypeReaderViewModel.cs" />
@@ -195,13 +197,13 @@
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\Validations\CollectFineValidation\CollectedAmountValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderNameValiadtion.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderAddressValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDebtValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
-    <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderNameValidation.cs" />
-    <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderValidations.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\ComfirmPasswordValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\PhoneNumerValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\PasswordValidation.cs" />

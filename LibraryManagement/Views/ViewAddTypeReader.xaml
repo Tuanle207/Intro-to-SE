@@ -29,7 +29,7 @@
                 <Binding Path="NameAddTypeReader"
                         UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" >
                     <Binding.ValidationRules>
-                        <vm:TypeReaderNameValidation/>
+                        <vm:TypeReaderNameValiadtion/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
