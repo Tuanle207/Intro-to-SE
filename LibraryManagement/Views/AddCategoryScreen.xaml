@@ -28,7 +28,7 @@
                 <Binding Path="NameCategory"
                         UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" >
                     <Binding.ValidationRules>
-                        <vm:CategoryValidation/>
+                        <vm:CategoryNameValidation/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>

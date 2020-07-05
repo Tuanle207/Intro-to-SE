@@ -27,7 +27,7 @@
                 <Binding Path="NameAuthor"
                         UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" >
                     <Binding.ValidationRules>
-                        <vm:AuthorValidation/>
+                        <vm:AuthorNameValidation/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>

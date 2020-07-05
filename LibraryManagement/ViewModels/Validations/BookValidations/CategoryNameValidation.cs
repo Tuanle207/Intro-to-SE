@@ -4,13 +4,14 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace LibraryManagement.ViewModels
 {
-    public class TypeReaderValidations : ValidationRule
+    public class CategoryNameValidation : ValidationRule
     {
-        public TypeReaderValidations()
+        public CategoryNameValidation()
         {
         }
 
@@ -18,12 +19,12 @@ namespace LibraryManagement.ViewModels
         {
             try
             {
-                if (string.IsNullOrEmpty((string)value) == true)
-                    return new ValidationResult(false, "Vui lòng nhập tên tác giả");
+                if (value == null || ((string)value).Trim().Length == 0)
+                    return new ValidationResult(false, "Vui lòng nhập tên thể loại sách mới");
             }
             catch (Exception)
             {
-                return new ValidationResult(false, "Vui lòng nhập tên tác giả");
+                return new ValidationResult(false, "Tên thể loại mới không hợp lệ!");
             }
             return ValidationResult.ValidResult;
         }
