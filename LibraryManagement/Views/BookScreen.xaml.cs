@@ -26,7 +26,7 @@ namespace LibraryManagement.Views
         {
             InitializeComponent();
         }
-        
+
         private void UpdateBook_Click(object sender, RoutedEventArgs e)
         {
             // Set source binding to BookImageCover
@@ -34,24 +34,32 @@ namespace LibraryManagement.Views
             BindingOperations.SetBinding(imgCover, Image.SourceProperty, imgBinding);
 
             SaveBook.Visibility = Visibility.Visible;
+            CancelUpdate.Visibility = Visibility.Visible;
             UpdateBook.Visibility = Visibility.Hidden;
-            NameBook.IsEnabled = true;
+            NameBook.IsReadOnly = false;
             Category.IsEnabled = true;
-            ListAuthor.IsEnabled = true;
-            Author.Visibility = Visibility.Visible;
             Publisher.IsEnabled = true;
             DateManufacture.IsEnabled = true;
-            Price.IsEnabled = true;
+            Price.IsReadOnly = false;
             btnSelectImage.Visibility = Visibility.Visible;
+            AddBook.IsEnabled = false;
 
+            tbAuthors.Visibility = Visibility.Hidden;
+            changeAuthors.Visibility = Visibility.Visible;
+            lbAuthor.VerticalAlignment = VerticalAlignment.Top;
+            inforGrid.RowDefinitions[2].Height = new GridLength(3, GridUnitType.Star);
+
+            SearchBox.IsEnabled = false;
+            operation.Visibility = Visibility.Hidden;
             //Tắt hết các tính năng không liên quan
-            AddBook.Visibility = Visibility.Hidden;
+
             DeleteBook.Visibility = Visibility.Hidden;
-            StopBorrowBook.Visibility = Visibility.Hidden;
+            //StopBorrowBook.Visibility = Visibility.Hidden;
             ListDisplayBook.IsEnabled = false;
-            NextPage.Visibility = Visibility.Hidden;
-            PrePage.Visibility = Visibility.Hidden;
+            paginating.IsEnabled = false;
             SearchBook.IsEnabled = false;
+
+            UpdateBook.Command.Execute(null);
         }
 
         private void SaveBook_Click(object sender, RoutedEventArgs e)
@@ -63,29 +71,87 @@ namespace LibraryManagement.Views
 
             SaveBook.Visibility = Visibility.Hidden;
             UpdateBook.Visibility = Visibility.Visible;
-            NameBook.IsEnabled = false;
+            NameBook.IsReadOnly = false;
             Category.IsEnabled = false;
-            ListAuthor.IsEnabled = false;
             Publisher.IsEnabled = false;
             DateManufacture.IsEnabled = false;
-            Price.IsEnabled = false;
-            Author.Visibility = Visibility.Hidden;
-            btnSelectImage.Visibility = Visibility.Hidden;
+            Price.IsReadOnly = true;
+            AddBook.IsEnabled = true;
+
+            tbAuthors.Visibility = Visibility.Visible;
+            changeAuthors.Visibility = Visibility.Hidden;
+            lbAuthor.VerticalAlignment = VerticalAlignment.Center;
+            inforGrid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+
+            SearchBox.IsEnabled = true;
+
+            operation.Visibility = Visibility.Visible;
 
             //Mở lại các tính năng đã khóa
-            AddBook.Visibility = Visibility.Visible;
             DeleteBook.Visibility = Visibility.Visible;
-            StopBorrowBook.Visibility = Visibility.Visible;
+            btnSelectImage.Visibility = Visibility.Hidden;
+
             ListDisplayBook.IsEnabled = true;
-            NextPage.Visibility = Visibility.Visible;
-            PrePage.Visibility = Visibility.Visible;
+            paginating.IsEnabled = true;
             SearchBook.IsEnabled = true;
         }
+
+        private void CancelUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            // Set source binding back to SelectedItem.image
+            Binding imgBinding = new Binding("SelectedItem.image");
+            imgBinding.Converter = new ImageToSource();
+            BindingOperations.SetBinding(imgCover, Image.SourceProperty, imgBinding);
+
+            CancelUpdate.Visibility = Visibility.Hidden;
+            UpdateBook.Visibility = Visibility.Hidden;
+            SaveBook.Visibility = Visibility.Hidden;
+            operation.Visibility = Visibility.Visible;
+            AddBook.IsEnabled = true;
+
+            UpdateBook.Visibility = Visibility.Visible;
+
+            tbAuthors.Visibility = Visibility.Visible;
+            changeAuthors.Visibility = Visibility.Hidden;
+            lbAuthor.VerticalAlignment = VerticalAlignment.Center;
+            inforGrid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+
+            
+            ListDisplayBook.IsEnabled = true;
+
+            SearchBox.IsEnabled = true;
+
+            SaveBook.Visibility = Visibility.Hidden;
+
+            NameBook.IsReadOnly = true;
+            Category.IsEnabled = false;
+            Publisher.IsEnabled = false;
+            DateManufacture.IsEnabled = false;
+            Price.IsReadOnly = true;
+            btnSelectImage.Visibility = Visibility.Hidden;
+            //Tắt hết các tính năng không liên quan
+            DeleteBook.Visibility = Visibility.Visible;
+            paginating.IsEnabled = true;
+            SearchBook.IsEnabled = true;
+        }
+
         private void ListDisplayBook_MouseDown(object sender, MouseButtonEventArgs e)
         {
             HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
             if (r.VisualHit.GetType() != typeof(ListBoxItem))
                 ListDisplayBook.UnselectAll();
         }
+        private void ButtonAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new AuthorScreen();
+            window.ShowDialog();
+        }
+
+        private void ButtonCategory_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new CategoryScreen();
+            window.ShowDialog();
+        }
+
     }
 }

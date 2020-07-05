@@ -28,5 +28,15 @@ namespace LibraryManagement.Views
         {
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            dateManufacture.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
+            NameBook.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            NameBook.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            tbPrice.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            Category.GetBindingExpression(ComboBox.SelectedItemProperty).UpdateSource();
+            cbAuthor.GetBindingExpression(ComboBox.SelectedItemProperty).UpdateSource();
+        }
     }
 }

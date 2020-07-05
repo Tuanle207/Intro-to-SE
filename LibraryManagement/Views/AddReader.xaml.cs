@@ -31,5 +31,13 @@ namespace LibraryManagement.Views
         {
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            NameReader.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            Email.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            Address.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            DobReader.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
+        }
     }
 }

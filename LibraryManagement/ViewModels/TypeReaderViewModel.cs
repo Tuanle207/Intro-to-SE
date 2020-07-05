@@ -82,6 +82,7 @@ namespace LibraryManagement.ViewModels
                 if (displayList.Count() != 0)
                 {
                     MessageBox.Show("Loại tác giả bị trùng");
+                    NameAddTypeReader = null;
                     return;
                 }
                 var tp = new TypeReader()

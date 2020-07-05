@@ -16,13 +16,9 @@ namespace LibraryManagement.ViewModels
         {
             try
             {
-                if (value == null)
-                {
-                    return ValidationResult.ValidResult;
-                }
                 string email = (string)value;
                 // Check empty string?
-                if (email.Trim().Length == 0)
+                if (value == null || email.Trim().Length == 0)
                 {
                     return new ValidationResult(false, "Vui lòng nhập email");
                 }

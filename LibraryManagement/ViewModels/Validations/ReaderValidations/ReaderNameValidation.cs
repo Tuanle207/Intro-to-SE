@@ -19,13 +19,9 @@ namespace LibraryManagement.ViewModels
         {
             try
             {
-                if (value == null)
-                {
-                    return ValidationResult.ValidResult;
-                }
                 string name = (string)value;
                 // Check empty string?
-                if (name.Trim().Length == 0)
+                if (value == null || name.Trim().Length == 0)
                 {
                     return new ValidationResult(false, "Vui lòng nhập họ tên");
                 }

@@ -114,31 +114,37 @@ namespace LibraryManagement
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
                 case "ItemHome":
+                    this.lbTitle.Content = "QUẢN LÝ THƯ VIỆN - TRANG CHỦ";
                     urc = new HomeScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemMember":
+                    this.lbTitle.Content = "QUẢN LÝ ĐỘC GIẢ";
                     urc = new ReaderScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemBook":
+                    this.lbTitle.Content = "QUẢN LÝ SÁCH";
                     urc = new BookScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemReport":
+                    this.lbTitle.Content = "BÁO CÁO THỐNG KÊ";
                     urc = new ReportScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemRegulation":
+                    this.lbTitle.Content = "QUY ĐỊNH";
                     urc = new RegulationScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemStaff":
+                    this.lbTitle.Content = "QUẢN LÝ NHÂN VIÊN";
                     urc = new StaffScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();

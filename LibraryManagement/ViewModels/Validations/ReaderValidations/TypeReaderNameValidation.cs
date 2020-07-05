@@ -4,21 +4,20 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace LibraryManagement.ViewModels
-{   
-    public class CategoryValidation : ValidationRule
+{
+    public class TypeReaderNameValidation : ValidationRule
     {
-        public CategoryValidation()
-        {
-        }
-
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value == null || ((string)value).Trim().Length == 0)
-                return new ValidationResult(false, "Vui lòng nhập thể loại");
+            string name = (string)value;
+            // Check empty string?
+            if (value == null || name.Trim().Length == 0)
+            {
+                return new ValidationResult(false, "Vui lòng nhập tên loại độc giả");
+            }
             return ValidationResult.ValidResult;
         }
     }

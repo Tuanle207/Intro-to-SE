@@ -16,15 +16,8 @@ namespace LibraryManagement.ViewModels
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            try
-            {
-                if (string.IsNullOrEmpty((string)value) == true)
-                    return new ValidationResult(false, "Vui lòng nhập tên tác giả");
-            }
-            catch (Exception)
-            {
-                return new ValidationResult(false, "Vui lòng nhập tên tác giả");
-            }
+            if (value == null || ((string)value).Trim().Length == 0)
+                return new ValidationResult(false, "Vui lòng nhập tác giả");
             return ValidationResult.ValidResult;
         }
     }

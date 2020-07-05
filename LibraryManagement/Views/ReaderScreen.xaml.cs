@@ -39,10 +39,10 @@ namespace LibraryManagement.Views
             wd.ShowDialog();
         }
 
-        private void CapnhatReader_Click(object sender, RoutedEventArgs e)
+        private void UpdateReader_Click(object sender, RoutedEventArgs e)
         {
-            LuuReader.Visibility = Visibility.Visible;
-            CapnhatReader.Visibility = Visibility.Hidden;
+            SaveReader.Visibility = Visibility.Visible;
+            UpdateReader.Visibility = Visibility.Hidden;
             NameReader.IsReadOnly = false;
             Address.IsReadOnly = false;
             Email.IsReadOnly = false;
@@ -51,19 +51,20 @@ namespace LibraryManagement.Views
             Debt.IsReadOnly = false;
             ListDisplayReader.IsEnabled = false;
             TypeReader.IsEnabled = true;
-            btnDeleteReader.IsEnabled = false;
             btnAddReader.IsEnabled = false;
-            btnTypeReader.IsEnabled = false;
-            SearchBox.IsEnabled = false;
-            btnCancel.IsEnabled = true;
+            btnDeleteReader.Visibility = Visibility.Hidden;
+            btnCancel.Visibility = Visibility.Visible;
             btnPrev.IsEnabled = false;
             btnNext.IsEnabled = false;
+            SearchBox.IsEnabled = false;
+
+            operation.Visibility = Visibility.Hidden;
         }
 
-        private void LuuReader_Click(object sender, RoutedEventArgs e)
+        private void SaveReader_Click(object sender, RoutedEventArgs e)
         {
-            LuuReader.Visibility = Visibility.Hidden;
-            CapnhatReader.Visibility = Visibility.Visible;
+            SaveReader.Visibility = Visibility.Hidden;
+            UpdateReader.Visibility = Visibility.Visible;
             NameReader.IsReadOnly = true;
             Address.IsReadOnly = true;
             Email.IsReadOnly = true;
@@ -74,9 +75,14 @@ namespace LibraryManagement.Views
             ListDisplayReader.IsEnabled = true;
             btnDeleteReader.IsEnabled = true;
             btnAddReader.IsEnabled = true;
-            btnTypeReader.IsEnabled = true;
+
+            btnDeleteReader.Visibility = Visibility.Visible;
+            btnCancel.Visibility = Visibility.Hidden;
+            operation.Visibility = Visibility.Visible;
+
+            //btnTypeReader.IsEnabled = true;
             SearchBox.IsEnabled = true;
-            btnCancel.IsEnabled = false;
+            //  btnCancel.IsEnabled = false;
             btnPrev.IsEnabled = true;
             btnNext.IsEnabled = true;
         }
@@ -89,8 +95,8 @@ namespace LibraryManagement.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            LuuReader.Visibility = Visibility.Hidden;
-            CapnhatReader.Visibility = Visibility.Visible;
+            SaveReader.Visibility = Visibility.Hidden;
+            UpdateReader.Visibility = Visibility.Visible;
             NameReader.IsReadOnly = true;
             Address.IsReadOnly = true;
             Email.IsReadOnly = true;
@@ -101,8 +107,11 @@ namespace LibraryManagement.Views
             ListDisplayReader.IsEnabled = true;
             btnDeleteReader.IsEnabled = true;
             btnAddReader.IsEnabled = true;
-            btnTypeReader.IsEnabled = true;
-            btnCancel.IsEnabled = false;
+
+            btnDeleteReader.Visibility = Visibility.Visible;
+            btnCancel.Visibility = Visibility.Hidden;
+            operation.Visibility = Visibility.Visible;
+
             SearchBox.IsEnabled = true;
             btnPrev.IsEnabled = true;
             btnNext.IsEnabled = true;
@@ -113,6 +122,12 @@ namespace LibraryManagement.Views
             HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
             if (r.VisualHit.GetType() != typeof(ListBoxItem))
                 ListDisplayReader.UnselectAll();
+        }
+
+        private void btnAuthors_Click(object sender, RoutedEventArgs e)
+        {
+            ViewTypeReader wd = new ViewTypeReader();
+            wd.ShowDialog();
         }
     }
 }

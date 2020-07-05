@@ -26,80 +26,99 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="SearchBox" Grid.Row="0" Grid.Column="0">
-            <Grid Grid.Column="1" Background="Aqua" Margin="10" Height="Auto">
-                <TextBlock Margin="10" Text="Nhập tên độc giả..." FontSize="16"
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid x:Name="SearchBox" Grid.Column="1" Background="#FF6E85B6" Margin="10" Height="Auto">
+                <TextBlock Margin="10 15 10 10" Text="Nhập tên độc giả..." FontSize="14"
                     Foreground="#000"
                     Visibility="{Binding ElementName=tbReaderName, Path=Text.IsEmpty,
                               Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding ReaderSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Name="tbReaderName" Background="Transparent" Margin="10" FontSize="14" BorderBrush="Red" Text="{Binding ReaderSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Grid>
 
-        <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List.Readers}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single" MouseDown="ListDisplayReader_MouseDown" >
-                    <ListView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Gia hạn độc giả" Command="{Binding ExtendReaderCard}">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="AccountClock" Width="Auto" Height="Auto"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Sửa thông tin" Click="CapnhatReader_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Xóa độc giả" Command="{Binding DeleteCommand}">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idReader }"></GridViewColumn>
-                            <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameReader}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding dobReader}"></GridViewColumn>
-                            <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}"></GridViewColumn>
-                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressReader}"></GridViewColumn>
-                            <GridViewColumn Header="Ngày tạo thẻ" DisplayMemberBinding="{Binding createdAt,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                            <GridViewColumn Header="Gia hạn lần cuối" DisplayMemberBinding="{Binding latestExtended,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                            <GridViewColumn Header="Số nợ" DisplayMemberBinding="{Binding debt}"></GridViewColumn>
-                            <GridViewColumn Header="Loại độc giả" DisplayMemberBinding="{Binding TypeReader.nameTypeReader}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-        </materialDesign:Card>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="40"/>
 
-        <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
-            <Button x:Name="btnPrev" Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="220 0 20 0">&lt;</Button>
-            <TextBlock Text="{Binding List.CurrentPage}"></TextBlock>
-            <TextBlock>/</TextBlock>
-            <TextBlock x:Name="btnNext" Text="{Binding List.PageCount}"></TextBlock>
-            <Button Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
-        </StackPanel>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Grid.Row="0" Background="#FFE3F0FF"  Margin="10,10,10,0" BorderThickness="0" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List.Readers}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Gia hạn độc giả" Command="{Binding ExtendReaderCard}">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="AccountClock" Width="Auto" Height="Auto"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Sửa thông tin" Click="UpdateReader_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem IsEnabled="{Binding SelectedItem, Mode=OneWay, Converter={StaticResource SelectedItemToBoolean}}" Header="Xóa độc giả" Command="{Binding DeleteCommand}">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idReader }"></GridViewColumn>
+                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding nameReader}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding dobReader}"></GridViewColumn>
+                                <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}"></GridViewColumn>
+                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding addressReader}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày tạo thẻ" DisplayMemberBinding="{Binding createdAt,StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Số nợ" DisplayMemberBinding="{Binding debt}"></GridViewColumn>
+                                <GridViewColumn Header="Loại người đọc" DisplayMemberBinding="{Binding TypeReader.nameTypeReader}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button x:Name="btnPrev" Height="20" Foreground="Black" Background="#FF47608E" Command="{Binding MoveToPreviousReadersPage}" Padding="10 0 10 2" Margin="0 0 20 0" >&lt;</Button>
+                        <TextBlock Height="20" Text="{Binding List.CurrentPage}"></TextBlock>
+                        <TextBlock Height="20">/</TextBlock>
+                        <TextBlock Height="20" Text="{Binding List.PageCount}"></TextBlock>
+                        <Button x:Name="btnNext" Height="20" Foreground="Black" Background="#FF47608E" Command="{Binding MoveToNextReadersPage}" Padding="10 0 10 2" Margin="20 0 0 0">&gt;</Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
 
         <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="5.8*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="3.5*"/>
+                <RowDefinition Height="2.3*"/>
+
             </Grid.RowDefinitions>
-            <Label Content="Thông tin cơ bản" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
-            <materialDesign:Card Grid.Row="1" Margin="15">
-                <Grid x:Name="gridForNomalInfo" Margin="5">
+            <Label Content="Thông tin độc giả" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+            <materialDesign:Card Grid.Row="1" Margin="15" Background="#FFE3F0FF" >
+                <Grid x:Name="gridForNomalInfo" Margin="5"  >
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.07*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.1*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Margin="1">
+                    <Grid Grid.Column="1" Margin="1" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
@@ -107,13 +126,13 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                        <Label Grid.Row="1" Content="Địa chỉ" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                        <Label Grid.Row="2" Content="Email" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                        <Label Grid.Row="3" Content="Ngày sinh"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
-                        <Label Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                        <Label Foreground="Black" Grid.Row="0" Content="Họ tên" Background="{x:Null}" FontSize="18" VerticalAlignment="Center"/>
+                        <Label Foreground="Black" Grid.Row="1" Content="Địa chỉ" Background="{x:Null}"  FontSize="18" VerticalAlignment="Center"/>
+                        <Label Foreground="Black" Grid.Row="2" Content="Email" Background="{x:Null}"  FontSize="18" VerticalAlignment="Center"/>
+                        <Label Foreground="Black" Grid.Row="3" Content="Ngày sinh"  Background="{x:Null}"  FontSize="18" VerticalAlignment="Center"/>
+                        <Label Foreground="Black" Grid.Row="4" Content="Ngày lập thẻ" Background="{x:Null}"  FontSize="18" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Grid.Column="1" Margin="5">
+                    <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
@@ -121,10 +140,10 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                        <TextBox Foreground="Black" x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" FontSize="14">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="12"/>
+                                    <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </TextBox.Resources>
                             <TextBox.Text>
@@ -135,10 +154,10 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                        <TextBox Foreground="Black" x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center"  FontSize="14">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="12"/>
+                                    <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </TextBox.Resources>
                             <TextBox.Text>
@@ -149,10 +168,10 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                        <TextBox Foreground="Black" x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" FontSize="14">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="12"/>
+                                    <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </TextBox.Resources>
                             <TextBox.Text>
@@ -163,7 +182,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <DatePicker x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                        <DatePicker Foreground="Black" x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
                             <DatePicker.SelectedDate>
                                 <Binding Path="SelectedItem.dobReader" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -172,116 +191,162 @@
                                 </Binding>
                             </DatePicker.SelectedDate>
                         </DatePicker>
-                        <DatePicker x:Name="CreatAt" IsEnabled="False" Grid.Row="4" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding SelectedItem.createdAt,  UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}"/>
+                        <DatePicker Foreground="Black" x:Name="CreatAt" IsEnabled="False" Grid.Row="4" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14" SelectedDate="{Binding SelectedItem.createdAt,  UpdateSourceTrigger=PropertyChanged, StringFormat='dd/MM/yyyy'}"/>
 
                     </Grid>
                 </Grid>
             </materialDesign:Card>
-            
-            <Label Grid.Row="2" Content="Thông tin thẻ độc giả " HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
-            <Grid x:Name="gridForReaderProfile" Grid.Row="3" Margin="10">
+
+            <Label Grid.Row="2" Content="Thông tin thẻ độc giả " HorizontalAlignment="Left" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+            <Grid x:Name="gridForReaderProfile" Grid.Row="3" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <TextBox x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="20">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="15"/>
-                        </Style>
-                    </TextBox.Resources>
-                    <TextBox.Text>
-                        <Binding Path="SelectedItem.debt" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <vm:ReaderDebtValidation/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <ComboBox x:Name="TypeReader" IsEnabled="False" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="20" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedItem.TypeReader, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"></ComboBox>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
 
-                <Button x:Name="CapnhatReader" Click="CapnhatReader_Click" Command="{Binding ReloadTypeReaderCommand}"  Visibility="Visible"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
-                        <TextBlock Text="Cập nhật" VerticalAlignment="Center" Margin="10" FontSize="15" FontWeight="Bold"/>
-                    </StackPanel>
-                </Button>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="Black" Grid.Row="0" Grid.Column="0" Margin="10" Content="Số nợ" Background="{x:Null}"  FontSize="16" VerticalAlignment="Center"/>
+                    <Label Foreground="Black" Grid.Row="2" Grid.Column="0" Margin="10" Content="Loại độc giả" Background="{x:Null}" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBox Foreground="Black" x:Name="Debt"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="5 0" BorderThickness="1" FontSize="16">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="SelectedItem.debt" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vm:ReaderDebtValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <ComboBox Foreground="Black" x:Name="TypeReader" IsEnabled="False" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Padding="5" BorderThickness="1" BorderBrush="Black" FontSize="16" DisplayMemberPath="nameTypeReader" ItemsSource="{Binding TypeReader}" SelectedItem="{Binding SelectedItem.TypeReader, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Button x:Name="LuuReader" Click="LuuReader_Click" Visibility="Hidden" Command="{Binding EditCommand}" Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="IsEnabled" Value="false" />
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding ElementName=NameReader, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=Email, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=Address, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=DobReader, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=CreatAt, Path=(Validation.HasError)}" Value="false" />
-                                        <Condition Binding="{Binding ElementName=Debt, Path=(Validation.HasError)}" Value="false" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="IsEnabled" Value="true" />
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="ContentDuplicate" Width="Auto" Height="Auto"/>
-                        <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="10" FontSize="20" FontWeight="Bold"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="btnDeleteReader" Command="{Binding DeleteCommand}" Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="1" Background="#FFE6001F" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
-                        <TextBlock Text="Xóa thẻ" VerticalAlignment="Center" Margin="10" FontSize="15" FontWeight="Bold"/>
-                    </StackPanel>
-                </Button>
+                </Grid>
+                <Grid Grid.Column="1" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="UpdateReader" Click="UpdateReader_Click" Command="{Binding ReloadTypeReaderCommand}"  Visibility="Visible"  Height="60" Width="150" Grid.Row="0" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <materialDesign:PackIcon Foreground="Black" Kind="ContentDuplicate" Width="30" Height="30"/>
+                            <TextBlock Foreground="Black" Text="Cập nhật" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="SaveReader" Click="SaveReader_Click" Visibility="Hidden" Command="{Binding EditCommand}" Height="70" Width="180" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Margin="10">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=NameReader, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=Email, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=Address, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=DobReader, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=CreatAt, Path=(Validation.HasError)}" Value="false" />
+                                            <Condition Binding="{Binding ElementName=Debt, Path=(Validation.HasError)}" Value="false" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="true" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <materialDesign:PackIcon Margin="0" Foreground="Black" Kind="ContentDuplicate" Width="30" Height="30"/>
+                            <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="btnCancel" Click="btnCancel_Click" Visibility="Hidden" Background="#f44336" VerticalAlignment="Center" Margin="0 0 5 10" Padding="10" Height="60" Width="150"  Command="{Binding CancelCommand}" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Hủy cập nhật" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnDeleteReader" Command="{Binding DeleteCommand}" Height="60" Width="150" Grid.Row="2 " Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <materialDesign:PackIcon Foreground="Black" Kind="DeleteForever" Width="30" Height="30"/>
+                            <TextBlock Foreground="Black" Text="Xóa thẻ" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="CancelUpdate" Command="{Binding CancelCommand}" Height="60" Width="150" Grid.Row="2 " Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10" Visibility="Hidden">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <materialDesign:PackIcon Foreground="Black" Kind="Cancel" Width="30" Height="30"/>
+                            <TextBlock Foreground="Black" Text="Hủy cập nhật" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
             </Grid>
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"  Content="Thành viên" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
-                <Button x:Name="btnCancel" Click="btnCancel_Click" IsEnabled="False" Command="{Binding CancelCommand}" Grid.Column="1" Width="150" Content="Hủy bỏ"></Button>
-            </Grid>
-            
-            <Grid Grid.Row="5" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
-                <Button  Command="{Binding ImportReaderNew}" Content="DS mới" Grid.Column="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5 10 5 10">
-                </Button>
-                <Button  Command="{Binding ImportReaderOld}" Content="DS cũ" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5 10 5 10">
-                </Button>
-                <Button  Command="{Binding ExportReader}" Content="Xuất danh sách" Grid.Column="2" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5 10 5 10">
-                </Button>
-                <Button x:Name="btnAddReader" Height="Auto" Width="Auto" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Grid.Column="3" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 10">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Thêm độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                <Grid Grid.Column="0">
+                    <StackPanel x:Name="operation" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button ToolTip="Xuất danh sách độc giả" Command="{Binding ExportReader}" Background="Transparent" BorderThickness="0" Margin="20 0 0 0" Padding="0" VerticalAlignment="Center"  Grid.Column="0">
+                            <Image Source="/Assets/export.png"/>
+                        </Button>
+                        <Button ToolTip="Nhập danh sách độc giả từ file dữ liệu cũ" Command="{Binding ImportReaderOld}" Background="Transparent" BorderThickness="0" Margin="10 0 0 0" Padding="0" VerticalAlignment="Center"  Grid.Column="0">
+                            <Image Source="/Assets/import-old.png"/>
+                        </Button>
+                        <Button ToolTip="Nhập danh sách độc giả từ file dữ liệu mới" Command="{Binding ImportReaderNew}" Background="Transparent" BorderThickness="0" Margin="10 0 0 0" Padding="0" VerticalAlignment="Center"  Grid.Column="0">
+                            <Image Source="/Assets/import-new.png"/>
+                        </Button>
+                        <Button x:Name="btnAuthors" Click="btnAuthors_Click" ToolTip="Thay đổi danh sách loại độc giả" Background="Transparent" BorderThickness="0" Margin="10 0 0 0" Padding="0" VerticalAlignment="Center"  Grid.Column="0">
+                            <Image Source="/Assets/reader-type.jpg"/>
+                        </Button>
                     </StackPanel>
-                </Button>
-                <Button x:Name="btnTypeReader" Height="Auto" Width="Auto" Click="ButtonTypeReader_Click" Grid.Column="4" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="5, 20, 10, 10">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Thêm loại độc giả" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
-                    </StackPanel>
-                </Button>
+                    <!--<Grid Grid.Row="0" Grid.Column="0">
+                        <Button x:Name="btnAuthors" Click="btnAuthors_Click" Command="{Binding PrepareAddReaderCommand}" VerticalAlignment="Center" Margin="60 10 15 10" Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="Black" Text="Độc giả" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Button x:Name="btnReaderTypes" VerticalAlignment="Center" Margin="60 10 15 10"  Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="Black" Text="Loại độc giả" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="btnTypeReader" VerticalAlignment="Center" Margin="60 10 15 10"  Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="Black" Text="DS DG mới" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Button  VerticalAlignment="Center" Margin="60 10 15 10"  Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="Black" Text="DS ĐG cũ" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>-->
 
+                </Grid>
+
+                <Grid Grid.Column="1" HorizontalAlignment="Center">
+                    <Button x:Name="btnAddReader" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Margin="10" Height="60" Width="150"  Grid.Column="0" Grid.Row="1" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <materialDesign:PackIcon Foreground="Black" Kind="Add" Width="30" Height="30"/>
+                            <TextBlock Foreground="Black" Text="Thêm mới" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

@@ -81,6 +81,7 @@ namespace LibraryManagement.ViewModels
                 if (displayList.Count() != 0)
                 {
                     MessageBox.Show("Thể loại bị trùng");
+                    NameCategory = null;
                     return;
                 }
                 var category = new Category()
