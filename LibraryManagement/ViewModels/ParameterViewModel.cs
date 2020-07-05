@@ -11,8 +11,6 @@ namespace LibraryManagement.ViewModels
 {
     class ParameterViewModel : BaseViewModel
     {
-        static LibraryManagementEntities DB = new LibraryManagementEntities();
-
         private int _ageMin;
         public int ageMin
         {
@@ -72,21 +70,21 @@ namespace LibraryManagement.ViewModels
                 {
                     // Sửa lại các giá trị 
                     // Tuổi tối thiểu
-                    DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter = ageMin;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter = ageMin;
                     // Tuổi tối đa
-                    DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter = ageMax;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter = ageMax;
                     // Thời hạn thẻ
-                    DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter = expiryDate;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter = expiryDate;
                     // Khoảng cách xuất bản
-                    DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter = distancePublish;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter = distancePublish;
                     // Số sách mượn tối đa
-                    DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter = bookBorrowMax;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter = bookBorrowMax;
                     // Số tiền phạt trễ theo từng ngày
-                    DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter = moneyPenalty;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter = moneyPenalty;
                     // Số ngày mượn tối đa
-                    DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter = dateBorrowMax;
+                    DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter = dateBorrowMax;
 
-                    DB.SaveChanges();
+                    DataAdapter.Instance.DB.SaveChanges();
                 });
             InitParamaters = new AppCommand<object>(
                 p => true,
@@ -99,13 +97,13 @@ namespace LibraryManagement.ViewModels
 
         private void InitParams()
         {
-            ageMin = DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter;
-            ageMax = DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter;
-            expiryDate = DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter;
-            distancePublish = DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter;
-            bookBorrowMax = DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
-            moneyPenalty = DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
-            dateBorrowMax = DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
+            ageMin = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 1).SingleOrDefault().valueParameter;
+            ageMax = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 2).SingleOrDefault().valueParameter;
+            expiryDate = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 3).SingleOrDefault().valueParameter;
+            distancePublish = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 4).SingleOrDefault().valueParameter;
+            bookBorrowMax = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 5).SingleOrDefault().valueParameter;
+            moneyPenalty = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 6).SingleOrDefault().valueParameter;
+            dateBorrowMax = DataAdapter.Instance.DB.Paramaters.Where(x => x.idParameter == 7).SingleOrDefault().valueParameter;
     }
     }
 }

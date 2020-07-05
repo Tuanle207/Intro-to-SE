@@ -80,6 +80,7 @@ namespace LibraryManagement.ViewModels
                 if (displayList.Count() != 0)
                 {
                     MessageBox.Show("Tên tác giả bị trùng");
+                    NameAuthor = null;
                     return;
                 }
                 var author = new Author()

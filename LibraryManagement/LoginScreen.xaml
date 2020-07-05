@@ -9,6 +9,7 @@
         xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
         mc:Ignorable="d"
         KeyDown="Window_KeyDown"
+        Icon="/Assets/icon.png"
         Title="Đăng nhập" Height="360" Width="540" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.Background>

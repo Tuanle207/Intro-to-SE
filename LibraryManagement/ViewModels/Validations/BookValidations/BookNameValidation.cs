@@ -13,7 +13,7 @@ namespace LibraryManagement.ViewModels
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string name = (string)value;
-            if (value == null || name == "")
+            if (value == null || name.Trim().Length == 0)
             {
                 return new ValidationResult(false, "Vui lòng nhập tên sách");
             }

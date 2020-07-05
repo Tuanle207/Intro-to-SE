@@ -6,91 +6,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement.Views"
         mc:Ignorable="d" 
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow"
+        Icon="/Assets/icon.png"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:command="http://www.galasoft.ch/mvvmlight"
-        Title="TypeReader" Height="600" Width="800"
+        Title="Danh sách loại độc giả" Height="550" Width="400"
+         Background="#FFBFD4FF"
         >
-        
+
     <Grid>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="9*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=" 4*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.Row="0" Margin="10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListView x:Name="ListDisplayTypeReader"  ItemsSource="{Binding ListTypeReader}"  SelectedItem="{Binding SelectedItemTypeReader, Mode=OneWayToSource}" >
+                    <ListView.View >
+                        <GridView>
+                            <GridViewColumn Header="Mã loại độc giả" DisplayMemberBinding="{Binding idTypeReader }"></GridViewColumn>
+                            <GridViewColumn Header="Tên loại độc giả" DisplayMemberBinding="{Binding nameTypeReader}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+        </materialDesign:Card>
+        <Grid Grid.Row="1">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" x:Name="btnSearch" Width="Auto" Height="Auto" Margin="10" Background="{x:Null}" BorderBrush="{x:Null}" >
-                    <materialDesign:PackIcon Kind="AccountSearch" Foreground="White" Background="Black" Width="Auto" Height="Auto" Margin="0" />
+                <Button Command="{Binding DeleteTypeReaderCommand}" HorizontalContentAlignment="Center"  Grid.Column="1" Background="#f44336" BorderBrush="{x:Null}" Height="40" Width="150" Margin="10"  >
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <!--<materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>-->
+                        <TextBlock Foreground="Black" Text="Xóa" VerticalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
                 </Button>
-
-            </Grid>
-
-            <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFB0B0B0" Margin="10,10,10,20" BorderThickness="0" VerticalAlignment="Stretch">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="ListDisplayTypeReader"  ItemsSource="{Binding ListTypeReader}"  SelectedItem="{Binding SelectedItemTypeReader, Mode=OneWayToSource}" >
-                        <ListView.View >
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding idTypeReader }"></GridViewColumn>
-                                <GridViewColumn Header="Tên loại độc giả" DisplayMemberBinding="{Binding nameTypeReader}"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
-            </materialDesign:Card>
-
-            <Grid x:Name="gridForInfo" Grid.Column="1" Grid.RowSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="5*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="5*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="3*"/>
-                </Grid.RowDefinitions>
-                <Label Content="Thông tin cơ bản" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
-                <Grid x:Name="gridForNomalInfo" Grid.Row="1" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-                <Grid x:Name="gridForReaderProfile" Grid.Row="3" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="99*"/>
-                        <ColumnDefinition Width="31*"/>
-                        <ColumnDefinition Width="167*"/>
-                        <ColumnDefinition Width="198"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-
-                    
-                    <Button Command="{Binding DeleteTypeReaderCommand}"  Grid.Column="3" Grid.Row="0" Background="#FFE6001F" BorderBrush="{x:Null}" Height="Auto" Margin="10" Grid.ColumnSpan="2" >
-                        <StackPanel Orientation="Horizontal" Margin="10">
-                            <materialDesign:PackIcon Kind="DeleteForever" Width="Auto" Height="Auto"/>
-                            <TextBlock Text="Xóa loại độc giả" VerticalAlignment="Center" FontSize="12" FontWeight="Bold"/>
-                        </StackPanel>
-                    </Button>
-
-                    
-
-                    <Button Click="btnAddTypeReader_Click"  Height="Auto" Width="Auto" Grid.Column="3" Grid.Row="1" Background="Green" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
-                        <StackPanel Orientation="Horizontal" Margin="10">
-                            <materialDesign:PackIcon Kind="AccountMultiplePlusOutline" Width="Auto" Height="Auto"/>
-                            <TextBlock Text="Thêm loại độc giả" VerticalAlignment="Center"  FontSize="12" FontWeight="Bold"/>
-                        </StackPanel>
-                    </Button>
-                </Grid>
+                <Button Click="btnAddTypeReader_Click" Height="40" Width="150" Grid.Column="0" HorizontalContentAlignment="Center"  Background="#FF00BB9A" BorderBrush="{x:Null}" Margin="10">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <!--<materialDesign:PackIcon Kind="AccountMultiplePlusOutline" Width="Auto" Height="Auto"/>-->
+                        <TextBlock Foreground="Black" Text="Thêm mới" VerticalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
             </Grid>
         </Grid>
+
     </Grid>
 </Window>

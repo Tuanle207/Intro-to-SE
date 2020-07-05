@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderDOBValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderEmailValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\ReaderNameValidation.cs" />
+    <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderNameValidation.cs" />
     <Compile Include="ViewModels\Validations\ReaderValidations\TypeReaderValidations.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\ComfirmPasswordValidation.cs" />
     <Compile Include="ViewModels\Validations\StaffValidation\PhoneNumerValidation.cs" />
@@ -418,18 +419,21 @@
     <Resource Include="Assets\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\1.jpg" />
-    <Resource Include="Assets\2.png" />
-    <Resource Include="Assets\3.jpg" />
-    <Resource Include="Assets\4.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\uit.jpg" />
     <Resource Include="BookImageCover\default-image.png" />
     <Resource Include="Assets\backgroundLogin.jpg" />
+    <Resource Include="Assets\a.png" />
+    <Resource Include="Assets\icon.png" />
+    <Resource Include="Assets\minus.png" />
+    <Resource Include="Assets\export.png" />
+    <Resource Include="Assets\import-new.png" />
+    <Resource Include="Assets\import-old.png" />
+    <Resource Include="Assets\reader-type.jpg" />
+    <Resource Include="Assets\category.png" />
+    <Resource Include="Assets\author.png" />
     <Content Include="Models\DataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataModel.edmx</DependentUpon>

@@ -32,21 +32,17 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    IdStaff = SelectedItem.idStaff;
                     NameStaff = SelectedItem.nameStaff;
                     DobStaff = SelectedItem.dobStaff;
                     AddressStaff = SelectedItem.addressStaff;
                     PhoneNumberStaff = SelectedItem.phoneNumberStaff;
                     AccountStaff = SelectedItem.accountStaff;
-                    PasswordStaff = SelectedItem.passwordStaff;
                     IdPermission = SelectedItem.idPermission;
                     SelectedPermission = SelectedItem.Permission;
                 }
                
             }
         }
-        private int _idStaff;
-        public int IdStaff { get => _idStaff; set { _idStaff = value; OnPropertyChanged(); } }
 
         private string _nameStaff;
         public string NameStaff
@@ -177,13 +173,29 @@ namespace LibraryManagement.ViewModels
         public ICommand DeleteCommand { get; set; }
         public ICommand PrepareAddCommand { get; set; }
         public ICommand InitProperties { get; set; }
-        public AppCommand<object> CancelCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
+        public ICommand CancelCommandAdd { get; set; }
         public ICommand NotifyOnSelectedItemChange { get; set; }
 
         public StaffViewModel()
         {
             // Retrieve data from DB
             RetrieveData();
+            CancelCommandAdd = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    if (SelectedItem != null)
+                    {
+                        NameStaff = SelectedItem.nameStaff;
+                        DobStaff = SelectedItem.dobStaff;
+                        AddressStaff = SelectedItem.addressStaff;
+                        PhoneNumberStaff = SelectedItem.phoneNumberStaff;
+                        AccountStaff = SelectedItem.accountStaff;
+                        IdPermission = SelectedItem.idPermission;
+                        SelectedPermission = SelectedItem.Permission;
+                    }
+                });
             CancelCommand = new AppCommand<object>((p) =>
             {
                 return true;
@@ -195,7 +207,6 @@ namespace LibraryManagement.ViewModels
                 SelectedItem.addressStaff = AddressStaff;
                 SelectedItem.phoneNumberStaff = PhoneNumberStaff;
                 SelectedItem.accountStaff = AccountStaff;
-                SelectedItem.passwordStaff = EncryptSHA512Managed(PasswordStaff);
                 SelectedItem.idPermission = SelectedPermission.idPermission;
                 OnPropertyChanged("SelectedItem");
             });
@@ -223,6 +234,7 @@ namespace LibraryManagement.ViewModels
                     DataAdapter.Instance.DB.SaveChanges();
                     List.Add(Staff);
                     SelectedItem = Staff;
+                    PasswordStaff = null;
                     MessageBox.Show("Bạn đã thêm nhân viên thành công");
                 }
                 catch (Exception)
@@ -235,12 +247,7 @@ namespace LibraryManagement.ViewModels
             {
                 if (SelectedItem == null || SelectedPermission == null)
                     return false;
-
-                var displayList = DataAdapter.Instance.DB.Staffs.Where(x => x.idStaff == SelectedItem.idStaff);
-                if (displayList != null && displayList.Count() != 0)
-                    return true;
-
-                return false;
+                return true;
 
             }, (p) =>
             {
@@ -278,12 +285,7 @@ namespace LibraryManagement.ViewModels
             {
                 if (SelectedItem == null || SelectedPermission == null)
                     return false;
-
-                var displayList = DataAdapter.Instance.DB.Staffs.Where(x => x.idStaff == SelectedItem.idStaff);
-                if (displayList != null && displayList.Count() != 0)
-                    return true;
-
-                return false;
+                return true;
 
             }, (p) =>
             {

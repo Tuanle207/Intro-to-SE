@@ -47,12 +47,12 @@ namespace LibraryManagement.Views
             DobStaff.IsEnabled = true;
             UserName.IsReadOnly = false;
             cbPermission.IsEnabled = true;
-            btnCancel.IsEnabled = true;
             btnAddStaff.IsEnabled = false;
             btnDeleStaff.IsEnabled = false;
             SearchBox.IsEnabled = false;
             lvNhanVien.IsEnabled = false;
             btnResetPassword.IsEnabled = false;
+            btnCancel.Visibility = Visibility.Visible;
         }
 
         private void btnLuu_Click(object sender, RoutedEventArgs e)
@@ -65,12 +65,12 @@ namespace LibraryManagement.Views
             DobStaff.IsEnabled = false;
             UserName.IsReadOnly = true;
             cbPermission.IsEnabled = false;
-            btnCancel.IsEnabled = false;
             btnAddStaff.IsEnabled = true;
             btnDeleStaff.IsEnabled = true;
             SearchBox.IsEnabled = true;
             lvNhanVien.IsEnabled = true;
             btnResetPassword.IsEnabled = true;
+            btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void lvNhanVien_MouseDown(object sender, MouseButtonEventArgs e)
@@ -90,12 +90,12 @@ namespace LibraryManagement.Views
             DobStaff.IsEnabled = false;
             UserName.IsReadOnly = true;
             cbPermission.IsEnabled = false;
-            btnCancel.IsEnabled = false;
             btnAddStaff.IsEnabled = true;
             btnDeleStaff.IsEnabled = true;
             SearchBox.IsEnabled = true;
             lvNhanVien.IsEnabled = true;
             btnResetPassword.IsEnabled = true;
+            btnCancel.Visibility = Visibility.Hidden;
         }
     }
 }

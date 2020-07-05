@@ -7,51 +7,48 @@
         xmlns:vm="clr-namespace:LibraryManagement.ViewModels"
         mc:Ignorable="d"
         DataContext="{StaticResource CategoryViewModel}"
-        Title="Thêm thể loại" Height="450" Width="800">
-    <Window.Resources>
-        <ControlTemplate x:Key="textBoxErrorTemplate">
-            <StackPanel>
-                <AdornedElementPlaceholder Name="a" />
-                <TextBlock DockPanel.Dock="Bottom" Foreground="Red"
-                                               Text="{Binding ElementName=a, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
-            </StackPanel>
-        </ControlTemplate>
-    </Window.Resources>
+        Title="Nhập thể thể loại sách mới"
+        Height="150" Width="300"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Tên thể loại" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <TextBox Grid.Column="1" Panel.ZIndex="99" Name="Category" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" Background="Gold" >
-                <TextBox.Text>
-                    <Binding Path="NameCategory"
-                        UpdateSourceTrigger="PropertyChanged" >
-                        <Binding.ValidationRules>
-                            <vm:CategoryValidation/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-        </Grid>
-        <Button Grid.Row="1" Command="{Binding AddCategoryToDBCommand}" Content="Thêm mới" Background="Green" FontSize="20" Height="40" Width="150" Click="Button_Click">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Category}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" FontSize="16" Padding="2" BorderThickness="1" >
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="Background" Value="#FFE3F0FF"/>
                 </Style>
-            </Button.Style>
-        </Button>
+            </TextBox.Resources>
+            <TextBox.Text>
+                <Binding Path="NameCategory"
+                        UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" >
+                    <Binding.ValidationRules>
+                        <vm:CategoryValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Grid Grid.Row="1">
+            <Button VerticalAlignment="Center" Foreground="Black" Command="{Binding AddCategoryToDBCommand}" Click="Button_Click"  Margin="5,10" Height="40" Width="80" Grid.Column="2" Content="Thêm" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="false" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=txtCategory, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

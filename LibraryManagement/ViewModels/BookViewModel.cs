@@ -31,9 +31,6 @@ namespace LibraryManagement.ViewModels
         private ObservableCollection<Author> _ListAuthors;
         public ObservableCollection<Author> ListAuthors { get => _ListAuthors; set { _ListAuthors = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Author> _ListAuthorSelected;
-        public ObservableCollection<Author> ListAuthorSelected { get => _ListAuthorSelected; set { _ListAuthorSelected = value; OnPropertyChanged(); } }
-
         //Selected data of DB
         private Book _SelectedItem;
         public Book SelectedItem
@@ -45,7 +42,6 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    idBook = SelectedItem.idBook;
                     nameBook = SelectedItem.nameBook;
                     SelectedPublisher = SelectedItem.Publisher;
                     SelectedCategory = SelectedItem.Category;
@@ -55,7 +51,6 @@ namespace LibraryManagement.ViewModels
                     BookImageCover = SelectedItem.image;
                     ListAuthors = new ObservableCollection<Author>(SelectedItem.Authors);
                 }
-                
             }
         }
 
@@ -91,9 +86,6 @@ namespace LibraryManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private int _idBook;
-        public int idBook { get => _idBook; set { _idBook = value; OnPropertyChanged(); } }
 
         private string _nameBook;
         public string nameBook { get => _nameBook; set { _nameBook = value; OnPropertyChanged(); } }
@@ -149,6 +141,7 @@ namespace LibraryManagement.ViewModels
         public ICommand AddBookCommand { get; set; }
         public ICommand DeleteBookCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand CancelAddCommand { get; set; }
 
         //effect DB
         public ICommand AddBookToDBCommand { get; set; }
@@ -179,6 +172,11 @@ namespace LibraryManagement.ViewModels
         {
             //BookImageCover = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), $"/BookImageCover/default-image.png");
             SourceImageFile = null;
+            category = new ObservableCollection<Category>(DataAdapter.Instance.DB.Categories);
+            publisher = new ObservableCollection<Publisher>(DataAdapter.Instance.DB.Publishers);
+            author = new ObservableCollection<Author>(DataAdapter.Instance.DB.Authors);
+            ListAuthors = new ObservableCollection<Author>();
+
             InitBooks();
             GetLastestBooks();
 
@@ -219,6 +217,212 @@ namespace LibraryManagement.ViewModels
 
             });
 
+            CancelAddCommand = new AppCommand<object>(
+                p => true,
+                p =>
+                {
+                    if (SelectedItem != null)
+                    {
+                        nameBook = SelectedItem.nameBook;
+                        SelectedPublisher = SelectedItem.Publisher;
+                        SelectedCategory = SelectedItem.Category;
+                        dateAddBook = SelectedItem.dateAddBook;
+                        dateManufacture = SelectedItem.dateManufacture;
+                        price = SelectedItem.price;
+                        BookImageCover = SelectedItem.image;
+                        ListAuthors = new ObservableCollection<Author>(SelectedItem.Authors);
+                    }
+                });
+
+            AddBookToDBCommand = new AppCommand<object>((p) =>
+            {
+                //Kiểm tra điều kiện
+                if (string.IsNullOrEmpty(nameBook))
+                    return false;
+                if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
+                    return false;
+                return true;
+            }, (p) =>
+            {
+                string newFileName = GetImageName();
+                /// Copy image to project path
+                if (SourceImageFile != null)
+                {
+                    string destinationFile = GetFullPath(newFileName);
+                    try
+                    {
+                        System.IO.File.Copy(SourceImageFile, destinationFile, true);
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
+                    }
+                }
+
+                var book = new Book()
+                {
+                    nameBook = nameBook,
+                    dateManufacture = dateManufacture,
+                    dateAddBook = dateAddBook,
+                    price = price,
+                    idCategory = SelectedCategory.idCategory,
+                    idPublisher = SelectedPublisher.idPublisher,
+                    statusBook = "có sẵn",
+                    image = SourceImageFile != null ? newFileName : "default-image.png"
+                };
+                // Save authors
+                foreach(var author in ListAuthors)
+                {
+                    book.Authors.Add(author);
+                }
+
+                // save changes
+                DataAdapter.Instance.DB.Books.Add(book);
+                DataAdapter.Instance.DB.SaveChanges();
+
+                SourceImageFile = null;
+                List.MoveToLastPage();
+                SetSelectedItemToFirstItemOfPage(false);
+                GetLastestBooks();
+                MessageBox.Show("Thêm sách thành công!");
+            });
+
+            //Edit Book Information
+            EditBookToDBCommand = new AppCommand<object>((p) =>
+            {
+                //Kiểm tra điều kiện
+                if (string.IsNullOrEmpty(nameBook) || SelectedItem == null)
+                    return false;
+                if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
+                    return false;
+
+                return true;
+            }, (p) =>
+            {
+                string newFileName = GetImageName();
+                /// Copy image to project path
+                if (SourceImageFile != null)
+                {
+                    string destinationFile = GetFullPath(newFileName);
+                    try
+                    {
+                        System.IO.File.Copy(SourceImageFile, destinationFile, true);
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
+                    }
+                }
+
+                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+                book.nameBook = SelectedItem.nameBook;
+                book.dateManufacture = SelectedItem.dateManufacture;
+                book.dateAddBook = SelectedItem.dateAddBook;
+                book.price = SelectedItem.price;
+                book.idCategory = SelectedItem.Category.idCategory;
+                book.idPublisher = SelectedItem.Publisher.idPublisher;
+                book.image = SourceImageFile != null ? newFileName : book.image;
+                // Save authors
+                book.Authors.Clear();
+                foreach (var author in ListAuthors)
+                {
+                    book.Authors.Add(author);
+                }
+               
+                DataAdapter.Instance.DB.SaveChanges();
+                SourceImageFile = null;
+                OnPropertyChanged("SelectedItem");
+                MessageBox.Show("Sửa thông tin sách thành công");
+            });
+
+            //Delete Book
+            DeleteBookCommand = new AppCommand<object>((p) =>
+            {
+                if (SelectedItem == null)
+                    return false;
+                return true;
+            }, (p) =>
+            {
+                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
+
+                // Check if book is being borrowed? if it is, do not delete it.
+                var isBeingBorrowed = DataAdapter.Instance.DB.DetailBillBorrows
+                    .Where(el => el.idBook == book.idBook && el.returned == 0)
+                    .Count() > 0;
+                if (isBeingBorrowed)
+                {
+                    MessageBox.Show("Không thể xóa sách đang được mượn");
+                    return;
+                }
+
+                // Otherwise, delete it anyway
+                // 1. Delete all information about detail borrow
+                var detailBorrow = DataAdapter.Instance.DB.DetailBillBorrows.Where(el => el.idBook == el.idBook);
+                DataAdapter.Instance.DB.DetailBillBorrows.RemoveRange(detailBorrow);
+                // 2. Delete all information about detail return
+                var detailReturn = DataAdapter.Instance.DB.DetailBillReturns.Where(el => el.idBook == el.idBook);
+                DataAdapter.Instance.DB.DetailBillReturns.RemoveRange(detailReturn);
+                // 3. finally delete it
+                DataAdapter.Instance.DB.Books.Remove(book);
+
+                // save changes to DB
+                try
+                {
+                    DataAdapter.Instance.DB.SaveChanges();
+                    MessageBox.Show("Xóa sách thành công");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Đã có lỗi xảy ra, không thể thực hiện thao tác xóa sách");
+                }
+                finally
+                {
+                    List.Refresh();
+                    SetSelectedItemToFirstItemOfPage(true);
+                    GetLastestBooks();
+                }
+                
+            });
+
+            //Command Add Authors
+            AddAuthors = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                if (!ListAuthors.Contains(SelectedAuthor))
+                {
+                    ListAuthors.Add(SelectedAuthor);
+                }
+            });
+
+            //Delete Author in List Author
+            UnSelectedAuthor = new AppCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                Author removeAuthor = p as Author;
+                ListAuthors.Remove(removeAuthor);
+            });
+
+            AddImage = new AppCommand<object>(
+                
+                p => true,
+                p =>
+                {
+                    OpenFileDialog fileDialog = new OpenFileDialog();
+                    fileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+                    if (fileDialog.ShowDialog() == true)
+                    {
+                        SourceImageFile = fileDialog.FileName;
+                        BookImageCover = SourceImageFile;
+                    }
+                    else
+                    {
+                        SourceImageFile = null;
+                    }
+                });
             AddBookFromFileCommand = new AppCommand<object>((p) =>
             {
                 return true;
@@ -240,7 +444,7 @@ namespace LibraryManagement.ViewModels
                     for (int i = 2; i <= rowCount; i++)
                     {
                         SourceImageFile = null;
-                        nameBook = xlRange.Cells[i, 2].Value.ToString();  
+                        nameBook = xlRange.Cells[i, 2].Value.ToString();
                         string nameCategory = xlRange.Cells[i, 3].Value.ToString();
                         foreach (var x in category)
                         {
@@ -248,7 +452,7 @@ namespace LibraryManagement.ViewModels
                             {
                                 SelectedCategory = x;
                                 break;
-                            }    
+                            }
                         }
                         string authors = xlRange.Cells[i, 4].Value.ToString();
                         string namePublisher = xlRange.Cells[i, 5].Value.ToString();
@@ -285,8 +489,8 @@ namespace LibraryManagement.ViewModels
                                 {
                                     SelectedAuthor = x;
                                     break;
-                                }    
-                            }    
+                                }
+                            }
                             ListAuthors.Add(SelectedAuthor);
                         }
                         for (int j = 0; j < ListAuthors.Count; j++)
@@ -322,7 +526,7 @@ namespace LibraryManagement.ViewModels
                     List.MoveToLastPage();
                     this.SetSelectedItemToFirstItemOfPage(false);
                     MessageBox.Show("Thêm sách thành công!");
-                }    
+                }
             });
 
             ExportBooksCommand = new AppCommand<object>((p) =>
@@ -379,7 +583,7 @@ namespace LibraryManagement.ViewModels
                     releaseObject(xlWorkBook);
                     releaseObject(xlApp);
 
-                    MessageBoxResult messageBoxResult = MessageBox.Show("Xuất file thành công! Bạn có muốn mở file?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);  
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Xuất file thành công! Bạn có muốn mở file?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -388,206 +592,11 @@ namespace LibraryManagement.ViewModels
                         {
                             System.Diagnostics.Process.Start(openFileDialog.FileName);
                         }
-                    }    
-                }
-            });
-            
-            category = new ObservableCollection<Category>(DataAdapter.Instance.DB.Categories);
-            publisher = new ObservableCollection<Publisher>(DataAdapter.Instance.DB.Publishers);
-            author = new ObservableCollection<Author>(DataAdapter.Instance.DB.Authors);
-
-
-            //Command Add Authors
-            AddAuthors = new AppCommand<object>((p) =>
-            {
-                if (SelectedAuthor != null)
-                    return true;
-                return false;
-            }, (p) =>
-            {
-                ListAuthors.Add(SelectedAuthor);
-            });
-            ListAuthors = new ObservableCollection<Author>();
-
-
-            AddBookToDBCommand = new AppCommand<object>((p) =>
-            {
-                //Kiểm tra điều kiện
-                if (string.IsNullOrEmpty(nameBook))
-                    return false;
-                if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
-                    return false;
-                return true;
-            }, (p) =>
-            {
-
-
-                string newFileName = GetImageName();
-                /// Copy image to project path
-                if (SourceImageFile != null)
-                {
-                    string destinationFile = GetFullPath(newFileName);
-                    try
-                    {
-                        System.IO.File.Copy(SourceImageFile, destinationFile, true);
-                    }
-                    catch (IOException)
-                    {
-                        MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
                     }
                 }
-
-                var book = new Book()
-                {
-                    nameBook = nameBook,
-                    dateManufacture = dateManufacture,
-                    dateAddBook = dateAddBook,
-                    price = price,
-                    idCategory = SelectedCategory.idCategory,
-                    idPublisher = SelectedPublisher.idPublisher,
-                    statusBook = "có sẵn",
-                    image = SourceImageFile != null ? newFileName : "default-image.png"
-                };
-
-                for (int i = 0; i < ListAuthors.Count; i++)
-                {
-                    book.Authors.Add(ListAuthors[i]);
-                }
-                // save changes
-                DataAdapter.Instance.DB.Books.Add(book);
-                DataAdapter.Instance.DB.SaveChanges();
-
-                SourceImageFile = null;
-                List.MoveToLastPage();
-                SetSelectedItemToFirstItemOfPage(false);
-                GetLastestBooks();
-                MessageBox.Show("Thêm sách thành công!");
             });
 
-            //Edit Book Information
-            EditBookToDBCommand = new AppCommand<object>((p) =>
-            {
-                //Kiểm tra điều kiện
-                if (string.IsNullOrEmpty(nameBook) || SelectedItem == null)
-                    return false;
-                if (price <= 0 || SelectedCategory == null || SelectedPublisher == null || ListAuthors.Count == 0)
-                    return false;
 
-                return true;
-            }, (p) =>
-            {
-                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
-                book.nameBook = nameBook;
-                book.dateManufacture = dateManufacture;
-                book.dateAddBook = dateAddBook;
-                book.price = price;
-                book.idCategory = SelectedCategory.idCategory;
-                book.idPublisher = SelectedPublisher.idPublisher;
-
-                string newFileName = GetImageName();
-                /// Copy image to project path
-                if (SourceImageFile != null)
-                {
-                    string destinationFile = GetFullPath(newFileName);
-                    try
-                    {
-                        System.IO.File.Copy(SourceImageFile, destinationFile, true);
-                    }
-                    catch (IOException)
-                    {
-                        MessageBox.Show("Đã xảy ra lỗi khi lưu file!");
-                    }
-                }
-
-                book.image = SourceImageFile != null ? newFileName : "default-image.png";
-
-                //Clear Authors in book
-                book.Authors.Clear();
-                for (int i = 0; i < ListAuthors.Count; i++)
-                {
-                    book.Authors.Add(ListAuthors[i]);
-                }
-                DataAdapter.Instance.DB.SaveChanges();
-                SourceImageFile = null;
-                MessageBox.Show("Sửa sách thành công");
-            });
-
-            //Delete Book
-            DeleteBookCommand = new AppCommand<object>((p) =>
-            {
-                if (SelectedItem == null)
-                    return false;
-                return true;
-            }, (p) =>
-            {
-                var book = DataAdapter.Instance.DB.Books.Where(x => x.idBook == SelectedItem.idBook).SingleOrDefault();
-
-                // Check if book is being borrowed? if it is, do not delete it.
-                var isBeingBorrowed = DataAdapter.Instance.DB.DetailBillBorrows
-                    .Where(el => el.idBook == book.idBook && el.returned == 0)
-                    .Count() > 0;
-                if (isBeingBorrowed)
-                {
-                    MessageBox.Show("Không thể xóa sách đang được mượn");
-                    return;
-                }
-
-                // Otherwise, delete it anyway
-                // 1. Delete all information about detail borrow
-                var detailBorrow = DataAdapter.Instance.DB.DetailBillBorrows.Where(el => el.idBook == el.idBook);
-                DataAdapter.Instance.DB.DetailBillBorrows.RemoveRange(detailBorrow);
-                // 2. Delete all information about detail return
-                var detailReturn = DataAdapter.Instance.DB.DetailBillReturns.Where(el => el.idBook == el.idBook);
-                DataAdapter.Instance.DB.DetailBillReturns.RemoveRange(detailReturn);
-                // 3. finally delete it
-                DataAdapter.Instance.DB.Books.Remove(book);
-
-                // save changes to DB
-                try
-                {
-                    DataAdapter.Instance.DB.SaveChanges();
-                    MessageBox.Show("Xóa sách thành công");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Đã có lỗi xảy ra, không thể thực hiện thao tác xóa sách");
-                }
-                finally
-                {
-                    List.Refresh();
-                    SetSelectedItemToFirstItemOfPage(true);
-                    GetLastestBooks();
-                }
-                
-            });
-
-            //Delete Author in List Author
-            UnSelectedAuthor = new AppCommand<object>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                Author removeAuthor = p as Author;
-                ListAuthors.Remove(removeAuthor);
-            });
-
-            AddImage = new AppCommand<object>(
-                
-                p => true,
-                p =>
-                {
-                    OpenFileDialog fileDialog = new OpenFileDialog();
-                    fileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-                    if (fileDialog.ShowDialog() == true)
-                    {
-                        SourceImageFile = fileDialog.FileName;
-                        BookImageCover = SourceImageFile;
-                    }
-                    else
-                    {
-                        SourceImageFile = null;
-                    }
-                });
             MoveToPreviousBooksPage = new AppCommand<object>(
                 p =>
                 {
@@ -659,16 +668,6 @@ namespace LibraryManagement.ViewModels
             string destPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
             string destinationFile = Path.Combine($"{destPath}\\BookImageCover", fileName);
             return destinationFile;
-        }
-
-        private bool CheckManufactureDateValidation(DateTime date)
-        {
-            int checkDateManufacture = DataAdapter.Instance.DB.Paramaters.Find(4).valueParameter;
-            if ((DateTime.Now - date).Days > checkDateManufacture * 365)
-            {
-                MessageBox.Show($"Chỉ chấp nhận sách được xuất bản trong vòng {checkDateManufacture} năm");
-            }
-            return true;
         }
 
         private void InitBooks(string keyword = null)

@@ -10,16 +10,17 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Title="Thêm nhân viên" Height="700" Width="800">
+        Background="#FFCAE1FF"
+        Icon="/Assets/icon.png"
+        ShowInTaskbar="False"
+        Title="Thêm nhân viên" Height="600" Width="600">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="7*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Label Content="Thông tin cơ bản" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
+        <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="Nhập thông tin nhân viên" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
         <materialDesign:Card Grid.Row="1" Margin="10">
             <Grid x:Name="gridForNomalInfo" Grid.Row="1" Margin="10">
                 <Grid.ColumnDefinitions>
@@ -34,6 +35,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Họ tên" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="1" Content="Ngày sinh" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
@@ -41,9 +43,11 @@
                     <Label Grid.Row="3" Content="Địa chỉ"  Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="4" Content="Tên tài khoản" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
                     <Label Grid.Row="5" Content="Mật khẩu" Background="{x:Null}" Foreground="#DD000000" FontSize="18"/>
+                    <Label Grid.Column="0" Grid.Row="6" Content="Chọn loại quyền" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Column="1" Margin="5">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -130,29 +134,17 @@
                             </Style>
                         </PasswordBox.Resources>
                     </PasswordBox>
+                    <ComboBox Name="cbPermission" Grid.Row="6" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox.Width>
+                            <Binding ElementName="NameStaff" Path="ActualWidth"/>
+                        </ComboBox.Width>
+                    </ComboBox>
                 </Grid>
             </Grid>
         </materialDesign:Card>
-        <Label Content="Quyền sử dụng" Grid.Row="2" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22"/>
-        <materialDesign:Card Grid.Row="3" Margin="10">
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Content="Chọn loại quyền" Background="{x:Null}" Foreground="#DD000000" FontSize="18" VerticalAlignment="Center"/>
-                <ComboBox Name="cbPermission" Grid.Row="1" Grid.Column="1" BorderThickness="1" FontSize="18" VerticalAlignment="Center" Padding="5" DisplayMemberPath="namePermission" ItemsSource="{Binding Permission, ValidatesOnExceptions=True}" SelectedItem="{Binding SelectedPermission, UpdateSourceTrigger=PropertyChanged}">
-                    
-                </ComboBox>
-            </Grid>
-        </materialDesign:Card>
+       
         <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button Height="Auto" Width="Auto" Grid.Column="1" Click="Button_Click" Command="{Binding AddCommand}" Background="#FF32AC26" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
+            <Button Width="160" Height="60" Grid.Column="1" Click="Button_Click" Command="{Binding AddCommand}" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="20">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="false" />
@@ -173,8 +165,8 @@
                     </Style>
                 </Button.Style>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                    <TextBlock Text="Thêm" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                    <TextBlock Text="Lưu" Margin="20 10 10 10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                 </StackPanel>
             </Button>
         </Grid>

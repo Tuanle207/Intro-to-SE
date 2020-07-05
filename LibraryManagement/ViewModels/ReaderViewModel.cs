@@ -121,8 +121,7 @@ namespace LibraryManagement.ViewModels
         public ICommand ExtendReaderCard { get; set; }
         public ICommand ExportReader { get; set; }
         public ICommand ImportReaderOld { get; set; }
-
-        public AppCommand<object> ImportReaderNew { get; set; }
+        public ICommand ImportReaderNew { get; set; }
 
         public ReaderViewModel()
         {
@@ -198,7 +197,6 @@ namespace LibraryManagement.ViewModels
 
             }, (p) =>
             {
-                TypeReader = new ObservableCollection<TypeReader>(DataAdapter.Instance.DB.TypeReaders);
                 var Reader = DataAdapter.Instance.DB.Readers.Where(x => x.idReader == SelectedItem.idReader).SingleOrDefault();
                 Reader.nameReader = SelectedItem.nameReader;
                 Reader.dobReader = (DateTime)SelectedItem.dobReader;
@@ -206,9 +204,10 @@ namespace LibraryManagement.ViewModels
                 Reader.addressReader = SelectedItem.addressReader;
                 Reader.debt = SelectedItem.debt;
                 Reader.createdAt = (DateTime)SelectedItem.createdAt;
-                Reader.idTypeReader = SelectedTypeReader.idTypeReader;
+                Reader.idTypeReader = SelectedItem.TypeReader.idTypeReader;
                 DataAdapter.Instance.DB.SaveChanges();
-                MessageBox.Show("Bạn đã sửa thông tin người dùng thành công");
+                OnPropertyChanged("SelectedItem");
+                MessageBox.Show("Sửa thông tin độc giả thành công");
             });
             DeleteCommand = new AppCommand<object>((p) =>
             {
