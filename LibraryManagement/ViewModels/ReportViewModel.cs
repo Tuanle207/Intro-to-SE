@@ -203,7 +203,7 @@ namespace LibraryManagement.ViewModels
             DateExpired = DateTime.Today;
 
             //Load book borrowing return late from today
-            dateCal = DateExpired.AddDays(-4);
+            dateCal = DateExpired.AddDays(-(DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter));
             j = 1;
             foreach (var item5 in billBBorrow)
             {
@@ -246,7 +246,7 @@ namespace LibraryManagement.ViewModels
             {
                 //Load Book return late with day you select
                 Late_List.Clear();
-                dateCal = DateExpired.AddDays(-4);
+                dateCal = DateExpired.AddDays(--(DataAdapter.Instance.DB.Paramaters.Find(7).valueParameter));
                 j = 1;
                 foreach (var item5 in billBBorrow)
                 {
