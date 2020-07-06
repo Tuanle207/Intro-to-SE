@@ -87,7 +87,6 @@ namespace LibraryManagement.ViewModels
 
             InitBooks();
             InitReaders();
-            ReaderSelected = null;
         }
         /// <summary>
         /// Definitions for commands

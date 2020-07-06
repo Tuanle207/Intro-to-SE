@@ -3,33 +3,35 @@
                     xmlns:local="clr-namespace:LibraryManagement"
                     xmlns:viewmodel="clr-namespace:LibraryManagement.ViewModels">
     <!-- ViewModel -->
-    <viewmodel:SampleViewModel x:Key="SampleViewModel"></viewmodel:SampleViewModel>
-    <viewmodel:BorrowBookViewModel x:Key="BorrowBookViewModel"></viewmodel:BorrowBookViewModel>
-    <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"></viewmodel:ReturnBookViewModel>
-    <viewmodel:BookViewModel x:Key="BookViewModel"></viewmodel:BookViewModel>
-    <viewmodel:ReaderViewModel x:Key="ReaderViewModel"></viewmodel:ReaderViewModel>
-    <viewmodel:StaffViewModel x:Key="StaffViewModel"></viewmodel:StaffViewModel>
-    <viewmodel:LoginViewModel x:Key="LoginViewModel"></viewmodel:LoginViewModel>
-    <viewmodel:TypeReaderViewModel x:Key="TypeReaderViewModel"></viewmodel:TypeReaderViewModel>
-    <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"></viewmodel:CollectFineViewModel>
-    <viewmodel:ParameterViewModel x:Key="ParameterViewModel"></viewmodel:ParameterViewModel>
-    <viewmodel:ReportViewModel x:Key="ReportViewModel"></viewmodel:ReportViewModel>
-    <viewmodel:AuthorViewModel x:Key="AuthorViewModel"></viewmodel:AuthorViewModel>
-    <viewmodel:CategoryViewModel x:Key="CategoryViewModel"></viewmodel:CategoryViewModel>
-    <viewmodel:SelectedItemToBoolean x:Key="SelectedItemToBoolean"></viewmodel:SelectedItemToBoolean>
+    <viewmodel:SampleViewModel x:Key="SampleViewModel"/>
+    <viewmodel:BorrowBookViewModel x:Key="BorrowBookViewModel"/>
+    <viewmodel:ReturnBookViewModel x:Key="ReturnBookViewModel"/>
+    <viewmodel:BookViewModel x:Key="BookViewModel"/>
+    <viewmodel:ReaderViewModel x:Key="ReaderViewModel"/>
+    <viewmodel:StaffViewModel x:Key="StaffViewModel"/>
+    <viewmodel:LoginViewModel x:Key="LoginViewModel"/>
+    <viewmodel:TypeReaderViewModel x:Key="TypeReaderViewModel"/>
+    <viewmodel:CollectFineViewModel x:Key="CollectFineViewModel"/>
+    <viewmodel:ParameterViewModel x:Key="ParameterViewModel"/>
+    <viewmodel:ReportViewModel x:Key="ReportViewModel"/>
+    <viewmodel:AuthorViewModel x:Key="AuthorViewModel"/>
+    <viewmodel:CategoryViewModel x:Key="CategoryViewModel"/>
+    <viewmodel:SelectedItemToBoolean x:Key="SelectedItemToBoolean"/>
 
 
     <!-- Value Converter -->
-    <viewmodel:AuthorsConverter x:Key="AuthorsConverter"></viewmodel:AuthorsConverter>
-    <viewmodel:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></viewmodel:BooleanToVisibilityConverter>
-    <viewmodel:DateBorrowedToRemainingDay x:Key="DateBorrowedToRemainingDay"></viewmodel:DateBorrowedToRemainingDay>
-    <viewmodel:DateBorrowedToDaysBorrowed x:Key="DateBorrowedToDaysBorrowed"></viewmodel:DateBorrowedToDaysBorrowed>
-    <viewmodel:DateBorrowedToExcessDays x:Key="DateBorrowedToExcessDays"></viewmodel:DateBorrowedToExcessDays>
-    <viewmodel:DateBorrowedToFine x:Key="DateBorrowedToFine"></viewmodel:DateBorrowedToFine>
-    <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"></viewmodel:BillReturnToReaderDebt>
-    <viewmodel:ImageToSource x:Key="ImageToSource"></viewmodel:ImageToSource>
-    <viewmodel:PerrmissionIDToBoolean x:Key="PerrmissionIDToBoolean"></viewmodel:PerrmissionIDToBoolean>
-    <viewmodel:ListToVisibility x:Key="ListToVisibility"></viewmodel:ListToVisibility>
+    <viewmodel:AuthorsConverter x:Key="AuthorsConverter"/>
+    <viewmodel:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <viewmodel:DateBorrowedToRemainingDay x:Key="DateBorrowedToRemainingDay"/>
+    <viewmodel:DateBorrowedToDaysBorrowed x:Key="DateBorrowedToDaysBorrowed"/>
+    <viewmodel:DateBorrowedToExcessDays x:Key="DateBorrowedToExcessDays"/>
+    <viewmodel:DateBorrowedToFine x:Key="DateBorrowedToFine"/>
+    <viewmodel:BillReturnToReaderDebt x:Key="BillReturnToReaderDebt"/>
+    <viewmodel:ImageToSource x:Key="ImageToSource"/>
+    <viewmodel:PerrmissionIDToBoolean x:Key="PerrmissionIDToBoolean"/>
+    <viewmodel:ListToVisibility x:Key="ListToVisibility"/>
+    <viewmodel:PermissonToBoolean x:Key="PermissonToBoolean"/>
+    <viewmodel:PermissonToVisibility x:Key="PermissonToVisibility"/>
 
 
 

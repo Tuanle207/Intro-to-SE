@@ -12,6 +12,75 @@ using System.Windows.Data;
 
 namespace LibraryManagement.ViewModels
 {
+
+    /// <summary>
+    /// Convert idpermisson for button Regulation UI control 
+    /// </summary>
+    class PermissonToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object paramater, CultureInfo culture)
+        {
+            try
+            {
+                if (value == null)
+                    return false;
+                int idPermission = Int32.Parse(value.ToString());
+                if (idPermission == 1)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Hidden";
+                }
+            }
+            catch (Exception)
+            {
+                return "Hidden";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException("MethodToValueConverter can only be used for one way conversion.");
+        }
+
+    }
+
+        /// <summary>
+        /// Convert idpermisson for textbox Regulation UI control 
+        /// </summary>
+        class PermissonToBoolean : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object paramater, CultureInfo culture)
+        {
+            try
+            {
+                if (value == null)
+                    return false;
+                int idPermission = Int32.Parse(value.ToString());
+                if (idPermission == 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
+
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException("MethodToValueConverter can only be used for one way conversion.");
+        }
+    }
+
     /// <summary>
     /// Convert List to boolean (for paginating buttons' visibility)
     /// </summary>

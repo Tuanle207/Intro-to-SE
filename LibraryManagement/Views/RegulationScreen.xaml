@@ -1,4 +1,4 @@
-﻿<UserControl DataContext="{StaticResource ParameterViewModel}"
+﻿<UserControl DataContext="{StaticResource LoginViewModel}"
              x:Class="LibraryManagement.Views.RegulationScreen"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:LibraryManagement.Views" xmlns:vm="clr-namespace:LibraryManagement.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Background="#FFF0F0F0"
-             d:DesignHeight="600" d:DesignWidth="900">
+             d:DesignHeight="600" d:DesignWidth="900"
+             x:Name="root">
     <UserControl.Resources>
         <ControlTemplate x:Key="textBoxErrorTemplate">
             <StackPanel>
@@ -22,13 +23,13 @@
             <i:InvokeCommandAction Command="{Binding InitParamaters}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid Margin="10">
+    <Grid Margin="10" DataContext="{StaticResource ParameterViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Label Content="Thay đổi quy định thư viện" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0"/>
+        <Label Content="Quy định thư viện" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0"/>
         <materialDesign:Card Grid.Row="1" Padding="10" Margin="70 20">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
@@ -73,6 +74,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
                 <TextBox Grid.Row="1" Grid.Column="1"
                     Name="ageMax"
@@ -95,6 +99,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
                 <TextBox Grid.Row="2" Grid.Column="1"
                     Name="expiryDate"
@@ -113,6 +120,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
                 <TextBox Grid.Row="3" Grid.Column="1"
                     Name="distancePublish"
@@ -131,6 +141,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
                 <TextBox Grid.Row="4" Grid.Column="1"
                     Name="bookBorrowMax"
@@ -149,6 +162,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
                 <TextBox Grid.Row="5" Grid.Column="1"
                     Name="dateBorrowMax"
@@ -167,6 +183,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
                 <TextBox Grid.Row="6" Grid.Column="1"
                     Name="moneyPenalty"
@@ -185,6 +204,9 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <TextBox.IsReadOnly>
+                        <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToBoolean}"/>
+                    </TextBox.IsReadOnly>
                 </TextBox>
             </Grid>
         </materialDesign:Card>
@@ -218,6 +240,9 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
+                <Button.Visibility>
+                    <Binding ElementName="root" Path="DataContext.IdPermission" Converter="{StaticResource PermissonToVisibility}"/>
+                </Button.Visibility>
             </Button>
         </Grid>
     </Grid>
