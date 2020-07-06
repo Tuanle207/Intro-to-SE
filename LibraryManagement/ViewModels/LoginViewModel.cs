@@ -191,7 +191,7 @@ namespace LibraryManagement.ViewModels
 
             EditPasswordCommand = new AppCommand<object>((p) =>
             {
-                if (CurrentStaff == null)
+                if (CurrentStaff == null || PasswordStaff == null || NewPasswordStaff == null || ConfirmPasswordStaff == null)
                     return false;
                 return true;
 

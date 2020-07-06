@@ -162,7 +162,7 @@
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem x:Name="ItemRegulation" Height="60" IsEnabled="{Binding CanChangeRegulation}">
+                <ListViewItem x:Name="ItemRegulation" Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" Margin="10"/>
                         <TextBlock Text="Quy định" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"

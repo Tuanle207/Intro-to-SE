@@ -75,8 +75,8 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="4*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
+                <!--<RowDefinition Height="*"/>-->
+                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <materialDesign:Card Grid.Row="0" Margin="10" Background="#FFE3F0FF">
                 <Grid x:Name="gridForNomalInfo" Margin="5">
@@ -266,7 +266,7 @@
                     </CheckBox.IsChecked>
                 </CheckBox>
             </Grid>
-            <Grid Grid.Row="3">
+            <!--<Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -274,32 +274,45 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="Thao tác" Grid.Column="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0"/>
 
-                <Button x:Name="btnResetPassword" Grid.Column="2" Background="#FF47608E" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 -5 10 -5" Height="Auto" Padding="10" Command="{Binding ResetPasswordCommand}">
-                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                        <materialDesign:PackIcon Kind="PasswordReset" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Reset mật khẩu" Margin="10 0" VerticalAlignment="Center" FontSize="16"/>
+                <Button x:Name="btnResetPassword" Height="60" Width="200" Grid.Row="1" Grid.Column="2" Background="#FF47608E" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Command="{Binding ResetPasswordCommand}">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="PasswordReset" Width="30" Height="30" Foreground="Black"/>
+                        <TextBlock Text="Reset mật khẩu" Margin="5" VerticalAlignment="Center" FontSize="16"/>
                     </StackPanel>
                 </Button>
-            </Grid>
-            <Grid Grid.Row="4">
+            </Grid>-->
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddStaff" Height="Auto" Width="Auto" Grid.Column="0" Command="{Binding PrepareAddCommand}" Click="btnAddStaff_Click" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountAdd" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Thêm" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                <Label Content="Thao tác" Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="#DD000000" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0"/>
+
+                <Button x:Name="btnResetPassword" Height="60" Width="200" Grid.Row="0" Grid.Column="2" Background="#FF47608E" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Command="{Binding ResetPasswordCommand}">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="PasswordReset" Width="30" Height="30" Foreground="Black"/>
+                        <TextBlock Text="Reset mật khẩu" Margin="5" VerticalAlignment="Center" FontSize="16"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnSua" Click="btnSua_Click" Height="Auto" Width="Auto" Grid.Column="1" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountEdit" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Sửa" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+
+                <Button x:Name="btnAddStaff" Height="60" Width="150" Grid.Row="1" Grid.Column="0" Command="{Binding PrepareAddCommand}" Click="btnAddStaff_Click" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="AccountAdd" Width="30" Height="30" VerticalAlignment="Center"/>
+                        <TextBlock Text="Thêm" Margin="5" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnLuu" Click="btnLuu_Click" Command="{Binding EditCommand}" Height="Auto" Width="Auto" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 10 10 20" Visibility="Hidden">
+                <Button x:Name="btnSua" Click="btnSua_Click" Height="60" Width="150" Grid.Row="1" Grid.Column="1" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="AccountEdit" Width="30" Height="39" VerticalAlignment="Center"/>
+                        <TextBlock Text="Sửa" Margin="5" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnLuu" Click="btnLuu_Click" Command="{Binding EditCommand}" Height="60" Width="150" Grid.Row="1" Grid.Column="1" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Visibility="Hidden">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="IsEnabled" Value="false" />
@@ -318,21 +331,21 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountEdit" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Lưu" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="AccountEdit" Width="30" Height="30" VerticalAlignment="Center"/>
+                        <TextBlock Text="Lưu" Margin="5" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnDeleStaff" Command="{Binding DeleteCommand}" Height="Auto" Width="Auto" Grid.Column="2" Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="AccountRemove" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Xóa" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                <Button x:Name="btnDeleStaff" Command="{Binding DeleteCommand}" Height="60" Width="150" Grid.Row="1" Grid.Column="2" Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="AccountRemove" Width="30" Height="30" VerticalAlignment="Center"/>
+                        <TextBlock Text="Xóa" Margin="5" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnCancel" Visibility="Hidden" Click="btnCancel_Click" Command="{Binding CancelCommand}" Height="Auto" Width="Auto" Grid.Column="2" Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10 20 10 20">
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="Cancel" Width="Auto" Height="Auto" VerticalAlignment="Center"/>
-                        <TextBlock Text="Hủy bỏ" Margin="10" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                <Button x:Name="btnCancel" Visibility="Hidden" Click="btnCancel_Click" Command="{Binding CancelCommand}" Height="60" Width="150" Grid.Row="1" Grid.Column="2" Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal" Margin="3">
+                        <materialDesign:PackIcon Kind="Cancel" Width="30" Height="30" VerticalAlignment="Center"/>
+                        <TextBlock Text="Hủy bỏ" Margin="5" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
             </Grid>

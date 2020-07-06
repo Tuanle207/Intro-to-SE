@@ -237,14 +237,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="UpdateReader" Click="UpdateReader_Click" Command="{Binding ReloadTypeReaderCommand}"  Visibility="Visible"  Height="60" Width="150" Grid.Row="0" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                    <Button x:Name="UpdateReader" Click="UpdateReader_Click" Command="{Binding ReloadTypeReaderCommand}"   Height="60" Width="150" Grid.Row="0" Background="#88DE80" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
                         <StackPanel Orientation="Horizontal" Margin="3">
                             <materialDesign:PackIcon Foreground="Black" Kind="ContentDuplicate" Width="30" Height="30"/>
                             <TextBlock Foreground="Black" Text="Cập nhật" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="SaveReader" Click="SaveReader_Click" Visibility="Hidden" Command="{Binding EditCommand}" Height="70" Width="180" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Margin="10">
+                    <Button x:Name="SaveReader" Click="SaveReader_Click" Visibility="Hidden" Command="{Binding EditCommand}" Height="60" Width="150" Grid.Row="0" Background="#FFF39C11" BorderBrush="{x:Null}" HorizontalContentAlignment="Center">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="IsEnabled" Value="false" />
@@ -264,23 +264,24 @@
                             </Style>
                         </Button.Style>
                         <StackPanel Orientation="Horizontal" Margin="3">
-                            <materialDesign:PackIcon Margin="0" Foreground="Black" Kind="ContentDuplicate" Width="30" Height="30"/>
-                            <TextBlock Text="Lưu" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
+                            <materialDesign:PackIcon Foreground="Black" Kind="ContentDuplicate" Width="30" Height="30"/>
+                            <TextBlock Text="Lưu" Foreground="Black" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="btnCancel" Click="btnCancel_Click" Visibility="Hidden" Background="#f44336" VerticalAlignment="Center" Margin="0 0 5 10" Padding="10" Height="60" Width="150"  Command="{Binding CancelCommand}" Grid.Row="1">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Hủy cập nhật" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button x:Name="btnCancel" Click="btnCancel_Click" Visibility="Hidden" Background="#f44336" HorizontalContentAlignment="Left" Height="60" Width="150"  Command="{Binding CancelCommand}" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <materialDesign:PackIcon Foreground="Black" Kind="Cancel" Width="30" Height="30"/>
+                            <TextBlock Text="Hủy bỏ" FontSize="16" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnDeleteReader" Command="{Binding DeleteCommand}" Height="60" Width="150" Grid.Row="2 " Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10">
+                    <Button x:Name="btnDeleteReader" Command="{Binding DeleteCommand}" Height="60" Width="150" Grid.Row="2 " Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
                         <StackPanel Orientation="Horizontal" Margin="3">
                             <materialDesign:PackIcon Foreground="Black" Kind="DeleteForever" Width="30" Height="30"/>
                             <TextBlock Foreground="Black" Text="Xóa thẻ" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="CancelUpdate" Command="{Binding CancelCommand}" Height="60" Width="150" Grid.Row="2 " Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Margin="10" Visibility="Hidden">
+                    <Button x:Name="CancelUpdate" Command="{Binding CancelCommand}" Height="60" Width="150" Grid.Row="2 " Background="#f44336" BorderBrush="{x:Null}" HorizontalContentAlignment="Left" Visibility="Hidden">
                         <StackPanel Orientation="Horizontal" Margin="3">
                             <materialDesign:PackIcon Foreground="Black" Kind="Cancel" Width="30" Height="30"/>
                             <TextBlock Foreground="Black" Text="Hủy cập nhật" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
@@ -294,7 +295,7 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <StackPanel x:Name="operation" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="operation" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button ToolTip="Xuất danh sách độc giả" Command="{Binding ExportReader}" Background="Transparent" BorderThickness="0" Margin="20 0 0 0" Padding="0" VerticalAlignment="Center"  Grid.Column="0">
                             <Image Source="/Assets/export.png"/>
                         </Button>
@@ -308,39 +309,10 @@
                             <Image Source="/Assets/reader-type.jpg"/>
                         </Button>
                     </StackPanel>
-                    <!--<Grid Grid.Row="0" Grid.Column="0">
-                        <Button x:Name="btnAuthors" Click="btnAuthors_Click" Command="{Binding PrepareAddReaderCommand}" VerticalAlignment="Center" Margin="60 10 15 10" Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="0">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="Black" Text="Độc giả" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Row="0" Grid.Column="1">
-                        <Button x:Name="btnReaderTypes" VerticalAlignment="Center" Margin="60 10 15 10"  Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="Black" Text="Loại độc giả" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="btnTypeReader" VerticalAlignment="Center" Margin="60 10 15 10"  Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="Black" Text="DS DG mới" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <Button  VerticalAlignment="Center" Margin="60 10 15 10"  Padding="10" Height="Auto" Background="#FF00BB9A" Grid.Column="2">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="Black" Text="DS ĐG cũ" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>-->
-
                 </Grid>
 
                 <Grid Grid.Column="1" HorizontalAlignment="Center">
-                    <Button x:Name="btnAddReader" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Margin="10" Height="60" Width="150"  Grid.Column="0" Grid.Row="1" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
+                    <Button x:Name="btnAddReader" Click="ButtonAddReader_Click" Command="{Binding PrepareAddReaderCommand}" Height="60" Width="150" Margin="0 0 5 0" Grid.Column="0" Grid.Row="1" Background="#FF00BB9A" BorderBrush="{x:Null}" HorizontalContentAlignment="Left">
                         <StackPanel Orientation="Horizontal" Margin="3">
                             <materialDesign:PackIcon Foreground="Black" Kind="Add" Width="30" Height="30"/>
                             <TextBlock Foreground="Black" Text="Thêm mới" VerticalAlignment="Center" Margin="5" FontSize="16" FontWeight="Bold"/>
