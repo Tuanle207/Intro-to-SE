@@ -206,6 +206,7 @@ namespace LibraryManagement.ViewModels
                 Reader.createdAt = (DateTime)SelectedItem.createdAt;
                 Reader.idTypeReader = SelectedItem.TypeReader.idTypeReader;
                 DataAdapter.Instance.DB.SaveChanges();
+                List.Refresh();
                 OnPropertyChanged("SelectedItem");
                 MessageBox.Show("Sửa thông tin độc giả thành công");
             });
