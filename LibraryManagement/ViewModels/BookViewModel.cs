@@ -331,6 +331,7 @@ namespace LibraryManagement.ViewModels
                
                 DataAdapter.Instance.DB.SaveChanges();
                 SourceImageFile = null;
+                List.Refresh();
                 OnPropertyChanged("SelectedItem");
                 MessageBox.Show("Sửa thông tin sách thành công");
             });
