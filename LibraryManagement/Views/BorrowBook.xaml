@@ -40,8 +40,8 @@
                 </Grid>
             </Grid>
             <materialDesign:Card Grid.Row="1" Margin="20 10 20 0" ScrollViewer.CanContentScroll="True" >
-                <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                    <DataGrid  x:Name="dtgReader" Background="#FFE3F0FF" ItemsSource="{Binding Readers.Readers}" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" >
+                <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <DataGrid x:Name="dtgReader" Background="#FFE3F0FF" ItemsSource="{Binding Readers.Readers}" SelectedItem="{Binding ReaderSelected, Mode=OneWayToSource}" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
                             <DataGridTextColumn Header="Tên độc giả" Binding="{Binding nameReader}"/>
@@ -84,7 +84,7 @@
                 <TextBox Name="tbBookName" Background="Transparent" Margin="10 5 10 0" FontSize="14" BorderBrush="Red" Text="{Binding BookKeyword, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <materialDesign:Card Grid.Row="1" Margin="20 10 20 10"  Grid.ColumnSpan="2">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel_1" VerticalScrollBarVisibility="Auto">
                     <DataGrid Background="#FFE3F0FF" x:Name="dtgSach" ItemsSource="{Binding Books.Books, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
@@ -227,8 +227,8 @@
                 <TextBlock Padding="15" TextAlignment="Left" FontSize="18">Sách đã chọn</TextBlock>
             </Grid>
             <materialDesign:Card Grid.Row="1" Margin="0 20" Background="#FFDAE0E9">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <DataGrid Background="#FFE3F0FF" ItemsSource="{Binding ListBooksSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1">
+                <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel_2" VerticalScrollBarVisibility="Auto">
+                    <DataGrid  Background="#FFE3F0FF" ItemsSource="{Binding ListBooksSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="1">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>

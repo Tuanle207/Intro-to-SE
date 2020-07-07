@@ -97,5 +97,12 @@ namespace LibraryManagement.Views
             btnResetPassword.IsEnabled = true;
             btnCancel.Visibility = Visibility.Hidden;
         }
+
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }

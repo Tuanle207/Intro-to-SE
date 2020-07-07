@@ -35,7 +35,7 @@
             <TextBox Name="tbStaffName" Background="Transparent" Margin="10" FontSize="16" BorderBrush="Red" Text="{Binding StaffSearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#abc2e8" Margin="10 10 10 20" BorderThickness="0" VerticalAlignment="Stretch">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Auto">
                 <ListView x:Name="lvNhanVien" ItemsSource="{Binding List}"  SelectedItem="{Binding SelectedItem}" SelectionMode="Single" FontSize="14" MouseDown="lvNhanVien_MouseDown">
                     <ListView.ContextMenu>
                         <ContextMenu>
