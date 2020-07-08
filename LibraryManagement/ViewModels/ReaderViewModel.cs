@@ -145,6 +145,7 @@ namespace LibraryManagement.ViewModels
                 SelectedItem.idTypeReader = IdTypeReader;
                 OnPropertyChanged("SelectedItem");
                 ReaderSearchKeyword = null;
+                InitReaders();
             });
             ReloadTypeReaderCommand = new AppCommand<object>((p) =>
             {
@@ -182,6 +183,7 @@ namespace LibraryManagement.ViewModels
                     List.MoveToLastPage();
                     SetSelectedItemToFirstItemOfPage(false);
                     MessageBox.Show("Bạn đã thêm người dùng thành công");
+                    InitReaders();
                 }
                 catch(Exception)
                 {
@@ -208,6 +210,7 @@ namespace LibraryManagement.ViewModels
                 DataAdapter.Instance.DB.SaveChanges();
                 List.Refresh();
                 OnPropertyChanged("SelectedItem");
+                InitReaders();
                 MessageBox.Show("Sửa thông tin độc giả thành công");
             });
             DeleteCommand = new AppCommand<object>((p) =>

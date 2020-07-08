@@ -267,7 +267,7 @@
                 </Grid>
             </Grid>
             <materialDesign:Card Grid.Row="1" Grid.Column="0" Background="#FFE3F0FF" Margin="10" BorderThickness="0" VerticalAlignment="Stretch">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                     <ListView x:Name="ListDisplayBook" ItemsSource="{Binding List.Books}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
                         <ListView.ContextMenu>
                             <ContextMenu>

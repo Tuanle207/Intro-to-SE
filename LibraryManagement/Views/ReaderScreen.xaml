@@ -43,7 +43,7 @@
 
             </Grid.RowDefinitions>
             <materialDesign:Card Grid.Row="0" Background="#FFE3F0FF"  Margin="10,10,10,0" BorderThickness="0" VerticalAlignment="Stretch">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="ListDisplayReader" ItemsSource="{Binding List.Readers}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
                         <ListView.ContextMenu>
                             <ContextMenu>
@@ -140,7 +140,7 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox Foreground="Black" x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" FontSize="14">
+                        <TextBox Foreground="Black" x:Name="NameReader" IsReadOnly="True" Grid.Row="0" BorderThickness="1" VerticalAlignment="Center" FontSize="14" Padding="5 0">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -154,7 +154,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Foreground="Black" x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center"  FontSize="14">
+                        <TextBox Padding="5 0" Foreground="Black" x:Name="Address" IsReadOnly="True" Grid.Row="1" BorderThickness="1" VerticalAlignment="Center"  FontSize="14">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -168,7 +168,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox Foreground="Black" x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" FontSize="14">
+                        <TextBox Padding="5 0" Foreground="Black" x:Name="Email" IsReadOnly="True" Grid.Row="2" BorderThickness="1" VerticalAlignment="Center" FontSize="14">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -182,7 +182,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <DatePicker Foreground="Black" x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
+                        <DatePicker  Foreground="Black" x:Name="DobReader" IsEnabled="False" Grid.Row="3" BorderThickness="1" VerticalAlignment="Center" Padding="5 0" Margin="1" FontSize="14">
                             <DatePicker.SelectedDate>
                                 <Binding Path="SelectedItem.dobReader" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
