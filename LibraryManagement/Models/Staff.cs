@@ -16,7 +16,7 @@ namespace LibraryManagement.Models
     {
         public int idStaff { get; set; }
         public string nameStaff { get; set; }
-        public Nullable<System.DateTime> dobStaff { get; set; }
+        public System.DateTime dobStaff { get; set; }
         public string addressStaff { get; set; }
         public string phoneNumberStaff { get; set; }
         public string accountStaff { get; set; }

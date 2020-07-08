@@ -1,4 +1,5 @@
-﻿<Window x:Class="LibraryManagement.MainWindow"
+﻿<Window DataContext="{StaticResource LoginViewModel}"
+        x:Class="LibraryManagement.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,8 +8,10 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Library Management" WindowState="Maximized" WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
-        WindowStyle="None" AllowsTransparency="True"
-        Loaded="Window_Loaded">
+        WindowStyle="None"
+        Icon="/Assets/icon.png"
+        AllowsTransparency="True" d:DesignWidth =" 1140" d:DesignHeight ="720"
+        Loaded="Window_Loaded" Closed="Window_Closed">
     
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -63,13 +66,13 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnExit" Grid.Column="1" Click="btnExit_Click"
-                        BorderThickness="0" Background="#FF5C99D6">
-                    <Image Source="Assets/close.png" Margin="10"/>
+                <Button Height="Auto" Width="Auto" x:Name="btnExit" Grid.Column="1" Click="btnExit_Click"
+                        Padding="0" Background="#FF5C99D6" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Image Source="Assets/close.png" Margin="10" Width="Auto" Height="Auto"/>
                 </Button>
-                <Button x:Name="btnMinimize" Grid.Column="0" Click="btnMinimize_Click"
-                        BorderThickness="0" Background="#FF5C99D6">
-                    <Image Source="Assets/minimize.png" Margin="10"/>
+                <Button Height="Auto" Width="Auto" x:Name="btnMinimize" Grid.Column="0" Click="btnMinimize_Click"
+                        BorderThickness="0" Background="#FF5C99D6" Padding="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Image Source="Assets/minimize.png" Margin="10" Width="Auto" Height="Auto"/>
                 </Button>
             </Grid>
             <Label x:Name="lbTitle" Grid.Column="1" Content="QUẢN LÝ THƯ VIỆN"
@@ -96,6 +99,25 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Grid.RenderTransform>
+                <Label x:Name="lbName" HorizontalAlignment="Left" Content="{Binding NameStaff}" 
+                       Margin="20 30 0 5"
+                       FontSize="15" FontWeight="Bold"/>
+                <Label x:Name="lbPermission" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding NamePermission}" 
+                       Margin="20 0 0 10"
+                       FontSize="15" FontWeight="Medium" FontStyle="Italic"/>
+                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                    <Button x:Name="btnLogout" VerticalAlignment="Center" Margin="0 0 5 10" Padding="10" Height="Auto" Background="Black" Command="{Binding LogoutCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Đăng xuất" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnChangePassword" VerticalAlignment="Center" Margin="5 0 0 10" Padding="10" Height="Auto" Background="Black" Command="{Binding ChangePasswordCommand}" Click="btnChangePassword_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Đổi mật khẩu" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                
                 <Button x:Name="ButtonOpenMenu" Height="70" Width="70" 
                         HorizontalAlignment="Right" VerticalAlignment="Top" 
                         Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E"
@@ -140,10 +162,17 @@
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem x:Name="ItemLogout" Height="60">
+                <ListViewItem x:Name="ItemRegulation" Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Logout" Height="25" Width="25" Margin="10"/>
-                        <TextBlock Text="Đăng xuất" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
+                        <materialDesign:PackIcon Kind="Settings" Height="25" Width="25" Margin="10"/>
+                        <TextBlock Text="Quy định" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
+                                   FontSize="18" FontWeight="Bold"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem x:Name="ItemStaff" Height="60" IsEnabled="{Binding CanChangePermission}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PersonBadge" Height="25" Width="25" Margin="10"/>
+                        <TextBlock Text="Nhân viên" VerticalAlignment="Center"  Margin="20 10" HorizontalAlignment="Left"
                                    FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                 </ListViewItem>

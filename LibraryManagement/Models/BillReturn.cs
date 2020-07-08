@@ -23,6 +23,7 @@ namespace LibraryManagement.Models
         public int idBillReturn { get; set; }
         public System.DateTime returnDate { get; set; }
         public int idReader { get; set; }
+        public int sumFine { get; set; }
     
         public virtual Reader Reader { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

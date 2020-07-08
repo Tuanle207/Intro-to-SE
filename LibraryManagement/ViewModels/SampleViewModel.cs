@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace LibraryManagement.ViewModels
 {
-    class SampleViewModel : BaseViewModel
+    public class SampleViewModel : BaseViewModel
     {
         // List of Paramater loaded from database
         private ObservableCollection<Paramater> paramatersList;

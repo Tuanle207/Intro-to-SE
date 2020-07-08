@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,41 @@ namespace LibraryManagement.Views
     /// </summary>
     public partial class HomeScreen : UserControl
     {
+        private double newBooksSectionWidth;
+        private double newBooksSectionHeight;
+
         public HomeScreen()
         {
             InitializeComponent();
+            newBooksSectionWidth = newBooksSection.ActualWidth;
+            newBooksSectionHeight = newBooksSection.ActualHeight;
+        }
+        private void ButtonBorrowBook_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new BorrowBook();
+            window.ShowDialog();
+        }
+        private void ButtonReturnBook_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new ReturnBook();
+            window.ShowDialog();
+        }
+        private void ButtonCollectFine_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new CollectFine();
+            window.ShowDialog();
+        }
+
+        private void ButtonAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new AuthorScreen();
+            window.ShowDialog();
+        }
+
+        private void ButtonCategory_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new CategoryScreen();
+            window.ShowDialog();
         }
     }
 }

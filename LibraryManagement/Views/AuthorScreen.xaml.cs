@@ -10,19 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LibraryManagement.Views
 {
     /// <summary>
-    /// Interaction logic for MemberScreen.xaml
+    /// Interaction logic for AuthorScreen.xaml
     /// </summary>
-    public partial class MemberScreen : UserControl
+    public partial class AuthorScreen : Window
     {
-        public MemberScreen()
+        public AuthorScreen()
         {
             InitializeComponent();
+        }
+
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace LibraryManagement.Models
         public int idDetailBillBorrow { get; set; }
         public int idBook { get; set; }
         public int idBillBorrow { get; set; }
+        public int returned { get; set; }
     
         public virtual BillBorrow BillBorrow { get; set; }
         public virtual Book Book { get; set; }

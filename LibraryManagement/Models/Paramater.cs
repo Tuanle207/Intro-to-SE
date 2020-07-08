@@ -16,6 +16,6 @@ namespace LibraryManagement.Models
     {
         public int idParameter { get; set; }
         public string nameParameter { get; set; }
-        public double valueParameter { get; set; }
+        public int valueParameter { get; set; }
     }
 }

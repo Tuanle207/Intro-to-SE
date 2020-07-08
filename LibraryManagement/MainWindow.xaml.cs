@@ -33,6 +33,10 @@ namespace LibraryManagement
             {
                 ButtonCloseMenu.Visibility = Visibility.Collapsed;
                 ButtonOpenMenu.Visibility = Visibility.Visible;
+                lbName.Visibility = Visibility.Hidden;
+                lbPermission.Visibility = Visibility.Hidden;
+                btnLogout.Visibility = Visibility.Hidden;
+                btnChangePassword.Visibility = Visibility.Hidden;
                 Storyboard sb = this.FindResource("CloseMenu") as Storyboard;
                 sb.Begin();
             }
@@ -56,11 +60,20 @@ namespace LibraryManagement
             EasingDoubleKeyFrame keyFrameCloseMenuToClose = ((this.Resources["CloseMenu"] as Storyboard).Children[0]
                 as DoubleAnimationUsingKeyFrames).KeyFrames[1] as EasingDoubleKeyFrame;
             keyFrameCloseMenuToClose.Value = gridMain.ActualWidth / 20;
+            lbName.Visibility = Visibility.Hidden;
+            lbPermission.Visibility = Visibility.Hidden;
+            btnLogout.Visibility = Visibility.Hidden;
+            btnChangePassword.Visibility = Visibility.Hidden;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult mr = MessageBox.Show("Are you sure exit application?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (mr == MessageBoxResult.Yes)
+            {
+                this.Close();
+                Application.Current.MainWindow.Close();
+            }
         }
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
@@ -72,17 +85,26 @@ namespace LibraryManagement
         {
             ButtonCloseMenu.Visibility = Visibility.Visible;
             ButtonOpenMenu.Visibility = Visibility.Collapsed;
+            lbName.Visibility = Visibility.Visible;
+            lbPermission.Visibility = Visibility.Visible;
+            btnLogout.Visibility = Visibility.Visible;
+            btnChangePassword.Visibility = Visibility.Visible;
         }
 
         private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
         {
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
+            lbName.Visibility = Visibility.Hidden;
+            lbPermission.Visibility = Visibility.Hidden;
+            btnLogout.Visibility = Visibility.Hidden;
+            btnChangePassword.Visibility = Visibility.Hidden;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             loadSizeSomeControls();
+            lbName.Content = "Hello, " + lbName.Content;
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,28 +114,52 @@ namespace LibraryManagement
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
                 case "ItemHome":
+                    this.lbTitle.Content = "QUẢN LÝ THƯ VIỆN";
                     urc = new HomeScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemMember":
-                    urc = new MemberScreen();
+                    this.lbTitle.Content = "ĐỘC GIẢ";
+                    urc = new ReaderScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemBook":
+                    this.lbTitle.Content = "SÁCH";
                     urc = new BookScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
                 case "ItemReport":
+                    this.lbTitle.Content = "BÁO CÁO THỐNG KÊ";
                     urc = new ReportScreen();
                     gridForContent.Children.Add(urc);
                     hideNavigation();
                     break;
-                case "ItemLogout":
+                case "ItemRegulation":
+                    this.lbTitle.Content = "QUY ĐỊNH";
+                    urc = new RegulationScreen();
+                    gridForContent.Children.Add(urc);
+                    hideNavigation();
+                    break;
+                case "ItemStaff":
+                    this.lbTitle.Content = "NHÂN VIÊN";
+                    urc = new StaffScreen();
+                    gridForContent.Children.Add(urc);
+                    hideNavigation();
                     break;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.MainWindow.Visibility = Visibility.Visible;
+        }
+
+        private void btnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            hideNavigation();
         }
     }
 }

@@ -1,18 +1,25 @@
-﻿using System;
+﻿using LibraryManagement.Models;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace LibraryManagement.ViewModels
 {
-    class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string property = null)
+        protected void OnPropertyChanged([CallerMemberName] string property = null, string value = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
