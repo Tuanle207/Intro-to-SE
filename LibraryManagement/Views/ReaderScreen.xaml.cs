@@ -129,5 +129,12 @@ namespace LibraryManagement.Views
             ViewTypeReader wd = new ViewTypeReader();
             wd.ShowDialog();
         }
+
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }

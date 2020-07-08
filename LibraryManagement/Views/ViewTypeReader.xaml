@@ -21,7 +21,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <materialDesign:Card Grid.Row="0" Margin="10">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"  VerticalScrollBarVisibility="Auto">
                 <ListView x:Name="ListDisplayTypeReader"  ItemsSource="{Binding ListTypeReader}"  SelectedItem="{Binding SelectedItemTypeReader, Mode=OneWayToSource}" >
                     <ListView.View >
                         <GridView>

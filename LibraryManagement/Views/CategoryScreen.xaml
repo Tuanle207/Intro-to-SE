@@ -18,7 +18,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <materialDesign:Card Grid.Row="0" Margin="10">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Auto">
                 <ListView Grid.Row="0" ItemsSource="{Binding ListCategory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>

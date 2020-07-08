@@ -34,7 +34,7 @@
                 </Grid>
             </Grid>
             <materialDesign:Card Grid.Row="1"  Margin="20,10,20,10" BorderThickness="0" VerticalAlignment="Stretch">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Auto">
                     <DataGrid Height="Auto" Background="#FFE3F0FF" ItemsSource="{Binding ListReader.Readers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ReaderSelected}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="STT" Binding="{Binding idReader}"/>
@@ -65,7 +65,7 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:Card Grid.Column="0"  Margin="20,10,10,10" BorderThickness="0" VerticalAlignment="Stretch">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel_1" VerticalScrollBarVisibility="Auto">
                         <DataGrid Background="#FFE3F0FF" ItemsSource="{Binding ListDetailBorrowCorresponding, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="1" BorderThickness="1">
                             <DataGrid.Columns>
@@ -88,7 +88,7 @@
                     </ScrollViewer>
                 </materialDesign:Card>
                 <materialDesign:Card Grid.Column="1"  Margin="10,10,20,10" BorderThickness="0" VerticalAlignment="Stretch">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel_2" VerticalScrollBarVisibility="Auto">
                         <DataGrid Background="#FFE3F0FF" Grid.Column="1"  ItemsSource="{Binding ListDetailBorrowSelected, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2" BorderThickness="1">
                             <DataGrid.Columns>
@@ -119,7 +119,7 @@
 
                 </Grid.ColumnDefinitions>
                 <materialDesign:Card Background="#FFE3F0FF" Grid.Column="0" Margin="30 10 10 15">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel_3" VerticalScrollBarVisibility="Auto">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>

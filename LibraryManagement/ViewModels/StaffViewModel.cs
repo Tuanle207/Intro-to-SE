@@ -253,11 +253,11 @@ namespace LibraryManagement.ViewModels
             {
 
                 var Staff = DataAdapter.Instance.DB.Staffs.Where(x => x.idStaff == SelectedItem.idStaff).SingleOrDefault();
-                Staff.nameStaff = NameStaff;
-                Staff.dobStaff = (DateTime)DobStaff;
-                Staff.addressStaff = AddressStaff;
-                Staff.phoneNumberStaff = PhoneNumberStaff;
-                Staff.idPermission = SelectedPermission.idPermission;
+                Staff.nameStaff = SelectedItem.nameStaff;
+                Staff.dobStaff = (DateTime)SelectedItem.dobStaff;
+                Staff.addressStaff = SelectedItem.addressStaff;
+                Staff.phoneNumberStaff = SelectedItem.phoneNumberStaff;
+                Staff.idPermission = SelectedItem.Permission.idPermission;
                 DataAdapter.Instance.DB.Staffs.AddOrUpdate(Staff);
                 DataAdapter.Instance.DB.SaveChanges();
                 System.ComponentModel.ICollectionView view = CollectionViewSource.GetDefaultView(List);

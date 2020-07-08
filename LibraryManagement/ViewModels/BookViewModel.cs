@@ -213,6 +213,7 @@ namespace LibraryManagement.ViewModels
                 dateAddBook = DateTime.Now;
                 dateManufacture = new DateTime(2000, 1, 1);
                 price = 0;
+                BookImageCover = null;
                 wd.ShowDialog();
 
             });
@@ -232,6 +233,7 @@ namespace LibraryManagement.ViewModels
                         BookImageCover = SelectedItem.image;
                         ListAuthors = new ObservableCollection<Author>(SelectedItem.Authors);
                     }
+                    InitBooks();
                 });
 
             AddBookToDBCommand = new AppCommand<object>((p) =>
@@ -270,12 +272,11 @@ namespace LibraryManagement.ViewModels
                     statusBook = "có sẵn",
                     image = SourceImageFile != null ? newFileName : "default-image.png"
                 };
-                // Save authors
-                foreach(var author in ListAuthors)
-                {
-                    book.Authors.Add(author);
-                }
 
+                for (int i = 0; i < ListAuthors.Count; i++)
+                {
+                    book.Authors.Add(ListAuthors[i]);
+                }
                 // save changes
                 DataAdapter.Instance.DB.Books.Add(book);
                 DataAdapter.Instance.DB.SaveChanges();
@@ -333,7 +334,9 @@ namespace LibraryManagement.ViewModels
                 SourceImageFile = null;
                 List.Refresh();
                 OnPropertyChanged("SelectedItem");
+                InitBooks();
                 MessageBox.Show("Sửa thông tin sách thành công");
+                
             });
 
             //Delete Book
